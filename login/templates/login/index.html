@@ -4,10 +4,10 @@
 	<title>Login</title>
 </head>
 <body>
-	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+	{% if error_message %}<p id="err_msg"><strong>{{ error_message }}</strong></p>{% endif %}
 	<form action="{% url 'login:authorize' %}" method="POST">
 	{% csrf_token %}
-	<label>用户名  </label><input type="text" name="user_name">
+	<label>用户名  </label><input type="text" name="user_name" onchange="rm_err_msg()">
 	<br/><br/>
 	<label>密码  </label><input type="password" name="user_pwd">
 	<br/><br/>
@@ -15,6 +15,13 @@
 	<button type="submit" formaction="{% url 'login:jmp_to_register' %}">注册</button>
 	</form>
 
-	
+	<script type="text/javascript">
+		function rm_err_msg(){
+			var err_msg = document.getElementById("err_msg");
+			if(err_msg){
+				err_msg.parentNode.removeChild(err_msg)
+			}
+		}
+	</script>
 </body>
 </html>
