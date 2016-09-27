@@ -6,12 +6,13 @@
 </head>
 <body>
 	<form action="{% url 'login:register' %}" method="post">
+	{% csrf_token %}
 	用户名 <input type="text" name="user_name"> <br/>
 	密码 <input type="password" name="user_pwd"><br/>
 	确认密码 <input type="password" name="confirm_pwd"><br/>
 	电子邮件 <input type="text" name="user_email"><br/>
 	手机号码 <input type="text" name="user_phone"><br/>
-	
+	<input type="submit" value="注册">
 	</form>
 </body>
 </html>

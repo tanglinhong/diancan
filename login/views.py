@@ -26,7 +26,16 @@ def login_success(request):
 	return render(request, 'login/success.html')
 
 def jmp_to_register(request):
-	return HttpResponseRedirect(reverse('login:register'))
+	return HttpResponseRedirect(reverse('login:register_page'))
+
+def register_page(request):
+	return render(request, 'login/register.html')
 
 def register(request):
-	return HttpResponse("Register!!!")
+	name = request.POST['user_name']
+	password = request.POST['user_pwd']
+	email = request.POST['user_email']
+	cellphone = request.POST['user_phone']
+	user = User(name=name, password=password,email=email,cellphone=cellphone)
+	user.save()
+	return HttpResponseRedirect(reverse('login:index'))
