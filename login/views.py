@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.template import loader
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import User
-import requests
+import http.client, urllib.parse
+
 
 # Create your views here.
 def index(request):
@@ -17,13 +18,15 @@ def authorize(request):
 		if user.password != password:
 			raise User.DoesNotExist
 		else:
-			payload = {'user_id': user.id}
-			r = requests.post("localhost:8000" + reverse("mainpage:index"), data=payload)
-			#return HttpResponseRedirect(reverse("mainpage:index", args=(user.id,)))
+			return HttpResponseRedirect(reverse('login:jmp_to_mainpage'))
 	except User.DoesNotExist:
 		return render(request, 'login/index.html',{
 				'error_message': '用户名或密码错误',
 			})
+
+def jmp_to_mainpage(request):
+	print(request)
+	return render(request, 'mainpage/index.html')
 
 def jmp_to_register(request):
 	return HttpResponseRedirect(reverse('login:register_page'))
