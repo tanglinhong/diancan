@@ -4,13 +4,17 @@
 	<title>Login</title>
 </head>
 <body>
-	<form action="{% url 'login:authorize' %}" method="post">
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+	<form action="{% url 'login:authorize' %}" method="POST">
 	{% csrf_token %}
-	<label>用户名</label><input type="text" name="user_name">
+	<label>用户名  </label><input type="text" name="user_name">
 	<br/><br/>
-	<label>密码</label><input type="password" name="user_pwd">
-	</form>
-	<br/>
+	<label>密码  </label><input type="password" name="user_pwd">
+	<br/><br/>
 	<input type="submit" value="登陆">
+	<button type="submit" formaction="{% url 'login:jmp_to_register' %}">注册</button>
+	</form>
+
+	
 </body>
 </html>
