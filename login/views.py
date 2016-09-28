@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response
 from django.template import loader
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from .models import User
+from .models import MyUser
 import http.client, urllib.parse
 
 
@@ -14,18 +14,18 @@ def authorize(request):
 	user_name = request.POST['user_name']
 	password = request.POST['user_pwd']
 	try:
-		user = User.objects.get(name=user_name)
-		if user.password != password:
-			raise User.DoesNotExist
+		user = MyUser.objects.get(username=user_name)
+		if not user.check_password(password):
+			raise MyUser.DoesNotExist
 		else:
 			return HttpResponseRedirect(reverse('login:jmp_to_mainpage'))
-	except User.DoesNotExist:
+			#return render(request, "mainpage/index.html", {'user':user})
+	except MyUser.DoesNotExist:
 		return render(request, 'login/index.html',{
 				'error_message': '用户名或密码错误',
 			})
 
 def jmp_to_mainpage(request):
-	print(request)
 	return render(request, 'mainpage/index.html')
 
 def jmp_to_register(request):
@@ -37,8 +37,10 @@ def register_page(request):
 def register(request):
 	name = request.POST['user_name']
 	password = request.POST['user_pwd']
+	print(password)
 	email = request.POST['user_email']
 	cellphone = request.POST['user_phone']
-	user = User(name=name, password=password,email=email,cellphone=cellphone)
+	user = MyUser(username=name, email=email, cellphone=cellphone)
+	user.set_password(password)
 	user.save()
 	return HttpResponseRedirect(reverse('login:index'))
