@@ -15,7 +15,7 @@ def index(request):
 def authorize(request):
     user_name = request.POST['user_name']
     password = request.POST['user_pwd']
-	user = authenticate(username=user_name, password=password)
+    user = authenticate(username=user_name, password=password)
     if user is not None:
         login(request, user)
         return HttpResponseRedirect(reverse('mainpage:index'))
