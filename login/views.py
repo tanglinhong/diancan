@@ -6,45 +6,47 @@ from .models import User
 from django.contrib.auth import authenticate, login
 
 # Create your views here.
+
+
 def index(request):
-	return render(request, 'login/index.html')
+    return render(request, 'login/index.html')
+
 
 def authorize(request):
-	user_name = request.POST['user_name']
-	password = request.POST['user_pwd']
-	try:
-		user = User.objects.get(username=user_name)
-		if not user.check_password(password):
-			raise User.DoesNotExist
-		else:
-			user = authenticate(username=user_name, password=password)
-			login(request, user)
-			return HttpResponseRedirect(reverse('mainpage:index'))
-	except User.DoesNotExist:
-		return render(request, 'login/index.html',{
-				'error_message': '用户名或密码错误',
-			})
+    user_name = request.POST['user_name']
+    password = request.POST['user_pwd']
+	user = authenticate(username=user_name, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect(reverse('mainpage:index'))
+    else:
+        return render(request, 'login/index.html', {
+            'error_message': '用户名或密码错误',
+        })
+
 
 def jmp_to_register(request):
-	return HttpResponseRedirect(reverse('login:register_page'))
+    return HttpResponseRedirect(reverse('login:register_page'))
+
 
 def register_page(request):
-	return render(request, 'login/register_page.html')
+    return render(request, 'login/register_page.html')
+
 
 def register(request):
-	name = request.POST['user_name']
-	password = request.POST['user_pwd']
-	email = request.POST['user_email']
-	cellphone = request.POST['user_phone']
-	#user = User(username=name, email=email, cellphone=cellphone)
-	#user.set_password(password)
-	#user.save()
-	user = User.objects.create_user(name, email, cellphone, password)
-	user.save()
-	return HttpResponseRedirect(reverse('login:index'))
+    name = request.POST['user_name']
+    password = request.POST['user_pwd']
+    user = User.objects.create_user(name, password)
+    user.save()
+    user = authenticate(username=name, password=password)
+    login(request, user)
+    return HttpResponse(1)
+
 
 def handle_duplicate(request):
-	user_name = request.POST['name']
-	user = User.objects.get(username=user_name)
-	if user:
-		HttpResponse(0)
+    user_name = request.POST['name']
+    try:
+        user = User.objects.get(username=user_name)
+        return HttpResponse(0)
+    except User.DoesNotExist:
+        return HttpResponse(1)
