@@ -17,9 +17,6 @@ web框架：Django
 >I'm angry!!!  
 >我感到十分气愤！
 
-- [x] This is a complete item
-- [ ] This is an incomplete item
-
 **哼！**  
 劳资Django也是踩了不少坑的！  
 艰难的看了一个星期的全**英文文档**，外加复习各种Python技巧。  
