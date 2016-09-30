@@ -27,4 +27,4 @@ web框架：Django
 我在这里说清楚了—— **全额奖学金**。  
 艹，我竟然花了一下午时间，就写了份这个文档，日。  
 ## Is there any problem?
-![getout](getout.jpg)
+![getout](getout.png)
