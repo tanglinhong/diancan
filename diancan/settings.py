@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTH_USER_MODEL = 'login.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'diancan_db',
         'USER': 'root',
-        'PASSWORD':'',
+        'PASSWORD':'toor',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

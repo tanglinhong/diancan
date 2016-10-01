@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^jmp_register$', views.jmp_to_register, name='jmp_to_register'),
     url(r'^register_page$', views.register_page, name='register_page'),
     url(r'^registered$', views.register, name='register'),
-    url(r'^jmp_to_mainpage$', views.jmp_to_mainpage, name='jmp_to_mainpage'),
+    url(r'duplicated_username', views.handle_duplicate, name="duplicated_username"),
 ]
