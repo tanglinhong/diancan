@@ -1,1 +1,17 @@
-<h1>Welcome, {{user.username}} and your id is {{user.id}}</h1>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Online ordering</title>
+</head>
+<body>
+	<h1>Welcome, {{user.username}} and your id is {{user.id}}</h1>
+	<input type="button" value="logout" onclick="logout()">
+
+	<script type="text/javascript" charset="utf-8">
+		function logout(){
+			location.href = "{% url 'login:log_out' %}"
+		}
+	</script>
+</body>
+</html>

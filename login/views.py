@@ -1,9 +1,9 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -24,6 +24,9 @@ def authorize(request):
             'error_message': '用户名或密码错误',
         })
 
+def log_out(request):
+    logout(request)
+    return render(request, "login/index.html")
 
 def jmp_to_register(request):
     return HttpResponseRedirect(reverse('login:register_page'))
