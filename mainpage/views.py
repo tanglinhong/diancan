@@ -6,4 +6,9 @@ from login.models import User
 
 
 def index(request):
-    return render(request, 'mainpage/index.html', {'user': request.user})
+	print(request.user.username=='')
+	print(request.user)
+	return render(request, 'mainpage/index.html', {'user': request.user})
+
+def my_account(request):
+	return render(request, 'mainpage/account.html', {'user': request.user})

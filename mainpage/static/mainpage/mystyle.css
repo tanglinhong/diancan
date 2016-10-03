@@ -1,0 +1,101 @@
+    @font-face {
+        font-family: 'PoiretOne-Regular';
+        src: url(PoiretOneRegular.ttf) format('truetype');
+    }
+
+    @font-face {
+        font-family: 'OpenSans-Regular';
+        src: url(OpenSansRegular.ttf) format('truetype');
+    }
+
+    .container {
+        padding-right: 0;
+        padding-left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        width: 100%;
+    }
+
+    .header {
+        border-bottom: 3px ridge #FFA500;
+        padding: 1em 0;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .logo {
+        float: left;
+        margin-left: 13%;
+    }
+
+    .logo a {
+        font-size: 200%;
+        display: block;
+        text-decoration: none;
+        font-family: 'PoiretOne-Regular';
+        color: #DA6A3C;
+        font-weight: 100;
+    }
+
+    .logo span {
+        color: #222;
+    }
+
+    .myfooter {
+        position: fixed;
+        margin-right: 0;
+        margin-left: 0;
+        bottom: 5px;
+        width: 100%;
+    }
+
+    .copy {
+        border-top: 1px ridge rgba(11, 12, 16, 0.16);
+        padding-top: 1em;
+        padding-bottom: 0.5em;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .copy p {
+        color: #777;
+        font-size: 0.9em;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+    }
+
+     .register_content {
+        padding-left: 15%;
+        padding-top: 5%;
+    }
+
+    .complete_info_content{
+        padding-left: 15%;
+        padding-top: 5%;
+
+    }
+
+    .errorTip{
+        color: #ff0000;
+        width: auto;
+        padding-left: 0px;
+        visibility: hidden;
+    }
+
+
+    button.ensure {
+        width: 200px;
+    }
+
+    button.addr_modal_ensure {
+        width: 60px;
+    }
+
+    button.complete_save{
+        width:200px;
+        margin-left: 15px;
+    }

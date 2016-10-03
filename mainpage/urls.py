@@ -6,4 +6,5 @@ app_name = 'mainpage'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^account$', views.my_account, name='my_account'),
 ]
