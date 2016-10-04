@@ -89,9 +89,9 @@ var shengfen;
 var chengshi;
 var quxian;
 var jiedao;
-var youbian
-var shouhuoren
-var shoujihao
+var youbian;
+var shouhuoren;
+var shoujihao;
 $(document).ready(function() {
     //alert("文档加载");
     $(".require-label").prepend('&nbsp;<strong><font color="#FF0000">*</font></strong>&nbsp;');
@@ -355,9 +355,29 @@ $(document).ready(function() {
             $(".emailTip").css("visibility", "visible");
             flag = false;
         }
+        console.log("Save");
         if (flag == true) {
+            if (shengfen == undefined) {
+                shengfen = ''
+            }
+            if (chengshi == undefined){
+                chengshi = ''
+            }
+            if( quxian == undefined ){
+                quxian = ''
+            }
+            if( jiedao == undefined ){
+                jiedao = ''
+            }
+            if(shouhuoren == undefined){
+                shouhuoren = ''
+            }
+            if( shoujihao == undefined ){
+                shoujihao = ''
+            }
             //将完善信息存入数据库中,且为默认地址
-            $.post("", {
+                $.post("{% url 'mainpage:complete' %}", {
+                'csrfmiddlewaretoken': '{{csrf_token}}',
                 phone: completePhone,
                 email: completeEmail,
                 province: shengfen,
@@ -366,13 +386,12 @@ $(document).ready(function() {
                 street: jiedao,
                 consignee: shouhuoren,
                 consignphone: shoujihao,
-                moren: 1
+                moren: true
             }, function(result, status) {
-                result = 1;
                 if (result == 1) { //信息插入成功
                     alert("信息插入成功");
                     //转入主页；
-                    location.href = "../index.html";
+                    location.href = "{% url 'mainpage:index' %}";
 
                 } else {
                     alert("信息插入失败");
