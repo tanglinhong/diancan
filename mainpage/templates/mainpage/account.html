@@ -377,7 +377,7 @@ $(document).ready(function() {
             }
             //将完善信息存入数据库中,且为默认地址
                 $.post("{% url 'mainpage:complete' %}", {
-                'csrfmiddlewaretoken': '{{csrf_token}}',
+                csrfmiddlewaretoken: '{{csrf_token}}',
                 phone: completePhone,
                 email: completeEmail,
                 province: shengfen,
@@ -392,6 +392,7 @@ $(document).ready(function() {
                     alert("信息插入成功");
                     //转入主页；
                     location.href = "{% url 'mainpage:index' %}";
+                    
 
                 } else {
                     alert("信息插入失败");

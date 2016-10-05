@@ -60,7 +60,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     {% endif %}
                     </ul>
                     <div class="act">
-                        <a href="#" class="done">Welcome, {{user.username}}</a>
+                        <a href="" class="done">Welcome, {{user.username}}</a>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
@@ -83,7 +83,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="active"><a href="index.html">Home  </a>
                             <label>- </label>
                         </li>
-                        <li><a href="location.html"> Locations</a>
+                        <li><a href="{% url 'mainpage:location' %}"> Locations</a>
                             <label>- </label>
                         </li>
                         <li><a href="specials.html">Specials </a>
