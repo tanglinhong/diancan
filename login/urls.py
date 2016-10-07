@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^register_page$', views.register_page, name='register_page'),
     url(r'^registered$', views.register, name='register'),
     url(r'duplicated_username', views.handle_duplicate, name="duplicated_username"),
+    url(r'^log_out$', views.log_out, name='log_out'),
 ]

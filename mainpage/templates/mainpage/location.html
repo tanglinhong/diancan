@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <title>Home</title>
+    <link href="{% static 'mainpage/bootstrap.css' %}" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <!--     <style type="text/css">
+    body,
+    html,
+    #allmap {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        font-family: "微软雅黑";
+    }
+    </style> -->
+    <style type="text/css" media="screen">
+    #allmap {
+        width: 1120px;
+        height: 600px;
+        overflow: hidden;
+        margin: auto;
+    }
+    </style>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=rEBP1W4qQuU4ZGNpAEIvgY9aIGKddNih" type="text/javascript"></script>
+    <link href="{% static 'mainpage/style.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'mainpage/jquery.min.js' %}" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <!--header-->
+    <div class="header-in">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="{% url 'mainpage:index' %}">Food Shop</a></h1>
+            </div>
+            <div class="header-top">
+                <div class="header-top-in">
+                    <ul class="header-grid">
+                    {% if user.username != '' %}
+                        <li><a href="{% url 'login:log_out' %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login:index' %}">Login</a></li>
+                    {% endif %}
+                    </ul>
+                    <div class="act">
+                        <a href="" class="done">Welcome, {{user.username}}</a>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <ul class="grid-header">
+                    <li><a href="{% url 'mainpage:my_account' %}">My Account</a>
+                        <label>/</label>
+                    </li>
+                    <li><a href="#">My Cart</a>
+                        <label>/</label>
+                    </li>
+                    <li><a href="checkout.html">  Checkout </a> </li>
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="header-bottom">
+                <div class="top-nav">
+                    <span class="menu"> </span>
+                    <ul>
+                        <li><a href="{% url 'mainpage:index' %}">Home  </a>
+                            <label>- </label>
+                        </li>
+                        <li class="active"><a href="{% url 'mainpage:location' %}"> Locations</a>
+                            <label>- </label>
+                        </li>
+                        <li><a href="specials.html">Specials </a>
+                            <label>- </label>
+                        </li>
+                        <li><a href="404.html"> Order Online</a>
+                            <label>- </label>
+                        </li>
+                        <li><a href="contact.html">Contacts</a></li>
+                    </ul>
+                </div>
+                <div class="search">
+                    <form>
+                        <input type="text" value="Search store here ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                        <input type="submit" value="">
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="contact-in">
+            <h2>Locations</h2>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="allmap">
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="col-md-8 footer-bottom ">
+                <h4>Aenean condimentum suscipit dolor</h4>
+                <p>Proin ullamcorper urna quis velit mollis molestie suscipit nisl consectetur uspendisse venenatis dolor et nunc iaculis ege</p>
+                <p class="footer-grid">Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+            </div>
+            <div class="col-md-4 footer-bottom ">
+                <h4>Muscipit dolor</h4>
+                <ul class="social-icons">
+                    <li><a href="#"><span> </span> </a></li>
+                    <li class="tin"><a href="#"><span> </span></a></li>
+                    <li class="linked"><a href="#"><span> </span> </a></li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var ip;
+    var loc_url = '';
+    $(document).ready(function() {
+        $.getJSON("http://jsonip.com/?callback=?", function(data) {
+            ip = data.ip;
+            loc_url = "https://api.map.baidu.com/highacciploc/v1?qcip=" + ip + "&qterm=pc&ak=rEBP1W4qQuU4ZGNpAEIvgY9aIGKddNih&coord=bd09ll&callback_type=jsonp&callback=test";
+            console.log(loc_url);
+            $.ajax({
+                type: "get",
+                async: false,
+                url: loc_url,
+                dataType: "jsonp",
+                jsonp: "callback",
+                success: function(msg) {
+                    var jsonObj = eval(msg);
+                    if (jsonObj.result.error == 161) {
+                        var latitude = jsonObj.content.location.lat;
+                        var longitude = jsonObj.content.location.lng;
+                        console.log(latitude);
+                        console.log(longitude);
+                        var map = new BMap.Map("allmap"); // 创建Map实例
+                        var curr_loc = new BMap.Point(longitude, latitude);
+                        map.centerAndZoom(curr_loc, 13);
+                        map.enableScrollWheelZoom(true);
+                        map.addControl(new BMap.MapTypeControl());
+                        map.clearOverlays();
+                        var marker = new BMap.Marker(curr_loc); // 创建标注
+                        map.addOverlay(marker); // 将标注添加到地图中
+                        map.panTo(curr_loc);
+                    }
+                }
+            });
+        });
+    });
+    </script>
+</body>
+
+</html>

@@ -1,27 +1,111 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Login</title>
-</head>
-<body>
-	{% if error_message %}<p id="err_msg"><strong>{{ error_message }}</strong></p>{% endif %}
-	<form action="{% url 'login:authorize' %}" method="POST">
-	{% csrf_token %}
-	<label>用户名  </label><input type="text" name="user_name" onchange="rm_err_msg()">
-	<br/><br/>
-	<label>密码  </label><input type="password" name="user_pwd">
-	<br/><br/>
-	<input type="submit" value="登陆">
-	<button type="submit" formaction="{% url 'login:jmp_to_register' %}">注册</button>
-	</form>
 
-	<script type="text/javascript">
-		function rm_err_msg(){
-			var err_msg = document.getElementById("err_msg");
-			if(err_msg){
-				err_msg.parentNode.removeChild(err_msg)
-			}
-		}
-	</script>
+<head>
+    {% load static %}
+    <title>Login</title>
+    <link href="{% static 'login/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <style type="text/css">
+    .header {
+        border-bottom: 3px ridge #FFA500;
+        padding: 1em 0;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 20;
+    }
+    
+    .logo {
+        float: left;
+        margin-left: 13%;
+    }
+    
+    .logo a {
+        font-size: 200%;
+        display: block;
+        text-decoration: none;
+        font-family: 'PoiretOne-Regular';
+        color: #DA6A3C;
+        font-weight: 100;
+    }
+    
+    .container {
+        padding-right: 0;
+        padding-left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        width: 100%;
+    }
+    
+    button {
+        color: green;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">点餐 <span>课设</span></a>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <div class="row">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-9">
+            <div class="col-sm-offset-3">
+                {% if error_message %}
+                <p id="err_msg"><strong>{{ error_message }}</strong></p>{% endif %}
+            </div>
+            <form class="form-horizontal" role="form" action="{% url 'login:authorize' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" name="user_name" value="" onclick="rm_err_msg()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-3">
+                        <input type="password" class="form-control" name="user_pwd">
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="remeber"> Remember me
+                            </label>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-6">
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-success ensure">Sign in</button>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-success ensure" formaction="{% url 'login:jmp_to_register' %}">Sign up</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function rm_err_msg() {
+        var err_msg = document.getElementById("err_msg");
+        if (err_msg) {
+            err_msg.parentNode.removeChild(err_msg)
+        }
+    }
+    </script>
 </body>
+
 </html>

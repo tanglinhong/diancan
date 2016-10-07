@@ -1,0 +1,5 @@
+#ignore pyc files
+*.pyc
+#ban pyc folder
+__pycache__/
+migrations/
