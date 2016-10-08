@@ -1,12 +1,13 @@
     @font-face {
         font-family: 'PoiretOne-Regular';
-        src: url(PoiretOneRegular.ttf) format('truetype');
+        src: url("fonts/PoiretOneRegular.ttf") format('truetype');
     }
 
     @font-face {
         font-family: 'OpenSans-Regular';
-        src: url(OpenSansRegular.ttf) format('truetype');
+        src: url("fonts/OpenSansRegular.ttf") format('truetype');
     }
+
 
     .container {
         padding-right: 0;
@@ -40,6 +41,18 @@
 
     .logo span {
         color: #222;
+    }
+
+    .user-logo{
+        float: right;
+        margin-right: 10%;
+    }
+    .user-logo a{
+         text-decoration: none;
+         color: #000000;
+         text-align: left;
+         padding-left:25px;
+         background: url('images/user.png') no-repeat left center;
     }
 
     .myfooter {
@@ -99,3 +112,46 @@
         width:200px;
         margin-left: 15px;
     }
+
+
+/*表单校验相关的css*/
+
+.item-text{
+    float: left;
+    width: 244px;
+    /*height: 16px;*/
+    padding: 9px 25px 9px 5px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+input.error{
+    border: 1px solid #E6594E;
+}
+
+input.highlight{
+    border: 1px solid #7abd54;
+}
+
+label.error,label.tip{
+    float: left;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    text-align: left;
+    margin-left: 5px;
+    padding-left: 25px;
+    color: red;
+    background: url('images/error.png') no-repeat left center;
+}
+
+label.tip{
+    color: #aaa;
+    background: url('images/tip.png') no-repeat left center;
+}
+
+label.valid{
+    background: url('images/user.png') no-repeat left center;
+    width: 32px;
+}

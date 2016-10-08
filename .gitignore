@@ -1,5 +1,6 @@
 #ignore pyc files
 *.pyc
+*.map
 #ban pyc folder
 __pycache__/
 migrations/

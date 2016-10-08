@@ -26,7 +26,8 @@ def authorize(request):
 
 def log_out(request):
     logout(request)
-    return render(request, "login/index.html")
+    # return render(request, reverse("mainpage:index"))
+    return render(request, 'mainpage/index.html')
 
 def jmp_to_register(request):
     return HttpResponseRedirect(reverse('login:register_page'))

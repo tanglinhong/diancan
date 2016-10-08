@@ -4,12 +4,12 @@
 <head>
     {% load static %}
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'mainpage/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'mainpage/css/bootstrap.css' %}" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="{% static 'mainpage/jquery.min.js' %}"></script>
+    <script src="{% static 'mainpage/js/jquery.min.js' %}"></script>
     <!-- Custom Theme files -->
     <!--theme-style-->
-    <link href="{% static 'mainpage/style.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'mainpage/css/indexstyle.css' %}" rel="stylesheet" type="text/css" />
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -29,8 +29,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='http://fonts.useso.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
  -->
     <!--//fonts-->
-    <script type="text/javascript" src="{% static 'mainpage/move-top.js' %}"></script>
-    <script type="text/javascript" src="{% static 'mainpage/easing.js' %}"></script>
+    <script type="text/javascript" src="{% static 'mainpage/js/move-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'mainpage/js/easing.js' %}"></script>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
         $(".scroll").click(function(event) {
@@ -53,21 +53,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="header-top">
                 <div class="header-top-in">
                     <ul class="header-grid">
-                    {% if user.username != '' %}
+                        {% if user.username != '' %}
                         <li><a href="{% url 'login:log_out' %}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{% url 'login:index' %}">Login</a></li>
-                    {% endif %}
+                        {% else %}
+                        <li><a href="{% url 'login:index' %}">Login </a></li>
+                        <label>/</label>
+                        <li><a href="{% url 'login:jmp_to_register' %}">Register</a></li>
+                        {% endif %}
                     </ul>
                     <div class="act">
-                        <a href="" class="done">Welcome, {{user.username}}</a>
+                        <a href="" class="done">Welcome</a>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
                 <ul class="grid-header">
-                    <li><a href="{% url 'mainpage:my_account' %}">My Account</a>
+                    {% if user.username != '' %}
+                    <li><a href="{% url 'mainpage:personal_center' %}">{{user.username}}</a>
                         <label>/</label>
                     </li>
+                    {% else %}
+                    {% endif %}
                     <li><a href="#">My Cart</a>
                         <label>/</label>
                     </li>
@@ -140,7 +145,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </div>
                     <!---->
-                    <script src="{% static 'mainpage/jquery.wmuSlider.js' %}"></script>
+                    <script src="{% static 'mainpage/js/jquery.wmuSlider.js' %}"></script>
                     <script>
                     $('.example1').wmuSlider({
                         pagination: false,
@@ -171,32 +176,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <p>Vivamus vel eros nulla sed pellentesque sem</p>
                         <ul class="number">
                             <li><span><i> </i>(000) 888 88888</span ></li>
-						<li><a href="mailto:info@sitename.com"><i class="mail"> </i>info@sitename.com </a></li>					
-					</ul>
-				</div>
-				<div class="popular">
-					<h3>Crder online/phone</h3>
-					<p>Cosectrurer admpsuing tempor nulla incidi esuismod</p>
-					<form>
-					<input type="text" value="your email id here" onFocus="this.value='';" onBlur="if (this.value == '') {this.value = 'your email id here';}">
-					<input type="submit" value="Subscribe" >
-					</form>
-				</div>
-			</div>
-			<!---->
-			<div class="col-md-8 food-grid">
-				<div class="cup">
-					<div class="col-md-4 cup-in">
-						<a href="single.html"><img src="{% static '/mainpage/images/p1.jpg' %}" class="img-responsive" alt=""></a>
-						<p>Lorem ipsum dolor sit consectetur</p>
-						<span class="dollar">$25.89</span>
+                        <li><a href="mailto:info@sitename.com"><i class="mail"> </i>info@sitename.com </a></li>                 
+                    </ul>
+                </div>
+                <div class="popular">
+                    <h3>Crder online/phone</h3>
+                    <p>Cosectrurer admpsuing tempor nulla incidi esuismod</p>
+                    <form>
+                    <input type="text" value="your email id here" onFocus="this.value='';" onBlur="if (this.value == '') {this.value = 'your email id here';}">
+                    <input type="submit" value="Subscribe" >
+                    </form>
+                </div>
+            </div>
+            <!---->
+            <div class="col-md-8 food-grid">
+                <div class="cup">
+                    <div class="col-md-4 cup-in">
+                        <a href="single.html"><img src="{% static 'mainpage/css/images/p1.jpg' %}" class="img-responsive" alt=""></a>
+                        <p>Lorem ipsum dolor sit consectetur</p>
+                        <span class="dollar">$25.89</span>
                                 <div class="details-in">
                                     <a href="#" class="details">Details</a>
                                 </div>
                                 <div class="clearfix"> </div>
                     </div>
                     <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/images/p2.jpg' %}" class="img-responsive" alt=""></a>
+                        <a href="single.html"><img src="{% static 'mainpage/css/images/p2.jpg' %}" class="img-responsive" alt=""></a>
                         <p>Lorem ipsum dolor sit consectetur</p>
                         <span class="dollar">$25.89</span>
                         <div class="details-in">
@@ -205,7 +210,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="clearfix"> </div>
                     </div>
                     <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/images/p3.jpg' %}" class="img-responsive" alt=""></a>
+                        <a href="single.html"><img src="{% static 'mainpage/css/images/p3.jpg' %}" class="img-responsive" alt=""></a>
                         <p>Lorem ipsum dolor sit consectetur</p>
                         <span class="dollar">$25.89</span>
                         <div class="details-in">
@@ -214,7 +219,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="clearfix"> </div>
                     </div>
                     <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/images/p4.jpg' %}" class="img-responsive" alt=""></a>
+                        <a href="single.html"><img src="{% static 'mainpage/css/images/p4.jpg' %}" class="img-responsive" alt=""></a>
                         <p>Lorem ipsum dolor sit consectetur</p>
                         <span class="dollar">$25.89</span>
                         <div class="details-in">
@@ -223,7 +228,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="clearfix"> </div>
                     </div>
                     <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/images/p5.jpg' %}" class="img-responsive" alt=""></a>
+                        <a href="single.html"><img src="{% static 'mainpage/css/images/p5.jpg' %}" class="img-responsive" alt=""></a>
                         <p>Lorem ipsum dolor sit consectetur</p>
                         <span class="dollar">$25.89</span>
                         <div class="details-in">
@@ -232,7 +237,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="clearfix"> </div>
                     </div>
                     <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                        <a href="single.html"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
                         <p>Lorem ipsum dolor sit consectetur</p>
                         <span class="dollar">$25.89</span>
                         <div class="details-in">
@@ -248,7 +253,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <a href="single.html" class="more">Browse More</a>
                     <div class="clearfix"> </div>
                     <div class="arrow">
-                        <a href="#"><img src="{% static 'mainpage/images/arrow.png' %}" alt=""></a>
+                        <a href="#"><img src="{% static 'mainpage/css/images/arrow.png' %}" alt=""></a>
                     </div>
                 </div>
                 <!---->
@@ -257,7 +262,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <h3>Adpiscing labo</h3>
                         <p>Lorem ipsum dolor sit amet </p>
                         <div class="egg">
-                            <a href="single.html"><img src="{% static 'mainpage/images/pic.jpg' %}" class="img-responsive" alt=""></a>
+                            <a href="single.html"><img src="{% static 'mainpage/css/images/pic.jpg' %}" class="img-responsive" alt=""></a>
                         </div>
                         <p class="para-in">Rem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incidi. </p>
                     </div>
@@ -309,13 +314,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script type="text/javascript">
     $(document).ready(function() {
         /*
-							var defaults = {
-					  			containerID: 'toTop', // fading element id
-								containerHoverID: 'toTopHover', // fading element hover id
-								scrollSpeed: 1200,
-								easingType: 'linear' 
-					 		};
-							*/
+                            var defaults = {
+                                containerID: 'toTop', // fading element id
+                                containerHoverID: 'toTopHover', // fading element hover id
+                                scrollSpeed: 1200,
+                                easingType: 'linear' 
+                            };
+                            */
 
         $().UItoTop({
             easingType: 'easeOutQuart'

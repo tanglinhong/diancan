@@ -128,7 +128,7 @@
                 }, function(data, status) {
                     if (data == 1) {
                         alert("注册成功");
-                        location.href = "{% url 'mainpage:index' %}";
+                        location.href = "{% url 'mainpage:jmp_to_complete_info' %}";
                         //成功；
                     } else if (data == 2) {
                         //插入数据失败；

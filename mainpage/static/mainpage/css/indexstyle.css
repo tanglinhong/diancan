@@ -20,14 +20,14 @@ h1,h2,h3,h4,h5,h6,label,p{
 	margin:0;	
 }
 .header{
-	background:url(images/back.jpg) no-repeat center;
+	background:url("images/back.jpg") no-repeat center;
 	width:100%;
 	min-height:798px;
 	display:block;
 	background-size:cover;
 }
 .header-in{
-	background:url(images/back.jpg) no-repeat center;
+	background:url("images/back.jpg") no-repeat center;
 	width:100%;
 	min-height:300px;
 	display:block;
@@ -97,7 +97,7 @@ a.done{
 }
 a.done:before,a.done:after{
 	content:"";
-	background:url(images/star.png) no-repeat 0px ;
+	background:url("images/star.png") no-repeat 0px ;
 	width:20px;
 	min-height:20px;
 	display:inline-block;
@@ -129,7 +129,7 @@ a.done:after{
 }
 /*----*/
 .top-nav span.menu:before{
-	content: url(images/menu.png)no-repeat 0px 0px;
+	content: url("images/menu.png")no-repeat 0px 0px;
 	cursor:pointer;	
 	width:100%;
 }
@@ -209,7 +209,7 @@ a.done:after{
 .search input[type="submit"] {	
 	width: 30px;
 	height: 36px;
-	background: url(images/img-sprite.png) -45px -9px no-repeat;
+	background: url("images/img-sprite.png") -45px -9px no-repeat;
 	padding: 0px 1px;
 	border: none;
 	cursor: pointer;
@@ -230,7 +230,7 @@ a.done:after{
 	padding: 1.5em;
 }
 .banner-in{
-	background:url(images/banner.jpg) no-repeat center;
+	background:url("images/banner.jpg") no-repeat center;
 	width:100%;
 	min-height:400px;
 	display:block;
@@ -257,7 +257,7 @@ ul.wmuSliderPagination{
 	width: 37px;
 	height: 42px;
 	text-indent: -9999px;
-	background: url(images/img-sprite.png)no-repeat;
+	background: url("images/img-sprite.png")no-repeat;
 	z-index: 2;
 	cursor: pointer;
 }
@@ -329,7 +329,7 @@ ul.popular-in li:nth-child(4){
 	width: 18px;
 	height: 18px;
 	display: inline-block;
-	background: url(images/img-sprite.png) no-repeat -184px -22px;
+	background: url("images/img-sprite.png") no-repeat -184px -22px;
 	vertical-align: sub;
 	margin-right: 0.5em;
 }
@@ -363,7 +363,7 @@ ul.number li i{
 	width: 30px;
 	height: 24px;
 	display: inline-block;
-	background: url(images/img-sprite.png) no-repeat -220px -19px;
+	background: url("images/img-sprite.png") no-repeat -220px -19px;
 	vertical-align: sub;
 	margin-right: 0.5em;
 }
@@ -612,7 +612,7 @@ a.more{
 	padding-bottom: 0.5em;
 }
 .bottom-special{
-	background:url(images/s1.jpg) no-repeat center;
+	background:url("images/s1.jpg") no-repeat center;
 	display:block;
 	padding: 6em 2em;
 	text-align:center;
@@ -621,7 +621,7 @@ a.more{
 	background-size: cover;
 }
 .bottom-special-1{
-	background:url(images/s2.jpg) no-repeat center;
+	background:url("images/s2.jpg") no-repeat center;
 	display:block;
 	padding:6em 2em;
 	text-align:center;
@@ -806,7 +806,7 @@ ul.store-men li.last{
 ul.store-men li a span{
 	height: 18px;
 	width: 18px;
-	background: url(images/img-sprite.png) no-repeat -184px -22px;
+	background: url("images/img-sprite.png") no-repeat -184px -22px;
 	display: inline-block;
 	margin: 0 0.5em 0 0;
 	vertical-align: sub;
@@ -1079,7 +1079,7 @@ a.forgot {
 
 /*--footer--*/
 .footer{
-	background:url(images/footer.png) no-repeat center;
+	background:url("images/footer.png") no-repeat center;
 	width:100%;
 	min-height:250px;
 	display:block;
