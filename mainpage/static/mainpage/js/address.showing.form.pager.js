@@ -1,9 +1,25 @@
-
 var show_addr_url;
 var del_addr_url;
 var conf_default_url;
 var get_addr_count_url;
 var limits;
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
 
 function showAddrTable(addr_total_num, SHOW_ADDR_URL, DEL_ADDR_URL, CONF_DEFAULT_URL, GET_ADDR_COUNT_URL) {
 
@@ -30,7 +46,7 @@ function showAddrTable(addr_total_num, SHOW_ADDR_URL, DEL_ADDR_URL, CONF_DEFAULT
     console.log(show_addr_url);
     //得到第一页的地址信息；传入URL的参数为用户名与页码数，此处即为1
     $.post(show_addr_url, {
-            csrfmiddlewaretoken:'{{csrf_token}}',
+            csrfmiddlewaretoken: csrftoken,
             pagenum: 1,
             limits: limits
         },
@@ -96,14 +112,14 @@ function enableOptionForForm() {
         console.log("id:" + addressId);
         //删除地址，传入的参数为将要删除的地址的地址ID
         $.post(del_addr_url, {
-            csrfmiddlewaretoken:'{{csrf_token}}',
+            csrfmiddlewaretoken: csrftoken,
             address_id: addressId
         }, function(data, status) {
             if (data == 1) { //删除成功
                 // $(".addr-list").empty();//先清除已展示的地址；
                 alert("删除成功");
                 //重新获得地址列表
-                $.get( get_addr_count_url, function(data, status) { //获得用户地址信息数
+                $.get(get_addr_count_url, function(data, status) { //获得用户地址信息数
                     addrs_total_num = data;
                     if (data == 0) {
                         isFirstAddress = 1;
@@ -130,7 +146,7 @@ function enableOptionForForm() {
         var defaultAddressId = $(this).attr("data-addr-id");
         alert(defaultAddressId);
         //设置默认地址，传入的参数为将要设置为默认地址的地址ID
-        $.post(conf_default_url, { default_addr_id: defaultAddressId }, function(data, status) {
+        $.post(conf_default_url, { csrfmiddlewaretoken: csrftoken, default_addr_id: defaultAddressId }, function(data, status) {
             if (data == 1) {
                 alert("设置成功");
                 // $(".addr-list").empty();//先清除已展示的地址；
@@ -157,7 +173,7 @@ function enablePager(page_count, show_count) {
 
                 var active_page_num = Number($(".pagination li.active").children("a").html());
                 console.log(active_page_num);
-                $.post( show_addr_url, { pagenum:active_page_num, limits:limits }, function(data, status) { //得到第(active_page_num)页的地址数据，url传入的参数为(active_page_num)
+                $.post(show_addr_url, { csrfmiddlewaretoken: csrftoken, pagenum: active_page_num, limits: limits }, function(data, status) { //得到第(active_page_num)页的地址数据，url传入的参数为(active_page_num)
                     $(".customer-form tbody").empty(); //先清除表格中原有的记录，
                     // data = '{"address_array":[{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":1}]}';
                     var obj = JSON.parse(data);
@@ -212,7 +228,7 @@ function achiveFunForPreviousAndNext(page_count, show_count) {
             var active_page_num = Number($(".pagination li.active").children("a").html());
             $prevLi = $(".pagination li.active").prev();
             $(".pagination li.active").removeClass("active");
-            $.post(show_addr_url, { pagenum:active_page_num-1, limits:limits }, function(data, status) { //得到第(active_page_num)-1页的地址数据，url传入的参数为(active_page_num)-1
+            $.post(show_addr_url, { csrfmiddlewaretoken: csrftoken, pagenum: active_page_num - 1, limits: limits }, function(data, status) { //得到第(active_page_num)-1页的地址数据，url传入的参数为(active_page_num)-1
                 $(".customer-form tbody").empty(); //先清除表格中原有的记录，
                 // data = '{"address_array":[{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":1},{"id":2,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0}]}';
                 var obj = JSON.parse(data);
@@ -248,7 +264,7 @@ function achiveFunForPreviousAndNext(page_count, show_count) {
             var active_page_num = Number($(".pagination li.active").children("a").html());
             $nextLi = $(".pagination li.active").next();
             $(".pagination li.active").removeClass("active");
-            $.post(show_addr_url, { pagenum:active_page_num+1, limits:limits }, function(data, status) { //得到第(active_page_num)+1页的地址数据，url传入的参数为(active_page_num)+1
+            $.post(show_addr_url, { csrfmiddlewaretoken: csrftoken, pagenum: active_page_num + 1, limits: limits }, function(data, status) { //得到第(active_page_num)+1页的地址数据，url传入的参数为(active_page_num)+1
                 $(".customer-form tbody").empty(); //先清除表格中原有的记录，
                 // data = '{"address_array":[{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":1},{"id":2,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0}]}';
                 var obj = JSON.parse(data);
@@ -285,7 +301,7 @@ function achiveFunForPreviousAndNext(page_count, show_count) {
 
             if ($(".pagination li:nth-child(2)").hasClass("active") && Number($(".pagination li:nth-child(2)").children("a").html()) > 1) {
                 var active_page_num = Number($(".pagination li:nth-child(2)").children("a").html());
-                $.post(show_addr_url, { pagenum:active_page_num-1, limits:limits }, function(data, status) { //得到第(active_page_num)-1页的地址数据，url传入的参数为(active_page_num)-1
+                $.post(show_addr_url, { csrfmiddlewaretoken: csrftoken, pagenum: active_page_num - 1, limits: limits }, function(data, status) { //得到第(active_page_num)-1页的地址数据，url传入的参数为(active_page_num)-1
                     $(".customer-form tbody").empty(); //先清除表格中原有的记录，
                     // data = '{"address_array":[{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":1},{"id":2,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0},{"id":3,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0}]}';
                     var obj = JSON.parse(data);
@@ -328,7 +344,7 @@ function achiveFunForPreviousAndNext(page_count, show_count) {
                 var active_page_num = Number($(".pagination li.active").children("a").html());
                 $prevLi = $(".pagination li.active").prev();
                 $(".pagination li.active").removeClass("active");
-                $.post(show_addr_url, { pagenum:active_page_num-1, limits:limits }, function(data, status) { //得到第(active_page_num)-1页的地址数据，url传入的参数为(active_page_num)-1
+                $.post(show_addr_url, { csrfmiddlewaretoken: csrftoken, pagenum: active_page_num - 1, limits: limits }, function(data, status) { //得到第(active_page_num)-1页的地址数据，url传入的参数为(active_page_num)-1
                     $(".customer-form tbody").empty(); //先清除表格中原有的记录，
                     // data = '{"address_array":[{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":1},{"id":2,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0},{"id":3,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0},{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0}]}';
                     var obj = JSON.parse(data);
@@ -366,7 +382,7 @@ function achiveFunForPreviousAndNext(page_count, show_count) {
         $(".next-page-li").click(function() {
             if ($(".pagination li:nth-last-child(2)").hasClass("active") == true && Number($(".pagination li:nth-child(2)").children("a").html()) < page_count) {
                 var active_page_num = Number($(".pagination li:nth-child(2)").children("a").html());
-                $.post(show_addr_url, { pagenum:active_page_num+1, limits:limits }, function(data, status) { //得到第(active_page_num)+1页的地址数据，url传入的参数为(active_page_num)+1
+                $.post(show_addr_url, { csrfmiddlewaretoken: csrftoken, pagenum: active_page_num + 1, limits: limits }, function(data, status) { //得到第(active_page_num)+1页的地址数据，url传入的参数为(active_page_num)+1
                     $(".customer-form tbody").empty(); //先清除表格中原有的记录，
                     // data = '{"address_array":[{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":1},{"id":2,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0},{"id":3,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0}]}';
                     var obj = JSON.parse(data);
@@ -408,7 +424,7 @@ function achiveFunForPreviousAndNext(page_count, show_count) {
                 var active_page_num = Number($(".pagination li.active").children("a").html());
                 $nextLi = $(".pagination li.active").next();
                 $(".pagination li.active").removeClass("active");
-                $.post(show_addr_url, { pagenum:active_page_num+1, limits:limits }, function(data, status) { //得到第(active_page_num)+1页的地址数据，url传入的参数为(active_page_num)+1
+                $.post(show_addr_url, { csrfmiddlewaretoken: csrftoken, pagenum: active_page_num + 1, limits: limits }, function(data, status) { //得到第(active_page_num)+1页的地址数据，url传入的参数为(active_page_num)+1
                     $(".customer-form tbody").empty(); //先清除表格中原有的记录，
                     // data = '{"address_array":[{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":1},{"id":2,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0},{"id":3,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0},{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0}]}';
                     var obj = JSON.parse(data);

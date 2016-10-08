@@ -93,7 +93,6 @@ def query_user_info(request):
 	email = curr_user.email
 	response_data['phone'] = cellphone
 	response_data['email'] = email
-	print(response_data)
 	return HttpResponse(json.dumps(response_data))
 
 def check_origin_pwd(request):
@@ -125,7 +124,7 @@ def get_address_count(request):
 	except Address.DoesNotExist:
 		return HttpResponse(0)
 
-@csrf_exempt
+
 def show_first_page(request):
 	pagenum_temp = request.POST['pagenum']
 	limits_temp = request.POST['limits']
@@ -134,14 +133,12 @@ def show_first_page(request):
 	start = (pagenum-1)*limits
 	addr_table = Address.objects.filter(
 				user_id=request.user).order_by('-id')[start:start+limits].values()
-	# response_data = [ addr.as_dict() for addr in addr_table ]
-	# print("show first page")
 	addr_list = list(addr_table)
 	response_data = {}
 	response_data['address_array'] = addr_list
 	return HttpResponse(json.dumps(response_data))
 
-@csrf_exempt
+
 def del_addr(request):
 	addr_id = int(request.POST['address_id'])
 	addr = Address.objects.get(pk=addr_id)
@@ -149,7 +146,7 @@ def del_addr(request):
 	# addr.save()
 	return HttpResponse(1)
 
-@csrf_exempt
+
 def conf_default_addr(request):
 	try:
 		addr_id = int(request.POST['default_addr_id'])
