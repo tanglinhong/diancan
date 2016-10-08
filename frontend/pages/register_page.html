@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>注册 | 点餐课设</title>
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/mystyle.css" rel="stylesheet">
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+    $(document).ready(function() {
+        $(".ensure").click(function() {
+
+            var username = $.trim($("#nameFocusedInput").val());
+            var password1 = $.trim($("#passwordFocusedInput").val());
+            var password2 = $.trim($("#ensurePasswordFocusedInput").val());
+            if (username != "" && password1 != "" && password2 != "") {
+                //alert("click");
+                $.post("", {
+                    name: username,
+                    mima: password1
+                }, function(data, status) {
+                    data = 1;
+                   // alert("click");
+                    if (data == 1) {
+                        alert("注册成功");
+                        //成功，跳转到完善信息页面；
+
+                        $(function(){
+                         // alert("即将跳转到完善信息页面");
+                          location.href="complete_info_page.html?username="+username;
+
+                        });
+                    } else if (data == 2) {
+                        //插入数据失败；
+                    }
+
+                });
+
+
+            } else {
+                //存在空白未填项；
+                alert("请完整填写注册信息");
+            }
+        });
+
+        $("#nameFocusedInput").focusin(function() {
+            if ($.trim($(this).val()) != "" && $(".usernameTip").css("visibility") == "visible") {
+                $(".usernameTip").css("visibility", "hidden");
+            }
+        });
+
+
+
+        $("#nameFocusedInput").focusout(function() {
+            //alert("out");
+            var aName = $.trim($("#nameFocusedInput").val());
+            if (aName != "") {
+
+                $.post("temp.php", {
+                    name: aName
+                }, function(data, status) {
+                    data = 1;
+                    if (data == 0) {
+                        // alert("out1");
+                        //数据库中已存在该用户名
+                        $(".usernameTip").css("visibility", "visible");
+                    } else {
+                        //alert("out2:"+data);
+                        //数据库中不存在该用户名
+
+                    }
+                });
+            }
+        });
+
+
+        $("#ensurePasswordFocusedInput").focusout(function() {
+            var password1 = $.trim($("#passwordFocusedInput").val());
+            var password2 = $.trim($("#ensurePasswordFocusedInput").val());
+
+            if (password1 != "" && password2 != "" && password2 != password1) {
+                $(".ensurePasswordTip").css("visibility", "visible");
+
+            }
+
+        });
+
+        $("#ensurePasswordFocusedInput").focusin(function() {
+            if ($.trim($(this).val()) != "" && $(".ensurePasswordTip").css("visibility") == "visible") {
+                $(".ensurePasswordTip").css("visibility", "hidden");
+            }
+        });
+
+    });
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">点餐 <span>课设</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="register_content">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <input class="form-control" id="nameFocusedInput" type="text" value="fdfffd">
+                        </div>
+                        <label class="col-sm-5 control-label usernameTip errorTip">用户名已存在!</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">创建密码</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <input class="form-control" id="passwordFocusedInput" type="text" value="">
+                        </div>
+                        <label class="col-sm-5 control-label errorTip" for="passwordFoucusedInput" hidden></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">确认密码</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <input class="form-control" id="ensurePasswordFocusedInput" type="text" value="">
+                        </div>
+                        <label class="col-sm-5 control-label ensurePasswordTip errorTip" for="ensurePasswordFocusedInput">密码确认错误!</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                            <button type="button" class="btn btn-success ensure">
+                                确认注册
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--footer-->
+    <div class="myfooter">
+        <div class="container">
+            <div class="copy">
+                <p>Copyright &copy; 2015.Company name All rights reserved.</p>
+            </div>
+        <div>
+    </div>
+    <!--footer-->
+</body>
+
+</html>
