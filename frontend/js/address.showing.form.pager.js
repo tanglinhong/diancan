@@ -1,7 +1,4 @@
 function showAddrTable(addr_total_num) {
-
-    //document.getElementById("addr-list").innerHTML="<p>test</p>";
-//$(".addr-list").empty();
     var every_page_row = 5; //每页展示多少条地址信息
     var page_count; //页数
     var show_count = 3; //页面上可选择的页码的数量；

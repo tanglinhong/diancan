@@ -25,7 +25,6 @@ var csrftoken = getCookie('csrftoken');
 
 function showChoosedPage(pageNumber) {
     $.post("/mainpage/show_first_page", { csrfmiddlewaretoken: csrftoken, pagenum: pageNumber, limits: limits }, function(data, status) {
-        console.log("has come in");
         $(".customer-form tbody").empty(); //先清除表格中原有的记录，
         // data = '{"address_array":[{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":1},{"id":2,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0}]}';
         var obj = JSON.parse(data);
@@ -146,14 +145,13 @@ function enablePager(page_count, show_count) {
     $(".pagination li").each(function() {
         if ($(this).hasClass("previous-page-li") == false && $(this).hasClass("next-page-li") == false) {
             $(this).click(function() {
-                var active_page_num = Number($(".pagination li.active").children("a").html());
+                var active_page_num = Number($(this).children("a").html());
                 console.log(active_page_num);
                 showChoosedPage(active_page_num);
                 $(".pagination li.active").removeClass("active");
                 $(this).addClass("active");
                 disabledPreviousAndNext(page_count);
             });
-
         }
     });
 }
