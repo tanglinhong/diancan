@@ -12,8 +12,6 @@ from os import sys
 def index(request):
 		return render(request, 'mainpage/index.html', {'user': request.user})
 
-def my_account(request):
-	return render(request, 'mainpage/account.html', {'user': request.user})
 
 def complete_info(request):
 	print(request.user.username + str(request.user.id))

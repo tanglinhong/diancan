@@ -22,6 +22,7 @@ class User(AbstractBaseUser):
 	cellphone = models.CharField(max_length=15)
 	USERNAME_FIELD = 'username'
 	is_active = models.BooleanField(default=True)
+	is_shop = models.BooleanField(default=False)
 
 	def get_full_name(self):
 		return self.username

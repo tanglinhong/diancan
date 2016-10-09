@@ -48,13 +48,16 @@
                     {% endif %}
                     </ul>
                     <div class="act">
-                        <a href="" class="done">Welcome, {{user.username}}</a>
+                        <a href="" class="done">Welcome</a>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
                 <ul class="grid-header">
-                    <li><a href="{% url 'mainpage:my_account' %}">My Account</a>
+                {% if user.username != '' %}
+                    <li><a href="{% url 'mainpage:personal_center' %}">{{user.username}}</a>
                         <label>/</label>
+                {% else %}
+                {% endif %}
                     </li>
                     <li><a href="#">My Cart</a>
                         <label>/</label>
