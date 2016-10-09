@@ -21,17 +21,17 @@
         font-weight: 500;
         padding: 0;
     }
-    
+
     .header {
         border-bottom: none;
         height: auto;
         background-color: #ffd607;
     }
-    
+
     body {
         background-color: #f5f5f5;
     }
-    
+
     .personal-center-content {
         margin-top: 3%;
         margin-left: 15%;
@@ -43,7 +43,7 @@
         border: 1px solid #DCDCDC;
         background-color: #ffffff;
     }
-    
+
     .personal-center-content-left {
         float: left;
         width: 150px;
@@ -53,17 +53,17 @@
         padding-top: 15px;
         border-right: 1px solid #DCDCDC;
     }
-    
+
     .personal-center-content-left ul {
         list-style-type: none;
         padding-left: 15px;
     }
-    
+
     .personal-center-content-left ul li {
         margin-top: 5px;
         color: #a0a0a0
     }
-    
+
     .personal-center-content-right {
         margin-left: 170px;
         background-color: #ffffff;
@@ -71,18 +71,18 @@
         overflow-y: auto;
         overflow-x: auto;
     }
-    
+
     .account-div {
         padding-left: 35px;
         padding-top: 100px
     }
-    
+
     .addr-management-div {
         padding-left: 20px;
         padding-right: 20px;
         padding-top: 50px;
     }
-    
+
     .container {
         padding-right: 15px;
         padding-left: 15px;
@@ -91,49 +91,49 @@
         width: 100%;
         height: auto;
     }
-    
+
     .row {
         width: 60%;
         margin-top: 12px;
     }
-    
+
     label.add-address-label {
         color: #0000ff;
     }
-    
+
     label.add-address-label:hover {
         text-decoration: underline;
         color: #0000bb;
     }
-    
+
     div.header1,
     div.footer1 {
         padding: 0;
         clear: left;
     }
-    
+
     .account-a {
         color: #2bb8aa;
     }
-    
+
     #changePasswordModal .modal-dialog {
         min-width: 650px;
     }
-    
+
     .customer-form {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         width: 100%;
         border-collapse: collapse;
         table-layout: fixed;
     }
-    
+
     .customer-form td,
     th {
         font-size: 1em;
         border: 1px solid #98bf21;
         padding: 3px 7px 2px 7px;
     }
-    
+
     .customer-form th {
         font-size: 1.1em;
         text-align: left;
@@ -142,38 +142,38 @@
         background-color: #A7C942;
         color: #ffffff;
     }
-    
+
     .customer-form tr.alt td {
         color: #000000;
         background-color: #EAF2D3;
     }
-    
+
     .address-form-pagination {
         float: right;
     }
-    
+
     .default_label {
         color: #09c513;
     }
-    
+
     .modal-header {
         background-color: #f8f8f8;
     }
-    
+
     .add_addr_div {
         margin-left: 5%;
         margin-top: 5%;
     }
-    
+
     .select-div {
         padding-top: 0.5%;
     }
-    
+
     .selectTip {
         padding-left: 0;
         margin-left: 0;
     }
-    
+
     #myAddrModal .modal-dialog {
         min-width: 800px;
     }
@@ -187,10 +187,6 @@
     <script type="text/javascript">
     var isFirstAddress = 0;
 
-    var show_addr = "{% url 'mainpage:show_first_page' %}";
-    var del_addr = "{% url 'mainpage:del_addr' %}";
-    var conf_default_addr = "{% url 'mainpage:conf_default_addr' %}";
-    var get_addr_count = "{% url 'mainpage:get_address_count' %}"
 
 
 
@@ -269,12 +265,12 @@
                         $.get("#", function(data, status) { //获得用户地址信息数
                             data = 14;
                             addrs_total_num = data;
+                            $(".addr-list").empty();
                             if (data == 0) {
                                 isFirstAddress = 1;
-                                $(".addr-list").empty();
                                 $('<h5>您还没有添加任何地址信息，赶快添加吧！</h5>').appendTo(".addr-list");
                             } else {
-                                showAddrTable(data, show_addr, del_addr, conf_default_addr, get_addr_count);
+                                showAddrTable(data);
                             }
 
                         });
@@ -344,7 +340,7 @@
                             $('<h5>您还没有添加任何地址信息，赶快添加吧！</h5>').appendTo(".addr-list");
                         } else {
                             $(".addr-list").empty();
-                            showAddrTable(data, show_addr, del_addr, conf_default_addr, get_addr_count);
+                            showAddrTable(data);
                         }
 
                     });
