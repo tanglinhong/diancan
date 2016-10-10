@@ -2,8 +2,7 @@
 
 --*/
 body{
-	/*background:#eaeaea;*/
-	background:url("images/back.png") repeat-y center;
+	background:#eaeaea;
 	font-family: 'Rokkitt', serif;
 }
 body a{
@@ -18,13 +17,12 @@ body a{
 	margin: 0;
 }
 h1,h2,h3,h4,h5,h6,label,p{
-	margin:0;
+	margin:0;	
 }
-
 .header{
-	background:url("images/back.png") no-repeat center;
+	background:url("images/back.jpg") no-repeat center;
 	width:100%;
-	min-height:200px;
+	min-height:798px;
 	display:block;
 	background-size:cover;
 }
@@ -35,42 +33,14 @@ h1,h2,h3,h4,h5,h6,label,p{
 	display:block;
 	background-size:cover;
 }
-.header-top-bar{
-	width:100%;
-
-}
-.header-grid{
-	position:absolute;
-	left:70%;
-    width:300px;
-    height:auto;
-}
-.header-grid li{
-	display:inline-block;
-
-}
-
-.header-grid li a{
-	text-decoration:none;
-	color:#000000;
-	font-size:1.4em;
-}
-.header-grid li a:hover{
-	color:#aa381e;
-	cursor: pointer;
-}
-.header-grid li label{
-	color:#7a7a7a;
-	font-size:1.2em;
-}
 .logo h1{
-	font-size:3.0em;
+	font-size:3.5em;
 	font-family: 'Lobster Two', cursive;
-	text-align:left;
+	text-align:center;
 }
 .logo h1 a{
 	text-decoration:none;
-	color:#000000;
+	color:#fff;
 }
 .logo {
 	padding-top: 3em;
@@ -81,7 +51,7 @@ h1,h2,h3,h4,h5,h6,label,p{
 }
 .grid-header{
 	float:right;
-	padding-top: 1em;
+	padding-top: 1em;	
 }
 .header-grid {
 	float: left;
@@ -91,19 +61,18 @@ h1,h2,h3,h4,h5,h6,label,p{
 	width: 43%;
 	float:right;
 }
-.grid-header li{
+.header-grid li,.grid-header li{
 	display:inline-block;
-
 }
-.grid-header li a{
+.header-grid li a,.grid-header li a{
 	text-decoration:none;
 	color:#7a7a7a;
 	font-size:1.4em;
 }
-.grid-header li a:hover{
+.header-grid li a:hover,.grid-header li a:hover{
 	color:#aa381e;
 }
-.grid-header li label{
+.header-grid li label,.grid-header li label{
 	color:#7a7a7a;
 	font-size:1.2em;
 }
@@ -161,11 +130,11 @@ a.done:after{
 /*----*/
 .top-nav span.menu:before{
 	content: url("images/menu.png")no-repeat 0px 0px;
-	cursor:pointer;
+	cursor:pointer;	
 	width:100%;
 }
 .top-nav span.menu{
-	display:none;
+	display: none;
 }
 /*--responsive media-quries--*/
 @media(max-width:768px){
@@ -210,7 +179,7 @@ a.done:after{
 .search{
 	float:right;
 	position:relative;
-	width:50%;
+	width:23%;
 	background:#f6f6f6;
 	border-radius:5px;
 	-webkit-border-radius: 5px;
@@ -225,7 +194,7 @@ a.done:after{
 	-o-border-radius: 4px;
 	-moz-border-radius: 4px;
 	-ms-border-radius: 4px;
-	padding: 1em;
+	padding: 1em;	
 	margin: 2em 0 0;
 }
 .search input[type="text"] {
@@ -235,9 +204,9 @@ a.done:after{
 	width: 79.33%;
 	border: none;
 	font-size:1.2em;
-	color:#a9a7a7;
+	color:#a9a7a7;	
 }
-.search input[type="submit"] {
+.search input[type="submit"] {	
 	width: 30px;
 	height: 36px;
 	background: url("images/img-sprite.png") -45px -9px no-repeat;
@@ -263,7 +232,7 @@ a.done:after{
 .banner-in{
 	background:url("images/banner.jpg") no-repeat center;
 	width:100%;
-	min-height:300px;
+	min-height:400px;
 	display:block;
 	background-size:cover;
 	border-radius: 14px;
@@ -372,7 +341,7 @@ ul.number{
 	padding-top:2em;
 }
 ul.number li{
-	list-style:none;
+	list-style:none;	
 }
 ul.number li a{
 	text-decoration:none;
@@ -383,7 +352,7 @@ ul.number li span{
 ul.number li a,ul.number li span{
 	color:#2e8e26;
 	padding:0.4em 0;
-	display:block;
+	display:block;	
 	border-bottom:1px solid #BAB6B6;
 	font-size: 1.7em;
 }
@@ -626,7 +595,7 @@ a.more{
 	-moz-transition: 0.8s;
 	-o-transition: 0.8s;
 	transition: 0.8s;
-
+	
 }
 /*--special--*/
 .specials{
@@ -815,7 +784,7 @@ ul.comment-list img {
 	line-height: 1.2em;
 }
 .sub-in input[type="submit"]:hover{
-	background: #aa381e;
+	background: #aa381e;	
 }
 .single {
 	padding: 5em 0;
@@ -958,11 +927,11 @@ p.cart a:hover {
 	-ms-border-radius: 10px;
 	outline:none;
 	color:#464646;
-	font-size:1em;
+	font-size:1em;	
 }
 .contact-left textarea{
 	resize:none;
-	height:100px;
+	height:100px;		
 }
 .contact-left input[type="submit"]{
 	outline:none;
@@ -1065,11 +1034,11 @@ span.word-in{
 	-ms-border-radius: 10px;
 	outline:none;
 	color:#464646;
-	font-size:1em;
+	font-size:1em;	
 }
 .account textarea{
 	resize:none;
-	height:60px;
+	height:60px;		
 }
 .account input[type="submit"]{
 	outline:none;
@@ -1112,7 +1081,7 @@ a.forgot {
 .footer{
 	background:url("images/footer.png") no-repeat center;
 	width:100%;
-	min-height:50px;
+	min-height:250px;
 	display:block;
 	background-size:cover;
 	padding-top:3em;

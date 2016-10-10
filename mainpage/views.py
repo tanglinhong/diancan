@@ -156,3 +156,6 @@ def conf_default_addr(request):
 		return HttpResponse(1)
 	except:
 		return HttpResponse(0)
+
+def jmp_to_shop_manager(request):
+	return render(request, 'mainpage/shopindex.html', {'user': request.user})
