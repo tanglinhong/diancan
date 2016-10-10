@@ -4,4 +4,4 @@
 #ban pyc folder
 __pycache__/
 migrations/
-settings
+settings.py
