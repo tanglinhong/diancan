@@ -7,13 +7,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'mainpage/css/bootstrap.css' %}" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'mainpage/js/jquery.min.js' %}"></script>
+    <script src="{% static 'mainpage/js/mainpage_get_data.js' %}"></script>
     <!-- Custom Theme files -->
     <!--theme-style-->
     <link href="{% static 'mainpage/css/indexstyle.css' %}" rel="stylesheet" type="text/css" />
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Food shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+    <meta name="keywords" content="Food shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
     <script type="application/x-javascript">
     addEventListener("load", function() {
@@ -41,81 +42,95 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
     });
     </script>
+    <style type="text/css">
+    .dropdown-top {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content-top {
+        z-index: 10;
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 0;
+    }
+
+    .dropdown-top:hover .dropdown-content-top {
+        display: block;
+    }
+
+    .dropdown-content-top a {
+        text-align: center;
+        display: block;
+        border-bottom: 1px solid #7a7a7a;
+        font-size: 0.1em;
+    }
+    </style>
 </head>
 
 <body>
     <!--header-->
     <div class="header">
         <div class="container">
-            <div class="logo">
-                <h1><a href="{% url 'mainpage:index' %}">Food Shop</a></h1>
-            </div>
-            <div class="header-top">
-                <div class="header-top-in">
-                    <ul class="header-grid">
-                        {% if user.username != '' %}
-                        <li><a href="{% url 'login:log_out' %}">Logout</a></li>
-                        {% else %}
-                        <li><a href="{% url 'login:index' %}">Login </a></li>
-                        <label>/</label>
-                        <li><a href="{% url 'login:jmp_to_register' %}">Register</a></li>
-                        {% endif %}
-                    </ul>
-                    <div class="act">
-                        <a href="" class="done">Welcome</a>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <ul class="grid-header">
+            <div class="header-top-bar">
+                <ul class="header-grid">
                     {% if user.username != '' %}
-                    <li><a href="{% url 'mainpage:personal_center' %}">{{user.username}}</a>
-                        <label>/</label>
+                    <script type="text/javascript">
+                    $(".header-grid").css("left", "70%");
+                    </script>
+                    <li style="margin-right: 10px">
+                        <div class="dropdown-top">
+                            <a href="#">欢迎您，{{user.username}}</a>
+                            <div class="dropdown-content-top">
+                                <a href="{% url 'mainpage:personal_center' %}" style="font-size: 1.1em">个人中心</a>
+                                <a href="{% url 'login:log_out' %}" style="border-bottom: none;font-size: 1.1em">退出</a>
+                            </div>
+                        </div>
                     </li>
+                    <li>
+                        <a href="#"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"></img>
+                            <script type="text/javascript">
+                            $(".shopping-car").click(function() {
+                                //---转入购物车模块
+
+                            });
+                            </script>
+                    </li>
+                    <li><a href="#" style="color: #7a7a7a">卖家中心</a></li>
                     {% else %}
+                    <script type="text/javascript">
+                    $(".header-grid").css("left", "85%");
+                    </script>
+                    <li><a href="{% url 'login:index' %}">登录</a></li>
+                    <label>|</label>
+                    <li style="margin-right: 10px"><a href="{% url 'login:jmp_to_register' %}">注册</a></li>
                     {% endif %}
-                    <li><a href="#">My Cart</a>
-                        <label>/</label>
-                    </li>
-                    <li><a href="checkout.html">  Checkout </a> </li>
                 </ul>
-                <div class="clearfix"> </div>
             </div>
-            <!---->
-            <div class="header-bottom">
-                <div class="top-nav">
-                    <span class="menu"> </span>
-                    <ul>
-                        <li class="active"><a href="index.html">Home  </a>
-                            <label>- </label>
-                        </li>
-                        <li><a href="{% url 'mainpage:location' %}"> Locations</a>
-                            <label>- </label>
-                        </li>
-                        <li><a href="specials.html">Specials </a>
-                            <label>- </label>
-                        </li>
-                        <li><a href="404.html"> Order Online</a>
-                            <label>- </label>
-                        </li>
-                        <li><a href="contact.html">Contacts</a></li>
-                    </ul>
-                    <!--script-->
-                    <script>
-                    $("span.menu").click(function() {
-                        $(".top-nav ul").slideToggle(500, function() {});
+            <div class="logo">
+                <h1><a href="{% url 'mainpage:index' %}">点餐课设</a></h1>
+                <div class="search" style="margin-top:-2.5em">
+                    <form>
+                        <input type="text" value="搜美食、搜商家、吃货的世界" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '';}">
+                        <input type="submit" value="">
+                    </form>
+                    <script type="text/javascript">
+                    $(".search form").submit(function() {
+                        //调用查询；
+                        var keywords=$.trim($(".search form input:first").val());
+                        console.log("搜索关键词："+keywords);
+                        if (keywords!="") {
+                            queryShop(keywords);
+                        }
+
+
                     });
                     </script>
                 </div>
-                <div class="search">
-                    <form>
-                        <input type="text" value="Search store here ..." onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '';}">
-                        <input type="submit" value="">
-                    </form>
-                </div>
-                <div class="clearfix"> </div>
             </div>
-            <!---->
-            <div class="copyrights">Collect from <a href="http://www.cssmoban.com/">企业网站模板</a></div>
             <div class="banner">
                 <div class="banner-in">
                     <!---->
@@ -130,14 +145,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </article>
                             <article style="position: absolute; width: 100%; opacity: 0;">
                                 <div class="banner-wrap">
-                                    <h2>Raesent coodo </h2>
+                                    <h2>Raesent  </h2>
                                     <h5>Mollis voluipun</h5>
                                     <p>Neque rutrum <span>enmos ligu sed lorbei</span></p>
                                 </div>
                             </article>
                             <article style="position: absolute; width: 100%; opacity: 0;">
                                 <div class="banner-wrap">
-                                    <h2>Raesent coodo </h2>
+                                    <h2>coodo </h2>
                                     <h5>Mollis voluipun</h5>
                                     <p>Neque rutrum <span>enmos ligu sed lorbei</span></p>
                                 </div>
@@ -148,180 +163,209 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <script src="{% static 'mainpage/js/jquery.wmuSlider.js' %}"></script>
                     <script>
                     $('.example1').wmuSlider({
-                        pagination: false,
+                        pagination: true,
                     });
                     </script>
                     <!---->
                 </div>
             </div>
+            <!---->
+            <div class="header-bottom">
+                <div class="top-nav">
+                    <ul>
+                        <li class="active"><a href="#">销量</a>
+                            <label>| </label>
+                        </li>
+                        <li><a href="#">评价</a>
+                            <label>|</label>
+                        </li>
+                        <li>
+                            <div>
+                                <a href="#">起送价筛选</a>
+                                <select class="price_select">
+                                    <option value="全部商家">全部商家</option>
+                                    <option value="10">10元以下</option>
+                                    <option value="20">20元以下</option>
+                                    <option value="30">30元以下</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <script type="text/javascript">
+                getShopInfoBySalesOrComments("销量", 1);
+                cur_page = 1;
+
+                $(".top-nav ul li").click(function() {
+                    if ($(this).hasClass("active") == false) {
+                        $(".top-nav ul li.active").removeClass("active");
+                        $(this).addClass("active");
+                        console.log("选中：" + $(this).find("a").html());
+                        if ($(this).find("a").html() == "起送价筛选") {
+                            getShopInfoByPrice($(".price_select").val(), 1);
+
+                        } else {
+                            $(".price_select").get(0).selectedIndex = 0;
+                            getShopInfoBySalesOrComments($(this).find("a").html(), 1);
+                        }
+                        cur_page = 1;
+
+
+                    }
+
+                });
+
+                $(".price_select").change(function() {
+                    $(".top-nav ul li.active").removeClass("active");
+                    $(".top-nav ul li:last").addClass("active");
+                    getShopInfoByPrice($(".price_select").val(), 1);
+                    cur_page = 1;
+                });
+                </script>
+                <div class="clearfix"> </div>
+            </div>
+            <!---->
         </div>
     </div>
     <!---->
     <div class="content">
         <div class="container">
             <div class="content-grid">
-                <div class="col-md-4 grid-food">
-                    <div class="popular">
-                        <h3>Popular Products</h3>
-                        <p>Lorem ipsum dolor site amet vivamus laoreet desp</p>
-                        <ul class="popular-in">
-                            <li><a href="single.html"><i> </i>Lorem ipsum dolor sit amet, consectetur </a></li>
-                            <li><a href="single.html"><i> </i>Sed in velit sed felis mollis vulputate vitae </a></li>
-                            <li><a href="single.html"><i> </i>Nulla id neque lacus, rutrum euismod ligu</a></li>
-                            <li><a href="single.html"><i> </i>Sed lobortis lorem nec orci vulputate</a></li>
-                        </ul>
+                <div class="food-grid">
+                    <div class="cup">
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html" data-shop-id="1"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <div class="mainpage-num-data">
+                                <p class="mainpage-sales-num">已销售<span class="sales-num">530</span>份</p>
+                                <p class="mainpage-score-comment">评价<span class="score-comment">4.8</span>分</p>
+                            </div>
+                            <div class="details-in">
+                                <p>起送价<span class="deliver-min-price">10</span>元,配送费<span class="deliver-fee">2</span>元</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html" data-shop-id="1"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <div class="mainpage-num-data">
+                                <p class="mainpage-sales-num">已销售<span class="sales-num">530</span>份</p>
+                                <p class="mainpage-score-comment">评价<span class="score-comment">4.8</span>分</p>
+                            </div>
+                            <div class="details-in">
+                                <p>起送价<span class="deliver-min-price">10</span>元,配送费<span class="deliver-fee">2</span>元</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html" data-shop-id="1"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <div class="mainpage-num-data">
+                                <p class="mainpage-sales-num">已销售<span class="sales-num">530</span>份</p>
+                                <p class="mainpage-score-comment">评价<span class="score-comment">4.8</span>分</p>
+                            </div>
+                            <div class="details-in">
+                                <p>起送价<span class="deliver-min-price">10</span>元,配送费<span class="deliver-fee">2</span>元</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html" data-shop-id="1"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <div class="mainpage-num-data">
+                                <p class="mainpage-sales-num">已销售<span class="sales-num">530</span>份</p>
+                                <p class="mainpage-score-comment">评价<span class="score-comment">4.8</span>分</p>
+                            </div>
+                            <div class="details-in">
+                                <p>起送价<span class="deliver-min-price">10</span>元,配送费<span class="deliver-fee">2</span>元</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html" data-shop-id="1"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <div class="mainpage-num-data">
+                                <p class="mainpage-sales-num">已销售<span class="sales-num">530</span>份</p>
+                                <p class="mainpage-score-comment">评价<span class="score-comment">4.8</span>分</p>
+                            </div>
+                            <div class="details-in">
+                                <p>起送价<span class="deliver-min-price">10</span>元,配送费<span class="deliver-fee">2</span>元</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html" data-shop-id="1"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <div class="mainpage-num-data">
+                                <p class="mainpage-sales-num">已销售<span class="sales-num">530</span>份</p>
+                                <p class="mainpage-score-comment">评价<span class="score-comment">4.8</span>分</p>
+                            </div>
+                            <div class="details-in">
+                                <p>起送价<span class="deliver-min-price">10</span>元,配送费<span class="deliver-fee">2</span>元</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="clearfix"> </div>
                     </div>
-                    <div class="popular phone">
-                        <h3>Order online/phone</h3>
-                        <p>Vivamus vel eros nulla sed pellentesque sem</p>
-                        <ul class="number">
-                            <li><span><i> </i>(000) 888 88888</span ></li>
-                        <li><a href="mailto:info@sitename.com"><i class="mail"> </i>info@sitename.com </a></li>                 
-                    </ul>
+                    <script type="text/javascript">
+                    $(".cup").on('click', ".cup .cup-in a", function(event) {
+                        event.preventDefault();
+                        var shopId = $(this).attr("data-shop-id");
+                        console("shop id:" + shopId);
+                        comeToSpecificShop(shopId);
+                    });
+                    </script>
                 </div>
-                <div class="popular">
-                    <h3>Crder online/phone</h3>
-                    <p>Cosectrurer admpsuing tempor nulla incidi esuismod</p>
-                    <form>
-                    <input type="text" value="your email id here" onFocus="this.value='';" onBlur="if (this.value == '') {this.value = 'your email id here';}">
-                    <input type="submit" value="Subscribe" >
-                    </form>
-                </div>
+                <div class="clearfix"> </div>
             </div>
-            <!---->
-            <div class="col-md-8 food-grid">
-                <div class="cup">
-                    <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/css/images/p1.jpg' %}" class="img-responsive" alt=""></a>
-                        <p>Lorem ipsum dolor sit consectetur</p>
-                        <span class="dollar">$25.89</span>
-                                <div class="details-in">
-                                    <a href="#" class="details">Details</a>
-                                </div>
-                                <div class="clearfix"> </div>
-                    </div>
-                    <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/css/images/p2.jpg' %}" class="img-responsive" alt=""></a>
-                        <p>Lorem ipsum dolor sit consectetur</p>
-                        <span class="dollar">$25.89</span>
-                        <div class="details-in">
-                            <a href="#" class="details">Details</a>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/css/images/p3.jpg' %}" class="img-responsive" alt=""></a>
-                        <p>Lorem ipsum dolor sit consectetur</p>
-                        <span class="dollar">$25.89</span>
-                        <div class="details-in">
-                            <a href="#" class="details">Details</a>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/css/images/p4.jpg' %}" class="img-responsive" alt=""></a>
-                        <p>Lorem ipsum dolor sit consectetur</p>
-                        <span class="dollar">$25.89</span>
-                        <div class="details-in">
-                            <a href="#" class="details">Details</a>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/css/images/p5.jpg' %}" class="img-responsive" alt=""></a>
-                        <p>Lorem ipsum dolor sit consectetur</p>
-                        <span class="dollar">$25.89</span>
-                        <div class="details-in">
-                            <a href="#" class="details">Details</a>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="col-md-4 cup-in">
-                        <a href="single.html"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
-                        <p>Lorem ipsum dolor sit consectetur</p>
-                        <span class="dollar">$25.89</span>
-                        <div class="details-in">
-                            <a href="#" class="details">Details</a>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <!---->
-                <div class="browse">
-                    <p class="vit">Mollis vitae oigu edlobit <span>vulipur felis ...</span></p>
-                    <a href="single.html" class="more">Browse More</a>
-                    <div class="clearfix"> </div>
-                    <div class="arrow">
-                        <a href="#"><img src="{% static 'mainpage/css/images/arrow.png' %}" alt=""></a>
-                    </div>
-                </div>
-                <!---->
-                <div class="content-sit">
-                    <div class="col-md-6 amet">
-                        <h3>Adpiscing labo</h3>
-                        <p>Lorem ipsum dolor sit amet </p>
-                        <div class="egg">
-                            <a href="single.html"><img src="{% static 'mainpage/css/images/pic.jpg' %}" class="img-responsive" alt=""></a>
-                        </div>
-                        <p class="para-in">Rem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incidi. </p>
-                    </div>
-                    <div class="col-md-6 amet-in">
-                        <h3>Consentur liqua</h3>
-                        <p>Lorem ipsum dolor sit amet </p>
-                        <div class="amet-grid">
-                            <div class="now"><span>Nov</span>2014</div>
-                            <p class="sed"><span>Lorem ipsum dolor sit amet </span> <span>consecteturLorem ipsum dolor sit</span> <span>amet, consectetur adipisicing</span></p>
-                            <div class="clearfix"> </div>
-                        </div>
-                        <div class="amet-grid">
-                            <div class="now"><span>Dec</span>2014</div>
-                            <p class="sed"><span>Lorem ipsum dolor sit amet </span> <span>consecteturLorem ipsum dolor sit</span> <span>amet, consectetur adipisicing</span></p>
-                            <div class="clearfix"> </div>
-                        </div>
-                        <div class="amet-grid">
-                            <div class="now"><span>Oct</span>2014</div>
-                            <p class="sed"><span>Lorem ipsum dolor sit amet </span> <span>consecteturLorem ipsum dolor sit</span> <span>amet, consectetur adipisicing</span></p>
-                            <div class="clearfix"> </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
+            <div class="chooser-pager">
+                <button class="btn btn-info  prev-pager btn-lg" style="margin-right: 10px">上一页</button>
+                <button class="btn btn-info next-pager btn-lg" style="margin-left:10px">下一页</button>
             </div>
-            <div class="clearfix"> </div>
+            <script type="text/javascript">
+                $(".prev-pager").click(function(){
+                    var choosedCondition=$(".top-nav ul li.active").find("a").text();
+                    if(choosedCondition!="起步价筛选"){
+                        getShopInfoForPrevBySalesOrComments(choosedCondition);
+
+                    }else{
+                        var selectorValue=$(".price_select").val();
+                        getShopInfoForPrevByLeastPrice(selectorValue);
+                    }
+
+
+
+                });
+                $(".next-pager").click(function(){
+                    var choosedCondition=$(".top-nav ul li.active").find("a").text();
+                    if(choosedCondition!="起步价筛选"){
+                        getShopInfoForNextBySalesOrComments(choosedCondition);
+
+                    }else{
+                        var selectorValue=$(".price_select").val();
+                        getShopInfoForNextByLeastPrice(selectorValue);
+                    }
+
+                });
+
+                function getConditionForPagerChooser(){
+
+
+                }
+            </script>
         </div>
-    </div>
     </div>
     <!---->
     <div class="footer">
         <div class="container">
-            <div class="col-md-8 footer-bottom ">
-                <h4>Aenean condimentum suscipit dolor</h4>
-                <p>Proin ullamcorper urna quis velit mollis molestie suscipit nisl consectetur uspendisse venenatis dolor et nunc iaculis ege</p>
-                <p class="footer-grid">Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-            </div>
-            <div class="col-md-4 footer-bottom ">
-                <h4>Muscipit dolor</h4>
-                <ul class="social-icons">
-                    <li><a href="#"><span> </span> </a></li>
-                    <li class="tin"><a href="#"><span> </span></a></li>
-                    <li class="linked"><a href="#"><span> </span> </a></li>
-                </ul>
+            <div class="footer-bottom ">
+                <p class="footer-grid">Copyright &copy; 2015.Company name All rights reserved.More Templates </p>
             </div>
             <div class="clearfix"> </div>
         </div>
     </div>
     <script type="text/javascript">
     $(document).ready(function() {
-        /*
-                            var defaults = {
-                                containerID: 'toTop', // fading element id
-                                containerHoverID: 'toTopHover', // fading element hover id
-                                scrollSpeed: 1200,
-                                easingType: 'linear' 
-                            };
-                            */
-
         $().UItoTop({
             easingType: 'easeOutQuart'
         });
