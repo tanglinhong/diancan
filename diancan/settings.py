@@ -31,6 +31,7 @@ AUTH_USER_MODEL = 'login.User'
 # Application definition
 
 INSTALLED_APPS = [
+    'shopmgr.apps.ShopmgrConfig',
     'login.apps.LoginConfig',
     'mainpage.apps.MainpageConfig',
     'django.contrib.admin',

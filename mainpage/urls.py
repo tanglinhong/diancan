@@ -18,5 +18,4 @@ urlpatterns = [
     url(r'^show_first_page$', views.show_first_page, name="show_first_page"),
     url(r'^del_addr$', views.del_addr, name="del_addr"),
     url(r'^conf_default_addr$', views.conf_default_addr, name="conf_default_addr"),
-    url(r'^jmp_to_shop_manager$', views.jmp_to_shop_manager, name="jmp_to_shop_manager"),
 ]

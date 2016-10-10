@@ -51,14 +51,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <ul class="header-grid">
                     {% if user.username != '' %}
                     <script type="text/javascript">
-                    $(".header-grid").css("left", "70%");
+                    $(".header-grid").css("left", "65%");
                     </script>
                     <li style="margin-right: 10px"><a href="{% url 'mainpage:personal_center' %}">欢迎您，{{user.username}}</a>
                     </li>
                     <li>
-                        <a href="#"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' % }"></img>
+                        <a href="#"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"/></a>
                     </li>
-                    <li><a href="{% url 'mainpage:jmp_to_shop_manager' %}" style="color: #7a7a7a">卖家中心</a></li>
+                    <li><a href="{% url 'shopmgr:index' %}" style="color: #7a7a7a">卖家中心</a></li>
                      <li><a href="{% url 'login:log_out' %}">退出</a></li>
                     {% else %}
                     <script type="text/javascript">

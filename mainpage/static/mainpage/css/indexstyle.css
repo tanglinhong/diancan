@@ -3,7 +3,7 @@
 --*/
 body{
 	/*background:#eaeaea;*/
-	background:url("images/back.png") repeat-y center;
+	background:url("images/back.jpg") repeat-y center;
 	font-family: 'Rokkitt', serif;
 }
 body a{
@@ -22,7 +22,7 @@ h1,h2,h3,h4,h5,h6,label,p{
 }
 
 .header{
-	background:url("images/back.png") no-repeat center;
+	background:url("images/back.jpg") no-repeat center;
 	width:100%;
 	min-height:200px;
 	display:block;
