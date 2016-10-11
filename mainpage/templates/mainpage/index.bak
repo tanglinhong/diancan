@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'mainpage/css/bootstrap.css' %}" />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'mainpage/js/jquery.min.js' %}"></script>
+    <!-- Custom Theme files -->
+    <!--theme-style-->
+    <link href="{% static 'mainpage/css/indexstyle.css' %}" rel="stylesheet" type="text/css" />
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Food shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript">
+    addEventListener("load", function() {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+    </script>
+    <!--fonts-->
+    <!-- <link href='http://fonts.useso.com/css?family=Rokkitt:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.useso.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+ -->
+    <!--//fonts-->
+    <script type="text/javascript" src="{% static 'mainpage/js/move-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'mainpage/js/easing.js' %}"></script>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event) {
+            event.preventDefault();
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 1000);
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        <div class="container">
+            <div class="header-top-bar">
+                <ul class="header-grid">
+                    {% if user.username != '' %}
+                    <script type="text/javascript">
+                    $(".header-grid").css("left", "65%");
+                    </script>
+                    <li style="margin-right: 10px"><a href="{% url 'mainpage:personal_center' %}">欢迎您，{{user.username}}</a>
+                    </li>
+                    <li>
+                        <a href="#"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"/></a>
+                    </li>
+                    <li><a href="{% url 'shopmgr:index' %}" style="color: #7a7a7a">卖家中心</a></li>
+                     <li><a href="{% url 'login:log_out' %}">退出</a></li>
+                    {% else %}
+                    <script type="text/javascript">
+                    $(".header-grid").css("left", "85%");
+                    </script>
+                    <li><a href="{% url 'login:index' %}">登录</a></li>
+                    <label>|</label>
+                    <li style="margin-right: 10px"><a href="{% url 'login:jmp_to_register' %}">注册</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="logo">
+                <h1><a href="{% url 'mainpage:index' %}">点餐课设</a></h1>
+                <div class="search" style="margin-top:-2.5em">
+                    <form>
+                        <input type="text" value="Search store here ..." onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '';}">
+                        <input type="submit" value="">
+                    </form>
+                </div>
+            </div>
+            <div class="banner">
+                <div class="banner-in">
+                    <!---->
+                    <div class="wmuSlider example1">
+                        <div class="wmuSliderWrapper">
+                            <article style="position: absolute; width: 100%; opacity: 0;">
+                                <div class="banner-wrap">
+                                    <h2>Raesent coodo </h2>
+                                    <h5>Mollis voluipun</h5>
+                                    <p>Neque rutrum <span>enmos ligu sed lorbei</span></p>
+                                </div>
+                            </article>
+                            <article style="position: absolute; width: 100%; opacity: 0;">
+                                <div class="banner-wrap">
+                                    <h2>Raesent  </h2>
+                                    <h5>Mollis voluipun</h5>
+                                    <p>Neque rutrum <span>enmos ligu sed lorbei</span></p>
+                                </div>
+                            </article>
+                            <article style="position: absolute; width: 100%; opacity: 0;">
+                                <div class="banner-wrap">
+                                    <h2>coodo </h2>
+                                    <h5>Mollis voluipun</h5>
+                                    <p>Neque rutrum <span>enmos ligu sed lorbei</span></p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <!---->
+                    <script src="{% static 'mainpage/js/jquery.wmuSlider.js' %}"></script>
+                    <script>
+                    $('.example1').wmuSlider({
+                        pagination: true,
+                    });
+                    </script>
+                    <!---->
+                </div>
+            </div>
+            <!---->
+            <div class="header-bottom">
+                <div class="top-nav">
+                    <ul>
+                        <li class="active"><a href="index.html">销量</a>
+                            <label>| </label>
+                        </li>
+                        <li><a href="{% url 'mainpage:location' %}">评价</a>
+                            <label>|</label>
+                        </li>
+                        <li><a href="#">起送价筛选</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+                <!-- 为什么需要这个 -->
+            </div>
+            <!---->
+        </div>
+    </div>
+    <!---->
+    <div class="content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="food-grid">
+                    <div class="cup">
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html"><img src="{% static 'mainpage/css/images/p1.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <span class="dollar">$25.89</span>
+                            <div class="details-in">
+                                <!-- <a href="#" class="details">Details</a> -->
+                                <button class="details" onclick="redirect()">Details</button>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html"><img src="{% static 'mainpage/css/images/p2.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <span class="dollar">$25.89</span>
+                            <div class="details-in">
+                                <a href="#" class="details">Details</a>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html"><img src="{% static 'mainpage/css/images/p3.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <span class="dollar">$25.89</span>
+                            <div class="details-in">
+                                <a href="#" class="details">Details</a>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html"><img src="{% static 'mainpage/css/images/p4.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <span class="dollar">$25.89</span>
+                            <div class="details-in">
+                                <a href="#" class="details">Details</a>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html"><img src="{% static 'mainpage/css/images/p5.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <span class="dollar">$25.89</span>
+                            <div class="details-in">
+                                <a href="#" class="details">Details</a>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <span class="dollar">$25.89</span>
+                            <div class="details-in">
+                                <a href="#" class="details">Details</a>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                        <script type="text/javascript">
+                            function redirect(){
+                                $.post("{% url 'mainpage:location' %}", {csrfmiddlewaretoken: '{{csrf_token}}',shop_id:1})
+                            }
+                        </script>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!---->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-bottom ">
+                <p class="footer-grid">Copyright &copy; 2015.Company name All rights reserved.More Templates </p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $().UItoTop({
+            easingType: 'easeOutQuart'
+        });
+
+    });
+    </script>
+    <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+</body>
+
+</html>

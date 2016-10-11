@@ -156,9 +156,3 @@ def conf_default_addr(request):
 		return HttpResponse(1)
 	except:
 		return HttpResponse(0)
-
-def jmp_to_shop_detail(request, shop_id):
-	return HttpResponseRedirect(reverse('mainpage:shop_detail', args=(shop_id,)))
-
-def shop_detail(request, shop_id):
-	return render(request,'mainpage/shoper_detail.html', {'shop_id':shop_id})

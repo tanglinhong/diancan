@@ -229,7 +229,7 @@ $(document).ready(function() {
         $('<option></option>').html("--区县--").appendTo(".xian_select");
 
         $(".selectTip").css("visibility", "hidden");
-        fname =  "{% static 'mainpage/data/' %}" + fname + "_xian.xml";
+        fname = "{% static 'mainpage/data/' %}" + fname + "_xian.xml";
         $.ajax({
             url: fname,
             success: function(result) {
@@ -362,23 +362,23 @@ $(document).ready(function() {
             if (shengfen == undefined) {
                 shengfen = ''
             }
-            if (chengshi == undefined){
+            if (chengshi == undefined) {
                 chengshi = ''
             }
-            if( quxian == undefined ){
+            if (quxian == undefined) {
                 quxian = ''
             }
-            if( jiedao == undefined ){
+            if (jiedao == undefined) {
                 jiedao = ''
             }
-            if(shouhuoren == undefined){
+            if (shouhuoren == undefined) {
                 shouhuoren = ''
             }
-            if( shoujihao == undefined ){
+            if (shoujihao == undefined) {
                 shoujihao = ''
             }
             //将完善信息存入数据库中,且为默认地址
-                $.post("{% url 'mainpage:complete' %}", {
+            $.post("{% url 'mainpage:complete' %}", {
                 csrfmiddlewaretoken: '{{csrf_token}}',
                 phone: completePhone,
                 email: completeEmail,
@@ -388,14 +388,14 @@ $(document).ready(function() {
                 street: jiedao,
                 consignee: shouhuoren,
                 consignphone: shoujihao,
-                postcode:youbian,
+                postcode: youbian,
                 moren: true
             }, function(result, status) {
                 if (result == 1) { //信息插入成功
                     alert("信息插入成功");
                     //转入主页；
                     location.href = "{% url 'mainpage:index' %}";
-                    
+
 
                 } else {
                     alert("信息插入失败");
