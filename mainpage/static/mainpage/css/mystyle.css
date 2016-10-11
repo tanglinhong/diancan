@@ -152,6 +152,6 @@ label.tip{
 }
 
 label.valid{
-    background: url('images/user.png') no-repeat left center;
+    background: url('images/valid.png') no-repeat left center;
     width: 32px;
 }
