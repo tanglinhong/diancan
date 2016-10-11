@@ -55,19 +55,31 @@
     <!--header-->
     <div class="header">
         <div class="container">
-            <div class="header-top-bar">
+           <div class="header-top-bar">
                 <ul class="header-grid">
                     {% if user.username != '' %}
                     <script type="text/javascript">
                     $(".header-grid").css("left", "70%");
                     </script>
-                    <li style="margin-right: 10px"><a href="{% url 'mainpage:personal_center' %}">欢迎您，{{user.username}}</a>
+                    <li style="margin-right: 10px">
+                        <div class="dropdown-top">
+                            <a href="#">欢迎您，{{user.username}}</a>
+                            <div class="dropdown-content-top">
+                                <a href="{% url 'mainpage:personal_center' %}" style="font-size: 1.1em">个人中心</a>
+                                <a href="{% url 'login:log_out' %}" style="border-bottom: none;font-size: 1.1em">退出</a>
+                            </div>
+                        </div>
                     </li>
                     <li>
-                        <a href="#"><img class="shopping-car" src="mainpage/images/shoppingcar"></img>
+                        <a href="#"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"></img></a>
+                            <script type="text/javascript">
+                            $(".shopping-car").click(function() {
+                                //---转入购物车模块
+
+                            });
+                            </script>
                     </li>
-                    <li><a href="#" style="color: #7a7a7a">卖家中心</a></li>
-                    <!--  <li><a href="{% url 'login:log_out' %}">退出</a></li> -->
+                    <li><a href="{% url 'shopmgr:index' %}" style="color: #7a7a7a">卖家中心</a></li>
                     {% else %}
                     <script type="text/javascript">
                     $(".header-grid").css("left", "85%");
@@ -79,7 +91,10 @@
                 </ul>
             </div>
             <div class="logo">
-                <h1><a href="{% url 'mainpage:index' %}">点餐课设</a></h1>
+                <h1>
+
+                    <a href="{% url 'mainpage:index' %}">点餐课设</a><a href="{% url 'mainpage:location' %}" style="margin-left:10px；font-size: 1em；color:#f00">我的位置：<span class="my-location">南京</span></a>
+                </h1>
                 <div class="search" style="margin-top:-2.5em">
                     <form>
                         <input type="text" value="Search store here ..." onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '';}">
@@ -91,7 +106,7 @@
                 <div class="shoper-detail-bar">
                     <div class="dropdown">
                         <div class="shop-detail-left ">
-                            <img class="shop-img" src="images/p1.jpg"></img>
+                            <img class="shop-img" src="{% static 'mainpage/css/images/p1.jpg' %}"></img>
                             <div class="part-detail">
                                 <ul class="part-detail-ul">
                                     <li class="shop-name">黄焖鸡米饭理工大店</li>

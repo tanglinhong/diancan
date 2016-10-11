@@ -91,7 +91,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </li>
                     <li>
-                        <a href="#"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"></img>
+                        <a href="#"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"></img></a>
                             <script type="text/javascript">
                             $(".shopping-car").click(function() {
                                 //---转入购物车模块
@@ -99,7 +99,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             });
                             </script>
                     </li>
-                    <li><a href="#" style="color: #7a7a7a">卖家中心</a></li>
+                    <li><a href="{% url 'shopmgr:index' %}" style="color: #7a7a7a">卖家中心</a></li>
                     {% else %}
                     <script type="text/javascript">
                     $(".header-grid").css("left", "85%");
@@ -111,7 +111,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </ul>
             </div>
             <div class="logo">
-                <h1><a href="{% url 'mainpage:index' %}">点餐课设</a></h1>
+                <h1>
+
+                    <a href="{% url 'mainpage:index' %}">点餐课设</a><a href="{% url 'mainpage:location' %}" style="margin-left:10px；font-size: 1em；color:#f00">我的位置：<span class="my-location">南京</span></a>
+                </h1>
                 <div class="search" style="margin-top:-2.5em">
                     <form>
                         <input type="text" value="搜美食、搜商家、吃货的世界" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '';}">
