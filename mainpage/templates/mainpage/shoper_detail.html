@@ -33,6 +33,14 @@
     <script type="text/javascript" src="{% static 'mainpage/js/easing.js' %}"></script>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
+        // var shop_id=request["shop_id"];
+        var shopId={{shop_id}};
+        console.log("shoper_detail get shop id:"+shopId);
+        //在此处获取店铺的信息。
+
+
+
+
         $(".scroll").click(function(event) {
             event.preventDefault();
             $('html,body').animate({

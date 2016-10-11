@@ -1,6 +1,23 @@
 var shop_limit = 6;
 var cur_page;
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
 function getShopInfoBySalesOrComments(condition, pagenum) {
     if (pagenum >= 1) {
         var success = true; //标志数据库中是否存在该所需页,在底下的条件中当未取到数据时设置success=false,并进行提醒
@@ -105,6 +122,8 @@ function queryShop(keywords){//根据顶部搜索栏的搜索词进行搜索
 
 function comeToSpecificShop(shop_id){
     //传进商店id，根据商店id获得商店信息，然后转入商家页面；
+    //alert(shop_id);
+    $.post("/mainpage/shop_detail",{csrfmiddlewaretoken: csrftoken,shop_id:shop_id});
 }
 
 

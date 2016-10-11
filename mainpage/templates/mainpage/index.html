@@ -234,7 +234,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="food-grid">
                     <div class="cup">
                         <div class="col-md-4 cup-in">
-                            <a href="single.html" data-shop-id="1"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <a href="#" data-shop-id="1"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
                             <p>Lorem ipsum dolor sit consectetur</p>
                             <div class="mainpage-num-data">
                                 <p class="mainpage-sales-num">已销售<span class="sales-num">530</span>份</p>
@@ -311,8 +311,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $(".cup").on('click', ".cup .cup-in a", function(event) {
                         event.preventDefault();
                         var shopId = $(this).attr("data-shop-id");
-                        console("shop id:" + shopId);
-                        comeToSpecificShop(shopId);
+                        console.log("shop id:" + shopId);
+                        location.href = shopId + "/jmp_to_shop_detail/";
                     });
                     </script>
                 </div>
