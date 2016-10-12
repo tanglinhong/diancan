@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的购物车</title>
+    <link href="{% static 'mainpage/css/bootstrap.min.css' %}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet"  href="{% static 'mainpage/css/shopping-car.css' %}">
+    <script src="{% static 'mainpage/js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'mainpage/js/shoppingcar.js' %}"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        initialTable();
+
+
+       $("span.multiply").after('<span class="renminbi">¥</span>');
+       $(".total-price").before('<span class="renminbi">¥</span>');
+        $(".shoppingcar-container").on("click", ".plus", function() {
+            var currentCount = parseInt($(this).prev().val())+1;
+            $(this).prev().val(currentCount);
+            $(this).parents("td").siblings().find("span.count").text(currentCount);
+            recalculateTotalPrice($(this).parents("table"));
+
+
+
+        });
+
+        $(".shoppingcar-container").on("click", ".decrease", function() {
+            if($(this).next().val()==1){
+
+            }else{
+                var currentCount = parseInt($(this).next().val())-1;
+                $(this).next().val(currentCount);
+                $(this).parents("td").siblings().find("span.count").text(currentCount);
+                recalculateTotalPrice($(this).parents("table"));
+
+            }
+
+
+        });
+
+        $(".shoppingcar-container").on("click",".delete",function(){
+            var $table=$(this).parents("table");
+            var isEmpty=checkTableEmpty($table);
+            if(isEmpty==false){
+                $(this).parents("tr").remove();
+                recalculateTotalPrice($table);
+            }
+        });
+
+         $(".shoppingcar-container").on("click",".ensure",function(){
+            var $table=$(this).parents("table");
+
+
+        });
+
+
+         $(".shoppingcar-container").on("click",".cancel",function(){
+            var $table=$(this).parents("table");
+            cancelOrder($table);
+
+
+
+        });
+
+
+
+    });
+    </script>
+</head>
+
+<body>
+    <div style="text-align: center;margin-top:30px" class="content">
+        <div class="shoppingcar-container">
+
+            <table id="customers">
+                <thead>
+                    <th colspan="3" data-shop-id="1" class="shop-name-th">黄焖鸡米饭理工大店</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="60%" colspan="2" class="description">
+                            <ul style="float:left">
+                                <li>
+                                    <img data-food-id="1" src="st4.jpg" class="food-img">
+                                </li>
+                                <li style="margin-left: 1.5em;">
+                                    <div style="text-align: center" class="shoppingcar-description">
+                                        <p style="">黄焖鸡米饭</p>
+                                        <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td width="40%" class="operation">
+                            <ul style="float:left">
+                                <li>
+                                    <button class="decrease" style="width:25px;height:30px;background:#c8e1ef;color:#fff">-</button>
+                                    <input class="good-count" type="text" style="width:30px;height:30px;align:center" value="1"></input>
+                                    <button class="plus" style="width:25px;height:30px;background:#c8e1ef;color:#fff">+</button>
+                                </li>
+                                <li style="margin-left: 1.5em;margin">
+                                    <button class="btn btn-danger delete">删除</button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="60%" colspan="2" class="description">
+                            <ul style="float:left">
+                                <li>
+                                    <img  data-food-id="1" src="st4.jpg">
+                                </li>
+                                <li style="margin-left: 1.5em" >
+                                    <div style="text-align: center;margin-top:1em;" class="shoppingcar-description">
+                                        <p>黄焖鸡米饭</p>
+                                        <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td width="40%" class="operation">
+                            <ul style="float:left">
+                                <li>
+                                    <button class="decrease" style="width:25px;height:30px;background:#c8e1ef;color:#fff">-</button>
+                                    <input class="good-count" type="text" style="width:30px;height:30;align:center" value="1"></input>
+                                    <button class="plus" style="width:25px;height:30px;background:#c8e1ef;color:#fff">+</button>
+                                </li>
+                                <li style="margin-left: 1.5em;margin">
+                                    <button class="btn btn-danger delete">删除</button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="60%" colspan="2" class="description">
+                            <ul style="float:left">
+                                <li>
+                                    <img data-food-id="1" src="st4.jpg">
+                                </li>
+                                <li style="margin-left: 1.5em;">
+                                    <div style="text-align: center" class="shoppingcar-description">
+                                        <p style="">黄焖鸡米饭</p>
+                                        <p><span class="count">1</span>x<span class="dollar">16</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td width="40%" class="operation">
+                            <ul style="float:left">
+                                <li>
+                                    <button class="decrease" style="width:25px;height:30px;background:#c8e1ef;color:#fff">-</button>
+                                    <input class="good-count" type="text" style="width:30px;height:30px;align:center" value="1"></input>
+                                    <button class="plus" style="width:25px;height:30px;background:#c8e1ef;color:#fff">+</button>
+                                </li>
+                                <li style="margin-left: 1.5em;margin">
+                                    <button class="btn btn-danger delete">删除</button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <div style="float:left;margin-left: 10px">
+                                <p><b>总价:</b><span class="dollar total-price">132元</span></p>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p style="float:right;font-size:0.8em"><b>+配送费</b><span class="deliver-dollar">2</span>元</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <ul style="float:left">
+                                <li>
+                                    <button class="btn btn-info">确定下单</button>
+                                </li>
+                                <li style="margin-left: 1.5em;margin">
+                                    <button class="btn btn-link cancel">取消</button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
