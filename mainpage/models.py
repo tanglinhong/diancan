@@ -24,7 +24,7 @@ class Shop(models.Model):
 	least_price = models.IntegerField()
 	deliver_fee = models.IntegerField()
 	review_score = models.DecimalField(max_digits=2, decimal_places=1)
-	shop_img = models.CharField(max_length=50)
+	shop_img = models.ImageField(upload_to='uploads/')
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	class Meta:
@@ -66,7 +66,7 @@ class Orders(models.Model):
 	status = models.IntegerField()
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 	shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
-
+	address_id = models.ForeignKey(Address, on_delete=models.CASCADE, default=None)
 
 	class Meta:
 		db_table = "Orders"
@@ -78,7 +78,6 @@ class OrderDetail(models.Model):
 	merchan_num = models.IntegerField()
 	merchan_id = models.ForeignKey(Merchandise, on_delete=models.CASCADE)
 	order_id = models.ForeignKey(Orders, on_delete=models.CASCADE)
-	address_id = models.ForeignKey(Address, on_delete=models.CASCADE, default=None)
 
 	class Meta:
 		db_table='OrderDetail'

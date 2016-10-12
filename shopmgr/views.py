@@ -30,3 +30,6 @@ def show_today_orders_shop(request):
 	response_data = {}
 	response_data['orders'] = order_list
 	return HttpResponse(json.dumps(response_data, default=json_serialize))
+
+def complete_shopinfo(request):
+	return render(request, 'shopmgr/complete_shopinfo.html', {'user': request.user})

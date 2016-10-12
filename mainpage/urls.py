@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^conf_default_addr$', views.conf_default_addr, name="conf_default_addr"),
     url(r'^(?P<shop_id>[0-9]+)/jmp_to_shop_detail/$', views.jmp_to_shop_detail, name='jmp_to_shop_detail'),
     url(r'^(?P<shop_id>[0-9]+)/shop_detail/$', views.shop_detail, name='shop_detail'),
+    url(r'^shoppingcar$', views.jmp_to_shoppingcar, name='shoppingcar'),
 ]

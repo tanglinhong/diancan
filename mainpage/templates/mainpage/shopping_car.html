@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    {% load static %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>我的购物车</title>
@@ -84,7 +85,7 @@
                         <td width="60%" colspan="2" class="description">
                             <ul style="float:left">
                                 <li>
-                                    <img data-food-id="1" src="st4.jpg" class="food-img">
+                                    <img data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}" class="food-img">
                                 </li>
                                 <li style="margin-left: 1.5em;">
                                     <div style="text-align: center" class="shoppingcar-description">
@@ -111,7 +112,7 @@
                         <td width="60%" colspan="2" class="description">
                             <ul style="float:left">
                                 <li>
-                                    <img  data-food-id="1" src="st4.jpg">
+                                    <img  data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}">
                                 </li>
                                 <li style="margin-left: 1.5em" >
                                     <div style="text-align: center;margin-top:1em;" class="shoppingcar-description">
@@ -138,7 +139,7 @@
                         <td width="60%" colspan="2" class="description">
                             <ul style="float:left">
                                 <li>
-                                    <img data-food-id="1" src="st4.jpg">
+                                    <img data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}">
                                 </li>
                                 <li style="margin-left: 1.5em;">
                                     <div style="text-align: center" class="shoppingcar-description">

@@ -162,3 +162,6 @@ def jmp_to_shop_detail(request, shop_id):
 
 def shop_detail(request, shop_id):
 	return render(request,'mainpage/shoper_detail.html', {'shop_id':shop_id})
+
+def jmp_to_shoppingcar(request):
+	return render(request, 'mainpage/shopping_car.html', {'user': request.user})

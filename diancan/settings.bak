@@ -126,6 +126,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/home/grinch/program/diancan/meida'
-
-MEDIA_URL = '/media/'

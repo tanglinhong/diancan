@@ -77,14 +77,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">点餐 课设</a>
+                <a class="navbar-brand" href="{% url 'mainpage:index' %}">点餐 课设</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active"><a href="{% url 'shopmgr:index' %}"><i class="fa fa-dashboard"></i> 订单中心</a></li>
                     <li><a href="charts.html"><i class="fa fa-bar-chart-o"></i> 外卖管理</a></li>
-                    <li><a href="tables.html"><i class="fa fa-table"></i> 完善信息</a></li>
+                    <li><a href="{% url 'shopmgr:complete_shopinfo' %}"><i class="fa fa-table"></i> 完善信息</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Dropdown <b class="caret"></b></a>
                         <ul class="dropdown-menu">

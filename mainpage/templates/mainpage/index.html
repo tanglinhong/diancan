@@ -91,7 +91,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"></img></a>
+                        <a href="{% url 'mainpage:shoppingcar' %}"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"></img></a>
                             <script type="text/javascript">
                             $(".shopping-car").click(function() {
                                 //---转入购物车模块
