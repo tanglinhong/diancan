@@ -34,7 +34,106 @@
             margin-bottom: 50px;
         }
 
+        .dropdown {
+            position: relative;
+        }
 
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content {
+            padding-left: 10px;
+            padding-top: 10px;
+            min-height: 100px;
+            display: none;
+            position: absolute;
+            top: 115px;
+            left: -13px;
+            background-color: #fff;
+            width: 255px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .dropdown-content ul {
+            list-style-type: none;
+        }
+
+        .reverse-caret {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 2px;
+            vertical-align: middle;
+            border-bottom: 4px solid;
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent;
+        }
+
+        .part-detail-left {
+            float: left;
+        }
+
+        .shop-detail-left .part-detail {
+            margin-top: 5px;
+            min-width: 400px;
+        }
+
+        .shop-detail-left img {
+            border-radius: 14px;
+            -webkit-border-radius: 14px;
+            -o-border-radius: 14px;
+            -moz-border-radius: 14px;
+            -ms-border-radius: 14px;
+            widows: 100px;
+            height: 100px;
+            float: left;
+        }
+
+        .part-detail {
+            float: left;
+            margin-left: 10px;
+        }
+
+        .part-detail ul li {
+            display: block;
+            margin-right: 5px;
+        }
+
+        .shop-detail-right {
+            position: relative;
+            right: 5%;
+            top: 10%;
+            float: right;
+        }
+
+        .shop-detail-right ul li {
+            display: inline-block;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .shop-detail-right-delimiter{
+            display: inline-block;
+            color:#9a9a9a;
+            font-size: 3.5em;
+            font-weight: 1;
+            text-align: center;
+
+        }
+
+        .part-detail ul li.shop-name {
+            font-size: 1.5em;
+            font-weight: 10;
+            margin-bottom: 10px;
+        }
+
+        .part-detail ul li.illustration {
+            font-size: 0.8em;
+            color: gray;
+            margin-top: 10px;
+        }
 
         body {
             /*background:#eaeaea;*/
@@ -546,6 +645,9 @@
             padding: 1em 0;
         }
         /*----*/
+        .cup{
+            overflow-y:true;
+        }
 
         .cup-in {
             border-radius: 14px;
@@ -563,7 +665,7 @@
 
         .cup-in:nth-child(3),
         .cup-in:nth-child(6) {
-            margin-right:0;
+            margin-right: 0;
         }
 
         .cup-in img {
@@ -1451,6 +1553,30 @@
         @media(max-width:1280px) {}
 
         @media(max-width:1024px) {
+            ul.popular-in li a {
+                font-size: 1em;
+            }
+            span.dollar {
+                font-size: 1.7em;
+            }
+            .popular input[type="submit"] {
+                width: 33%;
+            }
+            .b-from-left {
+                min-height: 182px;
+            }
+            .b-animate img {
+                padding-top: 4.2em;
+            }
+            ul.store-men li a {
+                font-size: 1.1em;
+            }
+            span.price {
+                padding: 0.2em 0em;
+            }
+            .grid-product {
+                width: 47%;
+            }
         }
 
         @media(max-width:768px) {
@@ -1858,6 +1984,7 @@
             }
             .details-in {
                 margin-top: 0;
+                text-align: center;
             }
             p.vit {
                 font-size: 1em;
