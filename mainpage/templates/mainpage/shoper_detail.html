@@ -7,9 +7,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'mainpage/css/bootstrap.css' %}" />
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'mainpage/js/jquery.min.js' %}"></script>
+    <script src="{% static 'mainpage/js/shoper_detail_get_data.js' %}"></script>
     <!-- Custom Theme files -->
     <!--theme-style-->
-    <link href="{% static 'mainpage/css/indexstyle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'mainpage/css/shop-detail.css' %}" rel="stylesheet" type="text/css" />
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -34,12 +35,11 @@
     <script type="text/javascript">
     jQuery(document).ready(function($) {
         // var shop_id=request["shop_id"];
-        var shopId={{shop_id}};
+        var shopId=parseInt({{shop_id}});
         console.log("shoper_detail get shop id:"+shopId);
-        //在此处获取店铺的信息。
-
-
-
+        //在此处获取店铺的信息和全部商品信息
+        getShoperInfo(shopId);
+        getAllFoods(shopId);
 
         $(".scroll").click(function(event) {
             event.preventDefault();
@@ -92,9 +92,9 @@
             </div>
             <div class="logo">
                 <h1>
-
-                    <a href="{% url 'mainpage:index' %}">点餐课设</a><a href="{% url 'mainpage:location' %}" style="margin-left:10px；font-size: 1em；color:#f00">我的位置：<span class="my-location">南京</span></a>
+                    <a href="{% url 'mainpage:index' %}">点餐课设</a>
                 </h1>
+                <a href="{% url 'mainpage:location' %}" style="margin-left:170px;font-size: 1em;color:#000;text-decoration: none;">我的位置：<span class="my-location">南京</span></a>
                 <div class="search" style="margin-top:-2.5em">
                     <form>
                         <input type="text" value="Search store here ..." onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '';}">
@@ -102,7 +102,7 @@
                     </form>
                 </div>
             </div>
-            <div class="header-bottom">
+            <div class="header-bottom" style="background: #fff;margin-bottom: 1em">
                 <div class="shoper-detail-bar">
                     <div class="dropdown">
                         <div class="shop-detail-left ">
@@ -133,12 +133,14 @@
                                 <p>商家评分</p>
                             </div>
                         </li>
+                        <h1 class="shop-detail-right-delimiter">|</h1>
                         <li>
                             <div>
                                 <p><b>15</b>分钟</p>
                                 <p>平均送餐时间</p>
                             </div>
                         </li>
+                        <h1 class="shop-detail-right-delimiter">|</h1>
                         <li>
                             <div>
                                 <p><b>15%</b></p>
@@ -160,38 +162,43 @@
                 <div class="food-grid">
                     <div class="cup">
                         <div class="col-md-4 cup-in">
-                            <a href="single.html"><img src="{% static 'mainpage/css/images/p1.jpg' %}" class="img-responsive" alt=""></a>
+                            <a href="#"><img src="{% static 'mainpage/css/images/p1.jpg' %}" class="img-responsive" alt=""></a>
                             <p>Lorem ipsum dolor sit consectetur</p>
                             <span class="dollar">$25.89</span>
                             <div class="details-in">
-                                <a href="#" class="details">Details</a>
+                                <a href="#" class="details" data-food-id="2" data-shop-id="1">+</a>
+                                <p class="month-sales-p">月销售<span class="month-sales-span">10</span>份</p>
                             </div>
                             <div class="clearfix"> </div>
                         </div>
                         <div class="col-md-4 cup-in">
-                            <a href="single.html"><img src="{% static 'mainpage/css/images/p2.jpg' %}" class="img-responsive" alt=""></a>
+                            <a href="#"><img src="{% static 'mainpage/css/images/p2.jpg' %}" class="img-responsive" alt=""></a>
                             <p>Lorem ipsum dolor sit consectetur</p>
                             <span class="dollar">$25.89</span>
                             <div class="details-in">
-                                <a href="#" class="details">Details</a>
+                               <a href="#" class="details" data-food-id="2">+</a>
+                                <p>月销售<span class="month-sales">10</span>份</p>
+
                             </div>
                             <div class="clearfix"> </div>
                         </div>
                         <div class="col-md-4 cup-in">
-                            <a href="single.html"><img src="{% static 'mainpage/css/images/p3.jpg' %}" class="img-responsive" alt=""></a>
+                            <a href="#"><img src="{% static 'mainpage/css/images/p3.jpg' %}" class="img-responsive" alt=""></a>
                             <p>Lorem ipsum dolor sit consectetur</p>
                             <span class="dollar">$25.89</span>
                             <div class="details-in">
-                                <a href="#" class="details">Details</a>
+                               <a href="#" class="details" data-food-id="2">+</a>
+                                <p>月销售<span class="month-sales">10</span>份</p>
                             </div>
                             <div class="clearfix"> </div>
                         </div>
                         <div class="col-md-4 cup-in">
-                            <a href="single.html"><img src="{% static 'mainpage/css/images/p4.jpg' %}" class="img-responsive" alt=""></a>
+                            <a href="#"><img src="{% static 'mainpage/css/images/p4.jpg' %}" class="img-responsive" alt=""></a>
                             <p>Lorem ipsum dolor sit consectetur</p>
                             <span class="dollar">$25.89</span>
                             <div class="details-in">
-                                <a href="#" class="details">Details</a>
+                                <a href="#" class="details" data-food-id="2">+</a>
+                                <p>月销售<span class="month-sales">10</span>份</p>
                             </div>
                             <div class="clearfix"> </div>
                         </div>
@@ -200,28 +207,66 @@
                             <p>Lorem ipsum dolor sit consectetur</p>
                             <span class="dollar">$25.89</span>
                             <div class="details-in">
-                                <a href="#" class="details">Details</a>
+                                <a href="#" class="details" data-food-id="2">+</a>
+                                <p>月销售<span class="month-sales">10</span>份</p>
                             </div>
                             <div class="clearfix"> </div>
                         </div>
                         <div class="col-md-4 cup-in">
-                            <a href="single.html"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <a href="#"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
                             <p>Lorem ipsum dolor sit consectetur</p>
                             <span class="dollar">$25.89</span>
                             <div class="details-in">
-                                <a href="#" class="details">Details</a>
+                                <a href="#" class="details" data-food-id="2">+</a>
+                                <p>月销售<span class="month-sales">10</span>份</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="#"><img src="{% static 'mainpage/css/images/p4.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <span class="dollar">$25.89</span>
+                            <div class="details-in">
+                                <a href="#" class="details" data-food-id="2">+</a>
+                                <p>月销售<span class="month-sales">10</span>份</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="single.html"><img src="{% static 'mainpage/css/images/p5.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <span class="dollar">$25.89</span>
+                            <div class="details-in">
+                                <a href="#" class="details" data-food-id="2">+</a>
+                                <p>月销售<span class="month-sales">10</span>份</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="col-md-4 cup-in">
+                            <a href="#"><img src="{% static 'mainpage/css/images/p6.jpg' %}" class="img-responsive" alt=""></a>
+                            <p>Lorem ipsum dolor sit consectetur</p>
+                            <span class="dollar">$25.89</span>
+                            <div class="details-in">
+                                <a href="#" class="details" data-food-id="2">+</a>
+                                <p>月销售<span class="month-sales">10</span>份</p>
                             </div>
                             <div class="clearfix"> </div>
                         </div>
                         <div class="clearfix"> </div>
                     </div>
+                    <script type="text/javascript">
+                        $(".cup").on("click",".cup-in a:first",function(event){
+                            event.preventDefault();
+                        });
+                        $(".cup").on("click",".details-in a",function(event){
+                            event.preventDefault();
+                            //---在这里将商品加入购物车；
+
+                        });
+
+                    </script>
                 </div>
                 <div class="clearfix"> </div>
-            </div>
-            <div class="chooser-pager">
-                    <button class="btn btn-info  prev-pager btn-lg" style="margin-right: 10px">上一页</button>
-
-                    <button class="btn btn-info next-pager btn-lg" style="margin-left:10px">下一页</button>
             </div>
         </div>
     </div>
