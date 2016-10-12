@@ -36,11 +36,11 @@
     var csrftoken = getCookie('csrftoken');
 
     function show_orders() {
-        console.log("execute show_orders")
+        console.log("execute show_orders");
+        $("#orders table tbody").empty();
         $.post("/shopmgr/show_today_orders_shop", {
             csrfmiddlewaretoken: csrftoken
         }, function(data, status) {
-            // data = '{"address_array":[{"id":1,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":1},{"id":2,"province":"福建省","city":"宁德市","county":"周宁县","street":"玛坑乡玛坑村迎祠巷6-1号","postcode":"355408","consignee":"汤林鸿","tel":"15205148560","is_default":0}]}';
             var obj = JSON.parse(data);
             console.log(obj);
             var arrayObj = obj.orders;
@@ -48,19 +48,73 @@
             for (var i = 0; i < array_len; i++) {
                 var order_num = arrayObj[i].order_num;
                 var order_time = arrayObj[i].order_time;
-                var addr = "Ready to Deploy";
+                var addr = arrayObj[i].address_id_id;
                 var price = arrayObj[i].total_price;
                 var aRow = '<tr><td>' + order_num + '</td><td>' + order_time + '</td><td>' + addr + '</td><td>' + price + '</td></tr>';
                 $(aRow).appendTo("#orders table tbody");
             }
         });
     }
+    var haha;
+
+    function show_incoming_orders() {
+        $("#orders table tbody").empty();
+        var newCol = "<th><i class=\"fa fa-sort\"></i> 处理</th>";
+        $(newCol).appendTo("#orders table thead tr")
+        $.post("/shopmgr/show_incoming_orders", {
+            csrfmiddlewaretoken: csrftoken
+        }, function(data, status) {
+            var obj = JSON.parse(data);
+            console.log(obj);
+            var arrayObj = obj.orders;
+            var array_len = arrayObj.length;
+            for (var i = 0; i < array_len; i++) {
+                var order_num = arrayObj[i].order_num;
+                var order_time = arrayObj[i].order_time;
+                var addr = arrayObj[i].address_id_id;
+                var price = arrayObj[i].total_price;
+                var aRow = '<tr><td>' + order_num + '</td><td>' + order_time + '</td><td>' + addr + '</td><td>' + price + '</td><td><button class=\"btn btn-default\" onclick="confirm_order()">确认订单</button><button class=\"btn btn-default\">拒绝订单</button></td></tr>';
+                $(aRow).appendTo("#orders table tbody");
+            }
+            $("#target ").empty();
+            var info = "<h3 class=\"panel-title\"><i class=\"fa fa-money\"></i> 待处理订单</h3>";
+            $(info).appendTo("#target");
+        });
+    }
+
+    function confirm_order() {}
+
+    function show_completed_orders() {
+        $("#orders table tbody").empty();
+        console.log($("#orders table thead tr").find("th").length);
+        if( $("#orders table thead tr").find("th").length == 5 ){
+            $("#orders table thead tr th:last").remove();
+        }
+        $.post("/shopmgr/show_completed_orders", {
+            csrfmiddlewaretoken: csrftoken
+        }, function(data, status) {
+            var obj = JSON.parse(data);
+            console.log(obj);
+            var arrayObj = obj.orders;
+            var array_len = arrayObj.length;
+            for (var i = 0; i < array_len; i++) {
+                var order_num = arrayObj[i].order_num;
+                var order_time = arrayObj[i].order_time;
+                var addr = arrayObj[i].address_id_id;
+                var price = arrayObj[i].total_price;
+                var aRow = '<tr><td>' + order_num + '</td><td>' + order_time + '</td><td>' + addr + '</td><td>' + price + '</td></tr>';
+                $(aRow).appendTo("#orders table tbody");
+                $("#target ").empty();
+                var info = "<h3 class=\"panel-title\"><i class=\"fa fa-money\"></i> 已完成订单</h3>";
+                $(info).appendTo("#target");
+            }
+        });
+    }
     $(document).ready(function() {
         console.log("ready!")
         $('<tbody></tbody>').appendTo('#orders table');
-        $("#orders table tbody").empty();
         show_orders();
-
+        haha = 0;
     });
     </script>
 </head>
@@ -83,17 +137,8 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active"><a href="{% url 'shopmgr:index' %}"><i class="fa fa-dashboard"></i> 订单中心</a></li>
-                    <li><a href="charts.html"><i class="fa fa-bar-chart-o"></i> 外卖管理</a></li>
+                    <li><a href="{% url 'shopmgr:jmp_to_manage_goods' %}"><i class="fa fa-bar-chart-o"></i> 外卖管理</a></li>
                     <li><a href="{% url 'shopmgr:complete_shopinfo' %}"><i class="fa fa-table"></i> 完善信息</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Dropdown <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Dropdown Item</a></li>
-                            <li><a href="#">Another Item</a></li>
-                            <li><a href="#">Third Item</a></li>
-                            <li><a href="#">Last Item</a></li>
-                        </ul>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
                     <li class="dropdown messages-dropdown">
@@ -173,12 +218,12 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <p class="announcement-heading">45</p>
+                                    <p class="announcement-heading">{{order_tobe_confirm}}</p>
                                     <p class="announcement-text">新订单等待确认</p>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="#" onclick="show_incoming_orders()">
                             <div class="panel-footer announcement-bottom">
                                 <div class="row">
                                     <div class="col-xs-6">
@@ -200,12 +245,12 @@
                                     <i class="fa fa-check fa-5x"></i>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <p class="announcement-heading">12</p>
+                                    <p class="announcement-heading">{{complete_order_count}}</p>
                                     <p class="announcement-text">已配送</p>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="#" onclick="show_completed_orders()">
                             <div class="panel-footer announcement-bottom">
                                 <div class="row">
                                     <div class="col-xs-6">
@@ -278,8 +323,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-money"></i> 今日订单</h3>
+                        <div class="panel-heading" id="target">
+                            <h3 class="panel-title"><i class="fa fa-money"></i> 当前订单</h3>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive" id="orders">
@@ -292,7 +337,7 @@
                                             <th>金额 <i class="fa fa-sort"></i></th>
                                         </tr>
                                     </thead>
-<!--                                     <tbody>
+                                    <!--                                     <tbody>
                                     </tbody> -->
                                 </table>
                             </div>

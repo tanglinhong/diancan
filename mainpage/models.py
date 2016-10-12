@@ -1,5 +1,6 @@
 from django.db import models
 from login.models import User
+from django.forms import ModelForm
 
 # Create your models here.
 class Address(models.Model):
@@ -33,11 +34,10 @@ class Shop(models.Model):
 	def __str__(self):
 		return self.shopname
 
-
 class Merchandise(models.Model):
 	title = models.CharField(max_length=30)
 	price = models.IntegerField()
-	image = models.CharField(max_length=50)
+	image = models.ImageField(upload_to='goods/')
 	shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE)
 
 	class Meta:
@@ -63,7 +63,7 @@ class Orders(models.Model):
 	order_num = models.CharField(max_length=20)
 	order_time = models.DateTimeField()
 	total_price = models.IntegerField()
-	status = models.IntegerField()
+	status = models.IntegerField() # 0 not confirmed 1 confirm 2 completed
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 	shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
 	address_id = models.ForeignKey(Address, on_delete=models.CASCADE, default=None)

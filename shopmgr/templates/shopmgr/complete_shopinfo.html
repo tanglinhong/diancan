@@ -15,6 +15,46 @@
     <link rel="stylesheet" href="{% static 'shopmgr/css/font-awesome.min.css' %}">
     <script src="{% static 'shopmgr/js/jquery-1.10.2.js' %}"></script>
     <script src="{% static 'shopmgr/js/bootstrap.js' %}"></script>
+    <script type="text/javascript">
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // function showinfo() {
+    //     console.log("execute show_orders")
+    //     $.post("/shopmgr/show_personal_info", {
+    //         csrfmiddlewaretoken: csrftoken
+    //     }, function(data, status) {
+    //         var obj = JSON.parse(data);
+    //         var myinfo = obj.shop_info[0];
+    //         console.log(myinfo);
+    //         var shopname = myinfo.shopname;
+    //         var review_score = myinfo.review_score;
+    //         var shop_img = myinfo.shop_img;
+    //         var lis = '<ul><li><h3>店铺名称： ' + shopname + '</h3></li><li><h3>评分： ' + review_score + '</h3></li><li><img src=\"' + "{{MEDIA_DETAIL}}" + shop_img + '\" /></li></ul>';
+    //         $(lis).appendTo("#personal_info");
+    //     });
+    // }
+    var csrftoken = getCookie('csrftoken');
+    $(document).ready(function() {
+        console.log("ready!");
+        // showinfo();
+        var lis = '<ul><li><h3>店铺名称： ' + "{{shop.shopname}}" + '</h3></li><li><h3>评分： ' + "{{shop.review_score}}" + '</h3></li><li><img src=\"{{MEDIA_URL}}{{shop.shop_img}}\"/></li></ul>';
+        $(lis).appendTo("#personal_info");
+    });
+    </script>
 </head>
 
 <body>
@@ -29,7 +69,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">点餐 课设</a>
+                <a class="navbar-brand" href="{% url 'shopmgr:index' %}">点餐 课设</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -37,15 +77,6 @@
                     <li class="active"><a href="{% url 'shopmgr:index' %}"><i class="fa fa-dashboard"></i> 订单中心</a></li>
                     <li><a href="charts.html"><i class="fa fa-bar-chart-o"></i> 外卖管理</a></li>
                     <li><a href="{% url 'shopmgr:complete_shopinfo' %}"><i class="fa fa-table"></i> 完善信息</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Dropdown <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Dropdown Item</a></li>
-                            <li><a href="#">Another Item</a></li>
-                            <li><a href="#">Third Item</a></li>
-                            <li><a href="#">Last Item</a></li>
-                        </ul>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
                     <li class="dropdown messages-dropdown">
@@ -116,98 +147,41 @@
                 </div>
             </div>
             <!-- /.row -->
+            <div class="col-lg-4" id="personal_info">
+                <h1>店铺信息</h1>
+            </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <form role="form">
+                    <form enctype="multipart/form-data" role="form" action="{% url 'shopmgr:add_icon' %}" method="post">
+                        {% csrf_token %}
                         <div class="form-group">
-                            <label>Static Control</label>
-                            <p class="form-control-static">e</p>
+                            <label>Upload your icon</label>
+                            <input type="file" name="icon" /> {% if message %}
+                            <label>{{message}}</label>
+                            {% endif %}
                         </div>
                         <div class="form-group">
-                            <label>Static Control</label>
-                            <p class="form-control-static">e</p>
+                            <label>店铺名称</label>
+                            <input class="form-control" name="shopname" id="shopname">
                         </div>
                         <div class="form-group">
-                            <label>Static Control</label>
-                            <p class="form-control-static">e</p>
+                            <label>起送价格</label>
+                            <input class="form-control" name="least_price" id="least_price">
                         </div>
                         <div class="form-group">
-                            <label>File input</label>
-                            <input type="file">
+                            <label>配送费</label>
+                            <input class="form-control" name="deliver_fee" id="deliver_fee">
                         </div>
                         <button type="submit" class="btn btn-default">Submit Button</button>
                         <button type="reset" class="btn btn-default">Reset Button</button>
                     </form>
                 </div>
                 <div class="col-lg-6">
-                    <h1>Disabled Form States</h1>
-                    <form role="form">
-                        <fieldset disabled>
-                            <div class="form-group">
-                                <label for="disabledSelect">Disabled input</label>
-                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="disabledSelect">Disabled select menu</label>
-                                <select id="disabledSelect" class="form-control">
-                                    <option>Disabled select</option>
-                                </select>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> Disabled Checkbox
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                        </fieldset>
-                    </form>
-                    <h1>Form Validation</h1>
-                    <form role="form">
-                        <div class="form-group has-success">
-                            <label class="control-label" for="inputSuccess">Input with success</label>
-                            <input type="text" class="form-control" id="inputSuccess">
-                        </div>
-                        <div class="form-group has-warning">
-                            <label class="control-label" for="inputWarning">Input with warning</label>
-                            <input type="text" class="form-control" id="inputWarning">
-                        </div>
-                        <div class="form-group has-error">
-                            <label class="control-label" for="inputError">Input with error</label>
-                            <input type="text" class="form-control" id="inputError">
-                        </div>
-                    </form>
-                    <h1>Input Groups</h1>
-                    <form role="form">
-                        <div class="form-group input-group">
-                            <span class="input-group-addon">@</span>
-                            <input type="text" class="form-control" placeholder="Username">
-                        </div>
-                        <div class="form-group input-group">
-                            <input type="text" class="form-control">
-                            <span class="input-group-addon">.00</span>
-                        </div>
-                        <div class="form-group input-group">
-                            <span class="input-group-addon"><i class="fa fa-eur"></i></span>
-                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                        </div>
-                        <div class="form-group input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="form-control">
-                            <span class="input-group-addon">.00</span>
-                        </div>
-                        <div class="form-group input-group">
-                            <input type="text" class="form-control">
-                            <span class="input-group-btn">
-                  <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                </span>
-                        </div>
-                    </form>
-                    <p>For complete documentation, please visit <a href="http://getbootstrap.com/css/#forms">Bootstrap's Form Documentation</a>.</p>
                 </div>
+                <!-- /.row -->
             </div>
-            <!-- /.row -->
+            <!-- /#page-wrapper -->
         </div>
-        <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
     <!-- JavaScript -->
