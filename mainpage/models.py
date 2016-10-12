@@ -64,7 +64,9 @@ class Orders(models.Model):
 	order_time = models.DateTimeField()
 	total_price = models.IntegerField()
 	status = models.IntegerField()
-	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+	shop_id = models.ForeignKey(Shop, on_delete=models.CASCADE, default=None)
+
 
 	class Meta:
 		db_table = "Orders"
@@ -76,6 +78,7 @@ class OrderDetail(models.Model):
 	merchan_num = models.IntegerField()
 	merchan_id = models.ForeignKey(Merchandise, on_delete=models.CASCADE)
 	order_id = models.ForeignKey(Orders, on_delete=models.CASCADE)
+	address_id = models.ForeignKey(Address, on_delete=models.CASCADE, default=None)
 
 	class Meta:
 		db_table='OrderDetail'
