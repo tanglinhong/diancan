@@ -191,3 +191,20 @@ def get_merchandises(request):
 	response_data = {}
 	response_data['foodsArray'] = merchandise_table
 	return HttpResponse(json.dumps(response_data))
+
+def get_spec_shopinfo(request):
+	shop_id = request.POST['shop_id']
+	shop = Shop.objects.get(pk=shop_id)
+	user_id = shop.user_id_id
+	user = User.objects.get(pk=user_id)
+	addr = Address.objects.get(user_id_id=user_id)
+	response_data = {}
+	response_data['shopname'] = shop.shopname
+	response_data['least_price']=shop.least_price;
+	response_data['deliver_fee']=shop.deliver_fee;
+	response_data['review_score']=float(shop.review_score);
+	response_data['shop_img']=str(shop.shop_img);
+	response_data['cellphone']=user.cellphone;
+	response_data['address']= addr.city+ '市'+addr.street;
+	print(response_data)
+	return HttpResponse(json.dumps(response_data))

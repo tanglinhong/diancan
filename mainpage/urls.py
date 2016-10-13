@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^shoppingcar$', views.jmp_to_shoppingcar, name='shoppingcar'),
     url(r'^show_shops_orderby_sales$', views.show_shops_orderby_sales, name='show_shops_orderby_sales'),
     url(r'^get_merchandises$', views.get_merchandises, name="get_merchandises"),
+    url(r'^get_spec_shopinfo$', views.get_spec_shopinfo, name="get_spec_shopinfo"),
+    # url(r'^get_my_threemonth_order$', views.get_my_threemonth_order, name='get_my_threemonth_order'),
 ]
