@@ -25,4 +25,8 @@ urlpatterns = [
     url(r'^get_merchandises$', views.get_merchandises, name="get_merchandises"),
     url(r'^get_spec_shopinfo$', views.get_spec_shopinfo, name="get_spec_shopinfo"),
     # url(r'^get_my_threemonth_order$', views.get_my_threemonth_order, name='get_my_threemonth_order'),
+    url(r'^add_to_shopcar$', views.add_to_shopcar, name='add_to_shopcar'),
+    url(r'^get_cart$', views.get_cart, name='get_cart'),
+    url(r'^flush_cart$', views.flush_cart, name='flush_cart'),
+    url(r'^get_shop_by_keywords$', views.get_shop_by_keywords, name="get_shop_by_keywords"),
 ]

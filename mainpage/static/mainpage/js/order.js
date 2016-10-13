@@ -1,6 +1,8 @@
 function initialOrdersTables{
+
+
     //从数据库加载订单数据
-    $.post("#",{},function(data,status){
+    $.post("/mainpage/get_my_threemonth_order",{},function(data,status){
         var obj=JOSN.parse(data);
         var objArray=obj.order_array;
         var array_len=objArray.length;

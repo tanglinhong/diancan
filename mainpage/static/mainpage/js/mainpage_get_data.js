@@ -92,6 +92,7 @@ function getShopInfoForPrevBySalesOrComments(condition) {
 function displayShop(data){//data为json字符串；
     var obj=JSON.parse(data);
     var arrayObj=obj.shopArray;
+    console.log(arrayObj);
     var arrayLen=arrayObj.length;
     $(".cup").empty();
     for(var i=0;i<arrayLen;i++){
@@ -126,9 +127,10 @@ function displayShop(data){//data为json字符串；
 }
 
 function queryShop(keywords){//根据顶部搜索栏的搜索词进行搜索
-    $.post("#",{keyword:keywords},function(data,status){
+    console.log("come query function");
+    $.post("/mainpage/get_shop_by_keywords",{csrfmiddlewaretoken: csrftoken,keyword:keywords},function(data,status){
         if(data!=0){//当有符合搜索条件的结果时返回JSON字符串，否则返回0
-            diaplayShop(data);
+            displayShop(data);
         }else{
             alert("对不起，找不到您要的美食哦！");
         }

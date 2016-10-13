@@ -101,7 +101,7 @@
                     if (result == 1) { //信息插入成功
                         alert("信息插入成功");
                         var addrs_total_num; //地址条数
-                        $.get("#", function(data, status) { //获得用户地址信息数
+                        $.get("/mainpage/get_address_count", function(data, status) { //获得用户地址信息数
                             data = 14;
                             addrs_total_num = data;
                             $(".addr-list").empty();

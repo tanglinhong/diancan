@@ -21,7 +21,10 @@ function recalculateTotalPrice($table){
 
 function initialTable(){
     //---从cache中加载数据，然后初始化所有表格；
-
+    $.get("/mainpage/get_cart",function(data,status){
+        var obj = JSON.parse(data);
+        console.log(obj);
+    });
 
     //计算每个table的价格
     $("table").each(function(){

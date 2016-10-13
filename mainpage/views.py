@@ -9,13 +9,14 @@ from django.contrib.auth import authenticate, login, logout
 from os import sys
 from django.db.models import Count, Sum
 import decimal
+from django.contrib.sessions.backends.db import SessionStore
 
 def index(request):
-		return render(request, 'mainpage/index.html', {'user': request.user})
+	return render(request, 'mainpage/index.html', {'user': request.user})
 
 
 def complete_info(request):
-	print(request.user.username + str(request.user.id))
+	# print(request.user.username + str(request.user.id))
 	curr_user = User.objects.get(pk=request.user.id)
 	try:
 		province = request.POST['province']
@@ -36,7 +37,7 @@ def complete_info(request):
 		curr_user.email = email
 		curr_user.save()
 		if province!='':
-			print(is_default)
+			# print(is_default)
 			addr = Address(province=province, city=city, county=county, street=street,
 				consignee=consignee, consignee_tel=consignee_tel, user_id=curr_user,
 				is_default=is_default, postcode=postcode)
@@ -44,7 +45,7 @@ def complete_info(request):
 		return HttpResponse(1)
 	except:
 		import traceback
-		print(traceback.format_exc())
+		# print(traceback.format_exc())
 		return HttpResponse(0)
 
 def add_address(request):
@@ -96,7 +97,7 @@ def query_user_info(request):
 
 def check_origin_pwd(request):
 	password = request.POST['originPass']
-	print(password)
+	# print(password)
 	user = authenticate(username=request.user.username, password=password)
 	if user is not None:
 		return HttpResponse(1)
@@ -109,7 +110,7 @@ def change_password(request):
 		user = User.objects.get(pk=request.user.id)
 		user.set_password(password)
 		user.save()
-		print(password)
+		# print(password)
 		return HttpResponse(1)
 	except:
 		return HttpResponse(0)
@@ -149,7 +150,7 @@ def del_addr(request):
 def conf_default_addr(request):
 	try:
 		addr_id = int(request.POST['default_addr_id'])
-		print(addr_id)
+		# print(addr_id)
 		Address.objects.filter(user_id=request.user, is_default=True).update(is_default=False)
 		default_user = Address.objects.get(pk=addr_id)
 		default_user.is_default = True
@@ -179,7 +180,7 @@ def show_shops_orderby_sales(request):
 	for shop in all_orders:
 		shop_id = shop['shop_id_id']
 		all_shop[shop_id-1]['sales_num'] = shop['shop_id_id__count']
-	print(all_shop)
+	# print(all_shop)
 	response_data = {}
 	response_data['shopArray'] = all_shop
 	return HttpResponse(json.dumps(response_data, default=decimal_default))
@@ -208,3 +209,51 @@ def get_spec_shopinfo(request):
 	response_data['address']= addr.city+ '市'+addr.street;
 	print(response_data)
 	return HttpResponse(json.dumps(response_data))
+
+def add_to_shopcar(request):
+	good_id = request.POST['food_id']
+	shop_id = request.POST['shop_id']
+	cart = request.session.get("cart", None)
+	if not cart:
+		print("Init cart")
+		cart = {}
+		cart[shop_id] = [good_id]
+		request.session['cart'] = cart
+		request.session.save()
+	else:
+		print("add to cart")
+		if shop_id in list(cart.keys()):
+			cart[shop_id].append(good_id)
+		else:
+			cart[shop_id] = [good_id]
+		request.session.save()
+	print(request.session['cart'])
+	return HttpResponse(1)
+
+def get_cart(request):
+	user_id = request.user.id
+	cart = request.session.get("cart", None)
+	if not cart:
+		return HttpResponse(0)
+	print(cart)
+	cart_dic = []
+	for key in cart.keys():
+		cart_dic.append({ key: { x: cart[key].count(x) for x in cart[key] } })
+	response_data = {}
+	response_data['shoppingcar_array'] = cart_dic
+	return HttpResponse(json.dumps(response_data))
+
+def flush_cart(request):
+	print("clear cart")
+	request.session['cart'] = {}
+	return HttpResponse(1)
+
+def get_shop_by_keywords(request):
+	print("get by keywords")
+	keywords = request.POST['keyword']
+	shop_set = Shop.objects.filter(shopname__contains=keywords).values()
+	shop_list = list(shop_set)
+	print(shop_list)
+	response_data = {}
+	response_data['shopArray'] = shop_list
+	return HttpResponse(json.dumps(response_data, default=decimal_default))

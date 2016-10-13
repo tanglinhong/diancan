@@ -293,7 +293,7 @@
             margin: 2em 0 0;
         }
 
-        .search input[type="text"] {
+        /*.search input[type="text"] {
             outline: none;
             padding: 6px 15px;
             background: none;
@@ -303,6 +303,7 @@
             color: #a9a7a7;
         }
 
+    
         .search input[type="submit"] {
             width: 30px;
             height: 36px;
@@ -314,8 +315,31 @@
             outline: none;
             top: 0;
             right: 2px;
-        }
+        }*/
         /*----*/
+
+            .search input[type="text"] {
+            outline: none;
+            padding: 6px 15px;
+            background: none;
+            width: 79.33%;
+            border: none;
+            font-size: 1.2em;
+            color: #a9a7a7;
+        }
+
+            .search button.submit-btn{
+            width: 30px;
+            height: 36px;
+            background: url("images/img-sprite.png") -45px -9px no-repeat;
+            padding: 0px 1px;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            outline: none;
+            top: 0;
+            right: 2px;
+        }
 
         .banner {
             border-radius: 14px;
