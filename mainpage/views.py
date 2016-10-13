@@ -257,3 +257,8 @@ def get_shop_by_keywords(request):
 	response_data = {}
 	response_data['shopArray'] = shop_list
 	return HttpResponse(json.dumps(response_data, default=decimal_default))
+
+def get_my_threemonth_order(request):
+	order_set = Orders.objects.filter(user_id_id=request.user.id).values()
+	order_list = list(order_set)
+	print(order_list)
