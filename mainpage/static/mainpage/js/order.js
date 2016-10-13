@@ -36,7 +36,22 @@ function initialOrdersTables{
                                 price+'</span></p></div></li></ul><div class="clearfix"></div></tr>';
                 $.firstTdBody.append(aInnerRow);
             }
-            var otherTds=''
+            var otherTds='<td colspan="1" style="text-align:center"><div><p>总价</p><p>'+orderTotalPrice+'</p><p>(含配送费)</p></div></td>';
+            if(orderStatus==0){
+
+                otherTds+='<td colspan="1" style="text-align:center"><div><p>订单状态</p><p class="order-status">待店家确认</p></div></td>';
+            }else if(orderNum==1){
+                otherTds+='<td colspan="2" style="text-align:center"><div><p>订单状态</p><p class="order-status" style="color:#7ebf00;">店家已确认</p><button class="btn-link need-confirm">确认收货</button></div></td>';
+
+            }else{
+                otherTds+='<td colspan="1" style="text-align:center"><div><p>订单状态</p><p class="order-status has-gotten-goods">已收货</p></div></td>';
+
+            }
+
+            otherTds+='<td colspan="1" style="text-align:center"><button class="btn-link go-comment">评价</button></td>';
+            var $lastTableTr=$lastTable.find("tr:first").append(otherTds);
+
+
 
 
 

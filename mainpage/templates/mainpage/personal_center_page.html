@@ -522,25 +522,45 @@
                                         </tbody>
                                     </table>
                                 </td>
-                                <td colspan="1">
+                                <td colspan="1" style="text-align: center">
                                     <div>
                                         <p>总价</p>
                                         <p>120</p>
                                         <p>（含配送费）</P>
                                     </div>
                                 </td>
-                                <td colspan="1">
+                                <td colspan="1" style="text-align: center">
                                     <div>
                                         <p>订单状态</p>
                                         <p class="order-status">未付款</p>
                                     </div>
                                 </td>
-                                <td colspan="1">
+                                <td colspan="1" style="text-align: center">
                                     <button class="btn-link">评价</button>
                                 </td>
                             </tr>
                         </tbody>
+
                     </table>
+                    <script type="text/javascript">
+
+                        $("#order").each(function(){
+                            if($(this).find(".has-gotten-goods").length==1){//如果订单处于已收货状态，需要显示出评价td栏
+                                $(this).find(".go-comment").css("visibility","visible");
+                            }else{
+                                $(this).find(".go-comment").css("visibility","hidden");
+                            }
+
+                            $(this).find(".need-confirm").click(function(){
+                                var orderId=$(this).
+
+                            });
+
+
+                        });
+
+
+                    </script>
                 </div>
             </div>
             <div class="tab-pane fade account-div" id="my-account">
