@@ -72,12 +72,6 @@
                     </li>
                     <li>
                         <a href="{% url 'mainpage:shoppingcar' %}"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"></img></a>
-                            <script type="text/javascript">
-                            $(".shopping-car").click(function() {
-                                //---转入购物车模块
-
-                            });
-                            </script>
                     </li>
                     <li><a href="{% url 'shopmgr:index' %}" style="color: #7a7a7a">卖家中心</a></li>
                     {% else %}
@@ -94,13 +88,17 @@
                 <h1>
                     <a href="{% url 'mainpage:index' %}">点餐课设</a>
                 </h1>
-                <a href="{% url 'mainpage:location' %}" style="margin-left:170px;font-size: 1em;color:#000;text-decoration: none;">我的位置：<span class="my-location">南京</span></a>
+                <a href="{% url 'mainpage:location' %}" style="margin-left:170px;font-size: 1em;color:#000;text-decoration: none;">我的位置：<span class="my-location"></span></a>
                 <div class="search" style="margin-top:-2.5em">
                     <form>
                         <input type="text" value="Search store here ..." onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '';}">
                         <input type="submit" value="">
                     </form>
                 </div>
+                <script type="text/javascript">
+                   var locationDescribe=getLocationDescribe();
+                   $(".myLocation").text(locationDescribe);
+                </script>
             </div>
             <div class="header-bottom" style="background: #fff;margin-bottom: 1em">
                 <div class="shoper-detail-bar">
@@ -129,7 +127,7 @@
                     <ul class="shop-detail-right-ul">
                         <li>
                             <div>
-                                <p><b>7.9</b>分</p>
+                                <p><b>4.9</b>分</p>
                                 <p>商家评分</p>
                             </div>
                         </li>

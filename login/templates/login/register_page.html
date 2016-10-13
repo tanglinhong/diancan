@@ -10,6 +10,7 @@
     <title>注册 | 点餐课设</title>
     <!-- Bootstrap -->
     <link href="{% static 'login/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'login/css/mystyle.css' %}" rel="stylesheet" type="text/css">
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'login/jquery-1.8.3.min.js' %}"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -23,12 +24,12 @@
         font-family: 'PoiretOne-Regular';
         src:url("{% static 'login/PoiretOneRegular.ttf' %}") format('truetype');
     }
-    
+
     @font-face {
         font-family: 'OpenSans-Regular';
         src:url("{% static 'login/OpenSansRegular.ttf' %}") format('truetype');
     }
-    
+
     .container {
         padding-right: 0;
         padding-left: 0;
@@ -36,7 +37,7 @@
         margin-left: auto;
         width: 100%;
     }
-    
+
     .header {
         border-bottom: 3px ridge #FFA500;
         padding: 1em 0;
@@ -44,12 +45,12 @@
         margin-left: auto;
         margin-right: auto;
     }
-    
+
     .logo {
         float: left;
         margin-left: 13%;
     }
-    
+
     .logo a {
         font-size: 200%;
         display: block;
@@ -58,11 +59,11 @@
         color: #DA6A3C;
         font-weight: 100;
     }
-    
+
     .logo span {
         color: #222;
     }
-    
+
     .myfooter {
         position: fixed;
         margin-right: 0;
@@ -70,7 +71,7 @@
         bottom: 5px;
         width: 100%;
     }
-    
+
     .copy {
         border-top: 1px ridge rgba(11, 12, 16, 0.16);
         padding-top: 1em;
@@ -80,7 +81,7 @@
         text-align: center;
         width: 100%;
     }
-    
+
     .copy p {
         color: #777;
         font-size: 0.9em;
@@ -88,26 +89,26 @@
         padding-right: 0;
         width: 100%;
     }
-    
+
     .register_content {
         padding-left: 15%;
         padding-top: 5%;
     }
-    
+
     .usernameTip {
         color: #ff0000;
         width: auto;
         padding-left: 0px;
         visibility: hidden;
     }
-    
+
     .ensurePasswordTip {
         color: #ff0000;
         width: auto;
         padding-left: 0px;
         visibility: hidden;
     }
-    
+
     button.ensure {
         width: 200px;
     }
