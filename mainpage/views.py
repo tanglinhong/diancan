@@ -3,13 +3,14 @@ from django.template import loader
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from login.models import User
-from .models import Address, Orders, Shop, Merchandise
+from .models import Address, Orders, Shop, Merchandise, OrderDetail
 import json
 from django.contrib.auth import authenticate, login, logout
 from os import sys
 from django.db.models import Count, Sum
 import decimal
 from django.contrib.sessions.backends.db import SessionStore
+from datetime import datetime
 
 def index(request):
 	return render(request, 'mainpage/index.html', {'user': request.user})
@@ -173,6 +174,12 @@ def decimal_default(obj):
 		return float(obj)
 	raise TypeError('Type not serializable')
 
+def json_serialize(obj):
+	if isinstance(obj, datetime):
+		serial = obj.isoformat()
+		return serial
+	raise TypeError('Type not serializable')
+
 def show_shops_orderby_sales(request):
 	all_orders = Orders.objects.values('shop_id_id').annotate(Count('shop_id_id'))
 	all_shop_set = Shop.objects.order_by('id').values()
@@ -261,4 +268,25 @@ def get_shop_by_keywords(request):
 def get_my_threemonth_order(request):
 	order_set = Orders.objects.filter(user_id_id=request.user.id).values()
 	order_list = list(order_set)
-	print(order_list)
+	for order in order_list:
+		order_time = order['order_time'].isoformat().split('T')[0]
+		order['order_time'] = order_time
+		shop_id = order['shop_id_id']
+		shop = Shop.objects.get(pk=shop_id)
+		order['shopname'] = shop.shopname
+		order_id = order['id']
+		goods_set = OrderDetail.objects.filter(order_id_id=order_id).values()
+		goods_list = list(goods_set)
+
+		for good in goods_list:
+			good_id = good['merchan_id_id']
+			merchandise = Merchandise.objects.get(pk=good_id)
+			good['title'] = merchandise.title
+			good['image'] = str(merchandise.image)
+			good['price'] = merchandise.price
+		print(goods_list)
+		order['merchandise_array'] = goods_list
+	# print(order_list)
+	response_data = {}
+	response_data['order_array'] = order_list
+	return HttpResponse(json.dumps(response_data,default=json_serialize))

@@ -73,3 +73,15 @@ o.save()
 d = datetime.now()-timedelta(minutes=1)
 o = Orders(order_num = '{:%Y%m%d%H%M%S}{:d}'.format(d,5), order_time=d, total_price=24, status=1, shop_id_id=1, user_id_id=5, address_id_id=5)
 o.save()
+
+o = OrderDetail(merchan_num=1, merchan_id_id=1, order_id_id=3)
+o.save()
+
+o = OrderDetail(merchan_num=1, merchan_id_id=4, order_id_id=3)
+o.save()
+
+o = OrderDetail(merchan_num=1, merchan_id_id=1, order_id_id=5)
+o.save()
+
+o = OrderDetail(merchan_num=1, merchan_id_id=4, order_id_id=5)
+o.save()

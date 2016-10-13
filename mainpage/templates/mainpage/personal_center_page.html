@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="{% static 'mainpage/css/mystyle.css' %}">
     <link rel="stylesheet" href="{% static 'mainpage/css/personal_center.css' %}">
     <link rel="stylesheet" href="{% static 'mainpage/css/order.css' %}">
+
     <script src="{% static 'mainpage/js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'mainpage/js/order.js' %}"></script>
     <script src="{% static 'mainpage/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'mainpage/js/jquery.validate.js' %}"></script>
     <script src="{% static 'mainpage/js/jquery.validate.extend.js' %}"></script>
@@ -173,6 +175,7 @@
                 $(this).tab('show');
 
             } else {
+                initialOrdersTables();
                 if ($(".account-li").hasClass("active")) {
                     $(".account-li").removeClass("active")
                 } else {
@@ -184,7 +187,7 @@
 
         //初次显示三个月订单tab页
         $(".orders-li a:first").tab('show');
-
+        initialOrdersTables();
 
         //我的账号tab页中修改密码模态框中表单的验证器
         var changePasswordValidator = $("#regForm").validate({
