@@ -62,8 +62,6 @@
             var $table=$(this).parents("table");
             cancelOrder($table);
 
-
-
         });
 
 
@@ -110,26 +108,26 @@
                     </tr>
                     <tr>
                         <td width="60%" colspan="2" class="description">
-                            <ul style="float:left">
+                            <ul>
                                 <li>
-                                    <img  data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}">
+                                    <img data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}" class="food-img">
                                 </li>
-                                <li style="margin-left: 1.5em" >
-                                    <div style="text-align: center;margin-top:1em;" class="shoppingcar-description">
-                                        <p>黄焖鸡米饭</p>
+                                <li>
+                                    <div  class="shoppingcar-description">
+                                        <p style="">黄焖鸡米饭</p>
                                         <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
                                     </div>
                                 </li>
                             </ul>
                         </td>
                         <td width="40%" class="operation">
-                            <ul style="float:left">
+                            <ul>
                                 <li>
-                                    <button class="decrease" style="width:25px;height:30px;background:#c8e1ef;color:#fff">-</button>
-                                    <input class="good-count" type="text" style="width:30px;height:30;align:center" value="1"></input>
-                                    <button class="plus" style="width:25px;height:30px;background:#c8e1ef;color:#fff">+</button>
+                                    <button class="decrease">-</button>
+                                    <input class="good-count" type="text"  value="1"></input>
+                                    <button class="plus">+</button>
                                 </li>
-                                <li style="margin-left: 1.5em;margin">
+                                <li  class="delete-li" >
                                     <button class="btn btn-danger delete">删除</button>
                                 </li>
                             </ul>
@@ -137,26 +135,26 @@
                     </tr>
                     <tr>
                         <td width="60%" colspan="2" class="description">
-                            <ul style="float:left">
+                            <ul>
                                 <li>
-                                    <img data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}">
+                                    <img data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}" class="food-img">
                                 </li>
-                                <li style="margin-left: 1.5em;">
-                                    <div style="text-align: center" class="shoppingcar-description">
+                                <li>
+                                    <div  class="shoppingcar-description">
                                         <p style="">黄焖鸡米饭</p>
-                                        <p><span class="count">1</span>x<span class="dollar">16</span></p>
+                                        <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
                                     </div>
                                 </li>
                             </ul>
                         </td>
                         <td width="40%" class="operation">
-                            <ul style="float:left">
+                            <ul>
                                 <li>
-                                    <button class="decrease" style="width:25px;height:30px;background:#c8e1ef;color:#fff">-</button>
-                                    <input class="good-count" type="text" style="width:30px;height:30px;align:center" value="1"></input>
-                                    <button class="plus" style="width:25px;height:30px;background:#c8e1ef;color:#fff">+</button>
+                                    <button class="decrease">-</button>
+                                    <input class="good-count" type="text"  value="1"></input>
+                                    <button class="plus">+</button>
                                 </li>
-                                <li style="margin-left: 1.5em;margin">
+                                <li  class="delete-li" >
                                     <button class="btn btn-danger delete">删除</button>
                                 </li>
                             </ul>

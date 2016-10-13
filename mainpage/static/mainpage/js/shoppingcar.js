@@ -22,6 +22,7 @@ function recalculateTotalPrice($table){
 function initialTable(){
     //---从cache中加载数据，然后初始化所有表格；
     // var obj=JSON.parse(data);
+    // var arrayObj=obj.shoppingcar
     // for(var i in obj){//处理每一个表格中，
     //     var shopId=i;
     //     console.log("商店id:"+shopId);
