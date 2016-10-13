@@ -47,7 +47,7 @@
         position: relative;
         display: inline-block;
     }
-
+    
     .dropdown-content-top {
         z-index: 10;
         display: none;
@@ -57,11 +57,11 @@
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         padding: 0;
     }
-
+    
     .dropdown-top:hover .dropdown-content-top {
         display: block;
     }
-
+    
     .dropdown-content-top a {
         text-align: center;
         display: block;
@@ -111,22 +111,38 @@
                 </h1>
                 <a href="{% url 'mainpage:location' %}" style="margin-left:170px;font-size: 1em;color:#000;text-decoration: none;">我的位置：<span class="my-location"></span></a>
                 <div class="search" style="margin-top:-2.5em">
-                    <form>
-                        <input type="text" value="搜美食、搜商家、吃货的世界" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '';}">
+                    <!-- <form class="search-form">
+                        <input name="keyword" type="text" value="搜美食、搜商家、吃货的世界" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '';}">
                         <input type="submit" value="">
-                    </form>
+                    </form> -->
+                    <div class="search-inner-div">
+                        <input name="keyword" type="text">
+                        <button class="submit-btn"></button>
+                    </div>
                     <script type="text/javascript">
-                    var locationDescribe = getLocationDescribe();
-                    $(".myLocation").text(locationDescribe);
+                    // var locationDescribe = getLocationDescribe();
+                    // $(".myLocation").text(locationDescribe);
 
-                    $(".search form").submit(function() {
-                        //调用查询；
-                        var keywords = $.trim($(".search form input:first").val());
+                    $("button.submit-btn").click(function(){
+                        alert("search clicked");
+                        var keywords = $.trim($(".search-inner-div input:first").val());
                         console.log("搜索关键词：" + keywords);
                         if (keywords != "") {
                             queryShop(keywords);
                         }
+
+
                     });
+
+                    // $(".search-form").submit(function() {
+                    //     //调用查询；
+                    //     // alert("search clicked");
+                    //     var keywords = $.trim($(".search form input:first").val());
+                    //     console.log("搜索关键词：" + keywords);
+                    //     if (keywords != "") {
+                    //         queryShop(keywords);
+                    //     }
+                    // });
                     </script>
                 </div>
             </div>
@@ -320,6 +336,7 @@
             <div class="chooser-pager">
                 <button class="btn btn-info  prev-pager btn-lg" style="margin-right: 10px">上一页</button>
                 <button class="btn btn-info next-pager btn-lg" style="margin-left:10px">下一页</button>
+                <button class="clear-cart">清缓存</button>
             </div>
             <script type="text/javascript">
             $(".prev-pager").click(function() {
@@ -351,6 +368,14 @@
 
 
             }
+
+            $(".clear-cart").click(function() {
+                alert("clicked");
+                $.get("/mainpage/flush_cart", function() {
+                    alert("缓存清除成功");
+
+                });
+            });
             </script>
         </div>
     </div>
