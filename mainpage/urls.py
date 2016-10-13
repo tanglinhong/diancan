@@ -21,4 +21,8 @@ urlpatterns = [
     url(r'^(?P<shop_id>[0-9]+)/jmp_to_shop_detail/$', views.jmp_to_shop_detail, name='jmp_to_shop_detail'),
     url(r'^(?P<shop_id>[0-9]+)/shop_detail/$', views.shop_detail, name='shop_detail'),
     url(r'^shoppingcar$', views.jmp_to_shoppingcar, name='shoppingcar'),
+    url(r'^show_shops_orderby_sales$', views.show_shops_orderby_sales, name='show_shops_orderby_sales'),
+    url(r'^get_merchandises$', views.get_merchandises, name="get_merchandises"),
+    url(r'^get_spec_shopinfo$', views.get_spec_shopinfo, name="get_spec_shopinfo"),
+    # url(r'^get_my_threemonth_order$', views.get_my_threemonth_order, name='get_my_threemonth_order'),
 ]

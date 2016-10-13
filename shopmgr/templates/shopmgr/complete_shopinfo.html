@@ -32,21 +32,6 @@
         return cookieValue;
     }
 
-    // function showinfo() {
-    //     console.log("execute show_orders")
-    //     $.post("/shopmgr/show_personal_info", {
-    //         csrfmiddlewaretoken: csrftoken
-    //     }, function(data, status) {
-    //         var obj = JSON.parse(data);
-    //         var myinfo = obj.shop_info[0];
-    //         console.log(myinfo);
-    //         var shopname = myinfo.shopname;
-    //         var review_score = myinfo.review_score;
-    //         var shop_img = myinfo.shop_img;
-    //         var lis = '<ul><li><h3>店铺名称： ' + shopname + '</h3></li><li><h3>评分： ' + review_score + '</h3></li><li><img src=\"' + "{{MEDIA_DETAIL}}" + shop_img + '\" /></li></ul>';
-    //         $(lis).appendTo("#personal_info");
-    //     });
-    // }
     var csrftoken = getCookie('csrftoken');
     $(document).ready(function() {
         console.log("ready!");
