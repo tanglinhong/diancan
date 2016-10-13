@@ -1,7 +1,25 @@
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
 function getAllFoods(shopId) {
-    $.post("#", { shop_id: shopId }, function(data, status) {
+    console.log(shopId);
+    $.post("/mainpage/get_merchandises", { shop_id: shopId, csrfmiddlewaretoken: csrftoken }, function(data, status) {
         var obj = JSON.parse(data);
-        var orrayObj = obj.foodsArray;
+        var arrayObj = obj.foodsArray;
         var arrayLen = arrayObj.length;
         for (var i = 0; i < arrayLen; i++) {
             var foodId = arrayObj[i].id;
@@ -27,7 +45,7 @@ function getAllFoods(shopId) {
 }
 
 function getShoperInfo(shopId) {
-    $.post("#", { shop_id: shopId }, function(data, status) {
+    $.post("#", { shop_id: shopId, csrfmiddlewaretoken:csrftoken }, function(data, status) {
         var obj = JSON.parse(data);
         var shopName = obj.shopname;
         var leastPrice = obj.least_price;

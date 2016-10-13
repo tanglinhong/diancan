@@ -568,6 +568,8 @@
 
         .cup-in img {
             border-radius: 14px;
+            width:230px;
+            height:200px;
             -webkit-border-radius: 14px;
             -o-border-radius: 14px;
             -moz-border-radius: 14px;

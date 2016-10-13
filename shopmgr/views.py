@@ -23,8 +23,12 @@ def decimal_default(obj):
 
 
 def index(request):
-	complete_order_count = Orders.objects.filter(shop_id_id=request.user.id, status=2).count()
-	order_tobe_comfirm_count = Orders.objects.filter(shop_id_id=request.user.id, status=0).count()
+	print("show index")
+	shop = Shop.objects.get(user_id_id=request.user.id)
+	shop_id = shop.id
+	complete_order_count = Orders.objects.filter(shop_id_id=shop_id, status=2).count()
+	order_tobe_comfirm_count = Orders.objects.filter(shop_id_id=shop_id, status=0).count()
+	print(order_tobe_comfirm_count)
 	return render(request, 'shopmgr/index.html',
 			{'user': request.user,
 			'complete_order_count': complete_order_count,
@@ -41,7 +45,7 @@ def show_today_orders_shop(request):
 		addr = Address.objects.get(pk=addr_id)
 		order['address_id_id'] = addr.province + addr.city + addr.county + addr.street
 
-	print(order_list)
+	# print(order_list)
 	response_data = {}
 	response_data['orders'] = order_list
 	return HttpResponse(json.dumps(response_data, default=json_serialize))

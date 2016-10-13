@@ -3,11 +3,12 @@ from django.template import loader
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from login.models import User
-from .models import Address
+from .models import Address, Orders, Shop, Merchandise
 import json
-from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from os import sys
+from django.db.models import Count, Sum
+import decimal
 
 def index(request):
 		return render(request, 'mainpage/index.html', {'user': request.user})
@@ -165,3 +166,28 @@ def shop_detail(request, shop_id):
 
 def jmp_to_shoppingcar(request):
 	return render(request, 'mainpage/shopping_car.html', {'user': request.user})
+
+def decimal_default(obj):
+	if isinstance(obj, decimal.Decimal):
+		return float(obj)
+	raise TypeError('Type not serializable')
+
+def show_shops_orderby_sales(request):
+	all_orders = Orders.objects.values('shop_id_id').annotate(Count('shop_id_id'))
+	all_shop_set = Shop.objects.order_by('id').values()
+	all_shop = list(all_shop_set)
+	for shop in all_orders:
+		shop_id = shop['shop_id_id']
+		all_shop[shop_id-1]['sales_num'] = shop['shop_id_id__count']
+	print(all_shop)
+	response_data = {}
+	response_data['shopArray'] = all_shop
+	return HttpResponse(json.dumps(response_data, default=decimal_default))
+
+def get_merchandises(request):
+	shop_id = request.POST['shop_id']
+	all_merchandises = Merchandise.objects.filter(shop_id_id=shop_id).values()
+	merchandise_table = list(all_merchandises)
+	response_data = {}
+	response_data['foodsArray'] = merchandise_table
+	return HttpResponse(json.dumps(response_data))

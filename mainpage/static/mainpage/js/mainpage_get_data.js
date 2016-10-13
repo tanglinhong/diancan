@@ -23,7 +23,10 @@ function getShopInfoBySalesOrComments(condition, pagenum) {
         var success = true; //标志数据库中是否存在该所需页,在底下的条件中当未取到数据时设置success=false,并进行提醒
         switch (condition) {
             case "销量":
-               // alert("销量");
+                $.post("/mainpage/show_shops_orderby_sales",{page_num:pagenum,limits:6, csrfmiddlewaretoken: csrftoken},function(data,status){
+                    displayShop(data);
+
+                });
                 break;
             case "评价":
                 //alert("评价");
@@ -88,7 +91,7 @@ function getShopInfoForPrevBySalesOrComments(condition) {
 
 function displayShop(data){//data为json字符串；
     var obj=JSON.parse(data);
-    var orrayObj=obj.shopArray;
+    var arrayObj=obj.shopArray;
     var arrayLen=arrayObj.length;
     $(".cup").empty();
     for(var i=0;i<arrayLen;i++){
@@ -98,17 +101,18 @@ function displayShop(data){//data为json字符串；
         var shopDeliverFee=arrayObj[i].deliver_fee;
         var shopLeastPrice=arrayObj[i].least_price;
         var shopReviewScore=arrayObj[i].review_score;
-        var shopSalesTotalNum=arrayObj[i].shop_sale_total_num;//注意此字段不能直接从shop表中得到，需要进行表连接操作进行获取；
+        var shopSalesTotalNum=arrayObj[i].sales_num;//注意此字段不能直接从shop表中得到，需要进行表连接操作进行获取；
         var aRow;
+        console.log(shopName);
         if((i+1)%3==0){
-             aRow='<div class="col-md-4 cup-in" style="margin-right:0"><a href="#" data-shop-id='+shopId+'><img src='+shopImagePath+' class="img-responsive" alt=""></a><p>'
+             aRow='<div class="col-md-4 cup-in" style="margin-right:0"><a href="#" data-shop-id='+shopId+'><img src=\"/media/'+shopImagePath+'\" class="img-responsive" alt=""></a><p>'
                  +shopName+'</p><div class="mainpage-num-data"><p class="mainpage-sales-num">已销售<span class="sales-num">'+shopSalesTotalNum+'</span>份</p><p class="mainpage-score-comment">评价<span class="score-comment">'
                  +shopReviewScore+'</span>分</p></div><div class="details-in"><p>起送价<span class="deliver-min-price">'+shopLeastPrice+'</span>元，配送费<span class="deliver_fee">'
                  +shopDeliverFee+'</span>元</p></div><div class="clearfix"></div></div>';
 
 
         }else{
-            aRow='<div class="col-md-4 cup-in"><a href="#" data-shop-id='+shopId+'><img src='+shopImagePath+' class="img-responsive" alt=""></a><p>'
+            aRow='<div class="col-md-4 cup-in"><a href="#" data-shop-id='+shopId+'><img src=\"/media/'+shopImagePath+'\" class="img-responsive" alt=""></a><p>'
                  +shopName+'</p><div class="mainpage-num-data"><p class="mainpage-sales-num">已销售<span class="sales-num">'+shopSalesTotalNum+'</span>份</p><p class="mainpage-score-comment">评价<span class="score-comment">'
                  +shopReviewScore+'</span>分</p></div><div class="details-in"><p>起送价<span class="deliver-min-price">'+shopLeastPrice+'</span>元，配送费<span class="deliver_fee">'
                  +shopDeliverFee+'</span>元</p></div><div class="clearfix"></div></div>';
