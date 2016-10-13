@@ -101,9 +101,9 @@
                     if (result == 1) { //信息插入成功
                         alert("信息插入成功");
                         var addrs_total_num; //地址条数
-                        $.get("{% url 'mainpage:get_address_count' %}", function(data, status) { //获得用户地址信息数
+                        $.get("/mainpage/get_address_count", function(data, status) { //获得用户地址信息数
+                            data = 14;
                             addrs_total_num = data;
-                            console.log("插入后地址数目："+addrs_total_num);
                             $(".addr-list").empty();
                             if (data == 0) {
                                 isFirstAddress = 1;
@@ -522,45 +522,25 @@
                                         </tbody>
                                     </table>
                                 </td>
-                                <td colspan="1" style="text-align: center">
+                                <td colspan="1">
                                     <div>
                                         <p>总价</p>
                                         <p>120</p>
                                         <p>（含配送费）</P>
                                     </div>
                                 </td>
-                                <td colspan="1" style="text-align: center">
+                                <td colspan="1">
                                     <div>
                                         <p>订单状态</p>
                                         <p class="order-status">未付款</p>
                                     </div>
                                 </td>
-                                <td colspan="1" style="text-align: center">
+                                <td colspan="1">
                                     <button class="btn-link">评价</button>
                                 </td>
                             </tr>
                         </tbody>
-
                     </table>
-                    <script type="text/javascript">
-
-                        $("#order").each(function(){
-                            if($(this).find(".has-gotten-goods").length==1){//如果订单处于已收货状态，需要显示出评价td栏
-                                $(this).find(".go-comment").css("visibility","visible");
-                            }else{
-                                $(this).find(".go-comment").css("visibility","hidden");
-                            }
-
-                            $(this).find(".need-confirm").click(function(){
-                                //var orderId=$(this)
-
-                            });
-
-
-                        });
-
-
-                    </script>
                 </div>
             </div>
             <div class="tab-pane fade account-div" id="my-account">
