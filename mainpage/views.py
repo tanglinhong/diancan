@@ -245,7 +245,7 @@ def get_cart(request):
 	# print(cart)
 	cart_dic = []
 	for key in cart.keys():
-		cart_dic.append({ key: { x: cart[key].count(x) for x in cart[key] } })
+		cart_dic.append({ key:{ x: cart[key].count(x) for x in cart[key] } })
 	response_data = {}
 	print(cart_dic)
 	response_data['shoppingcar_array'] = cart_dic
@@ -291,3 +291,21 @@ def get_my_threemonth_order(request):
 	response_data = {}
 	response_data['order_array'] = order_list
 	return HttpResponse(json.dumps(response_data,default=json_serialize))
+
+def get_shopinfo_by_id(request):
+	shop_id = request.POST['shop_id']
+	shop = Shop.objects.get(pk=shop_id)
+	response_data = {}
+	response_data['shop_name'] = shop.shopname
+	response_data['deliver_fee'] = shop.deliver_fee
+	print(response_data)
+	return HttpResponse(json.dumps(response_data))
+
+def get_merchan_by_id(request):
+	merch_id = request.POST['merch_id']
+	merchandise = Merchandise.objects.get(pk=merch_id)
+	response_data = {}
+	response_data['food_price'] = merchandise.price
+	response_data['food_name'] = merchandise.title
+	response_data['food_img'] = str(merchandise.image)
+	return HttpResponse(json.dumps(response_data))
