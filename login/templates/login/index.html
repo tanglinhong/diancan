@@ -5,6 +5,7 @@
     {% load static %}
     <title>Login</title>
     <link href="{% static 'login/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'login/css/mystyle.css' %}" rel="stylesheet" type="text/css">
     <style type="text/css">
     .header {
         border-bottom: 3px ridge #FFA500;
@@ -14,12 +15,12 @@
         margin-right: auto;
         font-size: 20;
     }
-    
+
     .logo {
         float: left;
         margin-left: 13%;
     }
-    
+
     .logo a {
         font-size: 200%;
         display: block;
@@ -28,7 +29,7 @@
         color: #DA6A3C;
         font-weight: 100;
     }
-    
+
     .container {
         padding-right: 0;
         padding-left: 0;
@@ -36,7 +37,7 @@
         margin-left: auto;
         width: 100%;
     }
-    
+
     button {
         color: green;
     }
@@ -88,9 +89,9 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-6">
                         <div class="col-sm-3">
-                            <button type="submit" class="btn btn-success ensure">Sign in</button>
+                            <button type="submit" class="btn btn-success ensure" style="margin-left:-15px">登录</button>
                         </div>
-                        
+
                     </div>
                 </div>
             </form>

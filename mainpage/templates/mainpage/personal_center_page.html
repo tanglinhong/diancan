@@ -7,190 +7,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>个人中心|点餐课设</title>
     <link rel="stylesheet" href="{% static 'mainpage/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'mainpage/css/indexstyle.css' %}">
     <link rel="stylesheet" href="{% static 'mainpage/css/mystyle.css' %}">
+    <link rel="stylesheet" href="{% static 'mainpage/css/personal_center.css' %}">
+    <link rel="stylesheet" href="{% static 'mainpage/css/order.css' %}">
     <script src="{% static 'mainpage/js/jquery-3.1.1.min.js' %}"></script>
     <script src="{% static 'mainpage/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'mainpage/js/jquery.validate.js' %}"></script>
     <script src="{% static 'mainpage/js/jquery.validate.extend.js' %}"></script>
     <script src="{% static 'mainpage/js/add.address.js' %}"></script>
     <script src="{% static 'mainpage/js/address.showing.form.pager.js' %}"></script>
-    <style type="text/css">
-    .logo a {
-        font-size: 15px;
-        color: #000000;
-        font-weight: 500;
-        padding: 0;
-    }
 
-    .header {
-        border-bottom: none;
-        height: auto;
-        background-color: #ffd607;
-        width:100%;
-    }
-
-    body {
-        background-color: #f5f5f5;
-    }
-
-    .personal-center-content {
-        margin-top: 3%;
-        margin-left: 15%;
-        margin-right: 15%;
-        height: 450px;
-        width: 830px;
-        overflow-y: auto;
-        overflow-x: auto;
-        border: 1px solid #DCDCDC;
-        background-color: #ffffff;
-    }
-
-    .personal-center-content-left {
-        float: left;
-        width: 150px;
-        height: 100%;
-        background-color: #fafafa;
-        padding-left: 15px;
-        padding-top: 15px;
-        border-right: 1px solid #DCDCDC;
-    }
-
-    .personal-center-content-left ul {
-        list-style-type: none;
-        padding-left: 15px;
-    }
-
-    .personal-center-content-left ul li {
-        margin-top: 5px;
-        color: #a0a0a0
-    }
-
-    .personal-center-content-right {
-        margin-left: 170px;
-        background-color: #ffffff;
-        height: 100%;
-        overflow-y: auto;
-        overflow-x: auto;
-    }
-
-    .account-div {
-        padding-left: 35px;
-        padding-top: 100px
-    }
-
-    .addr-management-div {
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-top: 50px;
-    }
-
-    .container {
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-right: auto;
-        margin-left: auto;
-        width: 100%;
-        height: auto;
-    }
-
-    .row {
-        width: 60%;
-        margin-top: 12px;
-    }
-
-    label.add-address-label {
-        color: #0000ff;
-    }
-
-    label.add-address-label:hover {
-        text-decoration: underline;
-        color: #0000bb;
-    }
-
-    div.header1,
-    div.footer1 {
-        padding: 0;
-        clear: left;
-    }
-
-    .account-a {
-        color: #2bb8aa;
-    }
-
-    #changePasswordModal .modal-dialog {
-        min-width: 650px;
-    }
-
-    .customer-form {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        width: 100%;
-        border-collapse: collapse;
-        table-layout: fixed;
-    }
-
-    .customer-form td,
-    th {
-        font-size: 1em;
-        border: 1px solid #98bf21;
-        padding: 3px 7px 2px 7px;
-    }
-
-    .customer-form th {
-        font-size: 1.1em;
-        text-align: left;
-        padding-top: 5px;
-        padding-bottom: 4px;
-        background-color: #A7C942;
-        color: #ffffff;
-    }
-
-    .customer-form tr.alt td {
-        color: #000000;
-        background-color: #EAF2D3;
-    }
-
-    .address-form-pagination {
-        float: right;
-    }
-
-    .default_label {
-        color: #09c513;
-    }
-
-    .modal-header {
-        background-color: #f8f8f8;
-    }
-
-    .add_addr_div {
-        margin-left: 5%;
-        margin-top: 5%;
-    }
-
-    .select-div {
-        padding-top: 0.5%;
-    }
-
-    .selectTip {
-        padding-left: 0;
-        margin-left: 0;
-    }
-
-    #myAddrModal .modal-dialog {
-        min-width: 800px;
-    }
-    </style>
     <script type="text/javascript">
     window.onerror = function(sMessage, sUrl, sLine) {
         alert("发生错误！\n" + sMessage + "\nURL:" + sUrl + "\nLine Number:" + sLine);
-        //return true;
     }
     </script>
+
     <script type="text/javascript">
+
     var isFirstAddress = 0;
-
-
-
-
     $(document).ready(function() {
         base_addr = "{% static 'mainpage/data/' %}";
         console.log(base_addr);
@@ -205,8 +41,10 @@
             $(".postcodeTip").css("visibility", "hidden");
             $(".consigneeTip").css("visibility", "hidden");
             $(".phoneTip").css("visibility", "hidden");
+            $(".address-form")[0].reset();
+
         });
-        $(".address-form")[0].reset();
+
         $(".addr_modal_ensure").click(function() {
             var flag = true;
             if ($(".province_select").val() == "--省份--") {
@@ -257,7 +95,7 @@
                     street: jiedao,
                     consignee: shouhuoren,
                     consignphone: shoujihao,
-                    postcode:youbian,
+                    postcode: youbian,
                     moren: isFirstAddress
                 }, function(result, status) {
                     if (result == 1) { //信息插入成功
@@ -289,17 +127,6 @@
         });
 
 
-
-
-
-
-
-
-
-
-
-
-
         $(".require-label").prepend('&nbsp;<strong><font color="#FF0000">*</font></strong>&nbsp;');
         $(".personal-center-content-left ul li a").click(function(event) {
             event.preventDefault();
@@ -315,7 +142,7 @@
                      *从数据库中获得当前登陆用户的手机号，邮箱，此处在正式应用时应做缓存处理，
                      *避免每次选中模块就要查询数据库
                      */
-                    $.get("{% url 'mainpage:query_user_info' %}",function(data, status) {
+                    $.get("{% url 'mainpage:query_user_info' %}", function(data, status) {
                         // data = '{"phone":"13162363758","email":"1935734668@qq.com"}'; //测试数据，合并完后删除
                         var obj = JSON.parse(data);
                         if ($.isEmptyObject(obj) == 0) { //JSON对象不空
@@ -328,10 +155,6 @@
 
                     });
                 } else { //选中地址管理模块
-
-                    //alert("choose address");
-
-                    //document.getElementById("addr-list").innerHTML="<p>test</p>";
                     var addrs_total_num; //地址条数
                     $.get("{% url 'mainpage:get_address_count' %}", function(data, status) {
                         addrs_total_num = data;
@@ -345,7 +168,6 @@
                         }
 
                     });
-
                 }
 
                 $(this).tab('show');
@@ -362,8 +184,6 @@
 
         //初次显示三个月订单tab页
         $(".orders-li a:first").tab('show');
-
-
 
 
         //我的账号tab页中修改密码模态框中表单的验证器
@@ -430,8 +250,7 @@
                             if (result == 1) { //新密码插入数据库成功
                                 $("#changePasswordModal").modal('hide');
                                 alert("修改密码成功");
-                                location.href="{% url 'login:index' %}"
-
+                                location.href = "{% url 'login:index' %}"
                             }
                         });
                     } else { //原密码错误
@@ -462,10 +281,10 @@
                     <div class="add_addr_div">
                         <form class="form-horizontal address-form" role="form">
                             <div class="form-group">
-                                <label class="col-sm-2  control-label require-label">所在地区</label>
-                                <div class "col-sm-10">
+                                <label class="col-xs-2  control-label require-label">所在地区</label>
+                                <div class "col-xs-10">
                                     <div class="form-group">
-                                        <div class="col-sm-4 select-div">
+                                        <div class="col-xs-4 select-div">
                                             <select class="province_select" id="province_select_id" name="province">
                                                 <option>--省份--</option>
                                                 <option value="beijing">北京市</option>
@@ -478,59 +297,59 @@
                                                 <option>--区县--</option>
                                             </select>
                                         </div>
-                                        <label class="col-sm-6 control-label selectTip errorTip" for="province_select_id">XXXX</label>
+                                        <label class="col-xs-6 control-label selectTip errorTip" for="province_select_id">XXXX</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label require-label">街道地址</label>
-                                <div class="col-sm-10">
+                                <label class="col-xs-2 control-label require-label">街道地址</label>
+                                <div class="col-xs-10">
                                     <div class="form-group">
-                                        <div class="col-sm-5">
+                                        <div class="col-xs-5">
                                             <textarea class="form-control streetTextArea"></textarea>
                                         </div>
-                                        <label class="col-sm-5 control-label streetTip errorTip">请填写街道地址!</label>
+                                        <label class="col-xs-5 control-label streetTip errorTip">请填写街道地址!</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label require-label">邮政编码</label>
-                                <div class="col-sm-10">
+                                <label class="col-xs-2 control-label require-label">邮政编码</label>
+                                <div class="col-xs-10">
                                     <div class="form-group">
-                                        <div class="col-sm-5">
+                                        <div class="col-xs-5">
                                             <input class="form-control postcodeInput"></input>
                                         </div>
-                                        <label class="col-sm-5 control-label postcodeTip errorTip">请填写邮政编码!</label>
+                                        <label class="col-xs-5 control-label postcodeTip errorTip">请填写邮政编码!</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label require-label">收货人姓名</label>
-                                <div class="col-sm-10">
+                                <label class="col-xs-2 control-label require-label">收货人姓名</label>
+                                <div class="col-xs-10">
                                     <div class="form-group">
-                                        <div class="col-sm-5">
+                                        <div class="col-xs-5">
                                             <input class="form-control consigneeInput"></input>
                                         </div>
-                                        <label class="col-sm-5 control-label consigneeTip errorTip">请填写收货人姓名!</label>
+                                        <label class="col-xs-5 control-label consigneeTip errorTip">请填写收货人姓名!</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label require-label">电话号码</label>
-                                <div class="col-sm-10">
+                                <label class="col-xs-2 control-label require-label">电话号码</label>
+                                <div class="col-xs-10">
                                     <div class="form-group">
-                                        <div class="col-sm-5">
+                                        <div class="col-xs-5">
                                             <input class="form-control phoneInput"></input>
                                         </div>
-                                        <label class="col-sm-5 control-label phoneTip errorTip">请填写手机号!</label>
+                                        <label class="col-xs-5 control-label phoneTip errorTip">请填写手机号!</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
+                                <label class="col-xs-2 control-label"></label>
+                                <div class="col-xs-10">
                                     <div class="form-group">
-                                        <div class="col-sm-8">
+                                        <div class="col-xs-8">
                                             <button type="button" class="btn btn-success addr_modal_ensure">
                                                 确定
                                             </button>
@@ -592,66 +411,38 @@
         </div>
         <!-- /.modal -->
     </div>
-    <div class="modal fade" id="changeTelModal" tabindex="-1" role="dialog" aria-labelledby="mychangeTelModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="mychangeTelModalLabel">设置手机</h4>
-                </div>
-                <div class="modal-body">
-                </div>
-                <!--  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                    <button type="button" class="btn btn-primary">
-                        提交更改
-                    </button>
-                </div> -->
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal -->
-    </div>
-    <div class="modal fade" id="myAddrModal" tabindex="-1" role="dialog" aria-labelledby="myAddrModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myAddrModalLabel">填写地址</h4>
-                </div>
-                <div class="modal-body">
-                </div>
-                <!--  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                    <button type="button" class="btn btn-primary">
-                        提交更改
-                    </button>
-                </div> -->
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal -->
-    </div>
     <!-- header -->
-    <div class="header">
-        <div class="container">
-            <div class="logo">
-                <a href="{% url 'mainpage:index' %}">点餐 <span>课设</span></a>
-            </div>
-            <div class="user-logo">
-                <a href="#">欢迎您, {{user.username}}</a>
-            </div>
+    <header>
+        <div class="header-top-bar">
+            <ul class="header-grid">
+                <script type="text/javascript">
+                $(".header-grid").css("left", "70%");
+                </script>
+                <li style="margin-right: 10px">
+                    <div class="dropdown-top">
+                        <a href="#">欢迎您，{{user.username}}</a>
+                        <div class="dropdown-content-top">
+                            <a href="{% url 'mainpage:personal_center' %}" style="font-size: 1.1em">个人中心</a>
+                            <a href="{% url 'login:log_out' %}" style="border-bottom: none;font-size: 1.1em">退出</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="{% url 'mainpage:shoppingcar' %}"><img class="shopping-car" src="{% static 'mainpage/css/images/shoppingcar.png' %}"></img>
+                    </a>
+                </li>
+            </ul>
         </div>
-    </div>
+        <div class="logo">
+            <h1>
+                    <a href="{% url 'mainpage:index' %}">点餐课设</a>
+            </h1>
+        </div>
+    </header>
+    <!-- /header -->
+
     <!-- body-content -->
     <div class="personal-center-content">
-        <div class="header1"></div>
         <div class="personal-center-content-left">
             <h4>订单查询</h4>
             <ul class="nav nav-pills">
@@ -663,9 +454,94 @@
                 <li class="addr-li"><a href="#addr-management" name="addr-management-a">地址管理</a></li>
             </ul>
         </div>
+        <!-- tab-pane的内容 -->
         <div class="personal-center-content-right tab-content">
             <div class="tab-pane fade in orders-div in" id="three-moths-orders">
-                <p>MyOrders</p>
+                <div class="orders-list" id="orders-list">
+                    <table id="order">
+                        <thead>
+                            <th colspan="6" data-shop-id="6" class="shop-name-th">
+                                <div>
+                                    <ul>
+                                        <li><span class="date">2016-10-03</span> &nbsp;&nbsp;&nbsp;订单号<span class="order-num">12345</span></li>
+                                        <li><span class="shop-name">黄焖鸡米饭</span></li>
+                                        <li>
+                                            <button class="btn-link">删除</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="description">
+                                    <table class="order-merchandises">
+                                        <tbody>
+                                            <tr>
+                                                <ul>
+                                                    <li>
+                                                        <img src="{% static 'mainpage/css/images/st4.jpg' %}" class="food-img">
+                                                    </li>
+                                                    <li>
+                                                        <div class="shoppingcar-description">
+                                                            <p style="">黄焖鸡米饭</p>
+                                                            <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </tr>
+                                            <tr>
+                                                <ul>
+                                                    <li>
+                                                        <img src="{% static 'mainpage/css/images/st4.jpg' %}" class="food-img">
+                                                    </li>
+                                                    <li>
+                                                        <div class="shoppingcar-description">
+                                                            <p style="">黄焖鸡米饭</p>
+                                                            <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </tr>
+                                            <tr>
+                                                <ul>
+                                                    <li>
+                                                        <img src="{% static 'mainpage/css/images/st4.jpg' %}" class="food-img">
+                                                    </li>
+                                                    <li>
+                                                        <div class="shoppingcar-description">
+                                                            <p style="">黄焖鸡米饭</p>
+                                                            <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td colspan="1">
+                                    <div>
+                                        <p>总价</p>
+                                        <p>120</p>
+                                        <p>（含配送费）</P>
+                                    </div>
+                                </td>
+                                <td colspan="1">
+                                    <div>
+                                        <p>订单状态</p>
+                                        <p class="order-status">未付款</p>
+                                    </div>
+                                </td>
+                                <td colspan="1">
+                                    <button class="btn-link">评价</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="tab-pane fade account-div" id="my-account">
                 <div class="container">
@@ -717,8 +593,17 @@
                 <label class="add-address-label" style="margin-top:30px">+添加地址</label>
             </div>
         </div>
-        <div class="footer1"></div>
+        <div class="clearfix"></div>
     </div>
+
+    <footer class="myfooter">
+        <div class="container">
+            <div class="footer-bottom ">
+                <p class="footer-grid">Copyright &copy; 2015.Company name All rights reserved.More Templates </p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </footer>
 </body>
 
 </html>

@@ -12,7 +12,7 @@ function getAllFoods(shopId) {
             var monthSales = arrayObj[i].sales_num;
              var aRow;
             if ((i + 1) % 3 == 0) {
-                 aRow = '<div class="col-md-4 cup-in" style="margin-right"><a href="#"><img src=' + shopImagePath + ' class="img-responsive" alt=""></a><p>' + foodName + '</p><span class="dollar">' + foodPrice + '</span>' + '<div class="details-in"><a href="#" class="details" data-food-id=' + foodId + ' data-shop-id=' + shop_id + '>+</a><p class="month-sales-p">月销售<span class="month-sales-span">' + monthSales + '</span>份</p></div><div class="clearfix"></div></div>';
+                 aRow = '<div class="col-md-4 cup-in" style="margin-right:0"><a href="#"><img src=' + shopImagePath + ' class="img-responsive" alt=""></a><p>' + foodName + '</p><span class="dollar">' + foodPrice + '</span>' + '<div class="details-in"><a href="#" class="details" data-food-id=' + foodId + ' data-shop-id=' + shop_id + '>+</a><p class="month-sales-p">月销售<span class="month-sales-span">' + monthSales + '</span>份</p></div><div class="clearfix"></div></div>';
 
             }else{
                  aRow = '<div class="col-md-4 cup-in"><a href="#"><img src=' + shopImagePath + ' class="img-responsive" alt=""></a><p>' + foodName + '</p><span class="dollar">' + foodPrice + '</span>' + '<div class="details-in"><a href="#" class="details" data-food-id=' + foodId + ' data-shop-id=' + shop_id + '>+</a><p class="month-sales-p">月销售<span class="month-sales-span">' + monthSales + '</span>份</p></div><div class="clearfix"></div></div>';
@@ -42,4 +42,8 @@ function getShoperInfo(shopId) {
         $(".dropdown-content p:last").html("<b>商家联系方式：</b>" + shopPhone);
         $(".shop-detail-right-ul li:first p:first").html("<b>" + commentScore + "</b>分");
     });
+}
+
+function getLocationDescribe(){
+    //获取地址
 }
