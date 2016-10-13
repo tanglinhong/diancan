@@ -47,6 +47,7 @@ function showChoosedPage(pageNumber) {
             $(aRow).appendTo(".customer-form tbody");
 
         }
+        enableOptionForForm();
 
 
     });
@@ -81,14 +82,15 @@ function showAddrTable(addr_total_num) {
     disabledPreviousAndNext(page_count);
     enablePager(page_count, show_count);
     achiveFunForPreviousAndNext(page_count, show_count);
-    enableOptionForForm();
+
+
 }
 
 
 
 function enableOptionForForm() {
-    $(".addr-list").on("click", "a.delete_a", function(event) {
-        event.preventDefault();
+    $("a.delete_a").on("click", function(event) {
+        //event.preventDefault();
         var addressId = $(this).attr("data-addr-id");
         console.log("要删除的地址的id:" + addressId);
         //删除地址，传入的参数为将要删除的地址的地址ID
@@ -98,10 +100,11 @@ function enableOptionForForm() {
         }, function(data, status) {
             if (data == 1) { //删除成功
                 alert("删除成功");
-                $(".addr-list").empty();//先清除已展示的地址；
+
                 //重新获得地址列表
                 $.get("/mainpage/get_address_count", function(data, status) { //获得用户地址信息数
                     addrs_total_num = data;
+                    $(".addr-list").empty();//先清除已展示的地址；
                     if (data == 0) {
                         isFirstAddress = 1;
                         $('<h5>您还没有添加任何地址信息，赶快添加吧！</h5>').appendTo(".addr-list");
@@ -118,17 +121,17 @@ function enableOptionForForm() {
 
 
 
-    $(".addr-list").on("click", "a.config_default_a", function(event) {
-        event.preventDefault();
+    $("a.config_default_a").on("click",function(event) {
+        // event.preventDefault();
         var defaultAddressId = $(this).attr("data-addr-id");
         alert(defaultAddressId);
         //设置默认地址，传入的参数为将要设置为默认地址的地址ID
         $.post("/mainpage/conf_default_addr", { csrfmiddlewaretoken: csrftoken, default_addr_id: defaultAddressId }, function(data, status) {
             if (data == 1) {
                 alert("设置成功");
-                $(".addr-list").empty(); //先清除已展示的地址；
                 $.get("/mainpage/get_address_count", function(data, status) { //获得用户地址信息数
                     addrs_total_num = data;
+                    $(".addr-list").empty(); //先清除已展示的地址；
                     if (data == 0) {
                         isFirstAddress = 1;
                         $('<h5>您还没有添加任何地址信息，赶快添加吧！</h5>').appendTo(".addr-list");

@@ -101,9 +101,9 @@
                     if (result == 1) { //信息插入成功
                         alert("信息插入成功");
                         var addrs_total_num; //地址条数
-                        $.get("#", function(data, status) { //获得用户地址信息数
-                            data = 14;
+                        $.get("{% url 'mainpage:get_address_count' %}", function(data, status) { //获得用户地址信息数
                             addrs_total_num = data;
+                            console.log("插入后地址数目："+addrs_total_num);
                             $(".addr-list").empty();
                             if (data == 0) {
                                 isFirstAddress = 1;
@@ -552,7 +552,7 @@
                             }
 
                             $(this).find(".need-confirm").click(function(){
-                                var orderId=$(this).
+                                //var orderId=$(this)
 
                             });
 

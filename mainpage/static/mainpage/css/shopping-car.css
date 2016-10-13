@@ -105,6 +105,7 @@ body a {
 
 td ul {
     list-style-type: none;
+    float:left;
 }
 
 td ul li {
@@ -112,17 +113,30 @@ td ul li {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+td ul li:last-child{
+    margin-left: 1.5em;
+
+
+}
 
 button.decrease {
     margin-right: -5px;
     border: none;
     box-shadow: none;
+    width:25px;
+    height:30px;
+    background:#c8e1ef;
+    color:#fff;
 }
 
 button.plus {
     margin-left: -5px;
     border: none;
     box-shadow: none;
+    width:25px;
+    height:30px;
+    background:#c8e1ef;
+    color:#fff;
 }
 
 span.dollar {
@@ -145,4 +159,35 @@ span.renminbi {
 
 input.good-count {
     margin-top: 15px;
+    width:30px;
+    height:30px;
+    text-align:center;
 }
+
+li.delete{
+    margin-left: 1.5em;
+
+}
+
+tfoot td div:first-child{
+    float:left;
+    margin-left: 10px;
+    font-size: 1em;
+
+}
+
+tfoot tr:first-child p{
+    float:right;
+    font-size:0.8em;
+}
+
+tfoot tr:last-child td ul{
+    float:left;
+
+}
+
+tfoot tr:last-child td ul li:last-child{
+    margin-left: 1.5em;
+
+}
+
