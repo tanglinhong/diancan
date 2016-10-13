@@ -235,11 +235,12 @@ def get_cart(request):
 	cart = request.session.get("cart", None)
 	if not cart:
 		return HttpResponse(0)
-	print(cart)
+	# print(cart)
 	cart_dic = []
 	for key in cart.keys():
 		cart_dic.append({ key: { x: cart[key].count(x) for x in cart[key] } })
 	response_data = {}
+	print(cart_dic)
 	response_data['shoppingcar_array'] = cart_dic
 	return HttpResponse(json.dumps(response_data))
 
