@@ -141,3 +141,10 @@ def delete_good(request):
 		return HttpResponse(1)
 	except:
 		return HttpResponse(0)
+
+def confirm_order(request):
+	order_num = request.POST['order_num']
+	order = Orders.objects.get(order_num=order_num)
+	order.status = 1
+	order.save()
+	return HttpResponse(1)

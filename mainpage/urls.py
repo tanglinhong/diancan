@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^get_shop_by_keywords$', views.get_shop_by_keywords, name="get_shop_by_keywords"),
     url(r'^get_shopinfo_by_id$', views.get_shopinfo_by_id, name="get_shopinfo_by_id"),
     url(r'^get_merchan_by_id$', views.get_merchan_by_id, name="get_merchan_by_id"),
+    url(r'^place_order$', views.place_order, name="place_order"),
 ]

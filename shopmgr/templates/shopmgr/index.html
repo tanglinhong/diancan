@@ -73,7 +73,7 @@
                 var order_time = arrayObj[i].order_time;
                 var addr = arrayObj[i].address_id_id;
                 var price = arrayObj[i].total_price;
-                var aRow = '<tr><td>' + order_num + '</td><td>' + order_time + '</td><td>' + addr + '</td><td>' + price + '</td><td><button class=\"btn btn-default\" onclick="confirm_order()">确认订单</button><button class=\"btn btn-default\">拒绝订单</button></td></tr>';
+                var aRow = '<tr><td>' + order_num + '</td><td>' + order_time + '</td><td>' + addr + '</td><td>' + price + '</td><td><button class=\"btn btn-default\" onclick="confirm_order('+order_num+')">确认订单</button><button class=\"btn btn-default\">拒绝订单</button></td></tr>';
                 $(aRow).appendTo("#orders table tbody");
             }
             $("#target ").empty();
@@ -82,7 +82,14 @@
         });
     }
 
-    function confirm_order() {}
+    function confirm_order(order_num) {
+        $.post("confirm_order", {csrfmiddlewaretoken: csrftoken, order_num:order_num},
+                function(data, status){
+                    if(data == 1){
+                        alert("接单成功！");
+                    }
+                });
+    }
 
     function show_completed_orders() {
         $("#orders table tbody").empty();

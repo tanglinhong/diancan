@@ -242,13 +242,31 @@ def get_cart(request):
 	cart = request.session.get("cart", None)
 	if not cart:
 		return HttpResponse(0)
-	# print(cart)
-	cart_dic = []
+	print(cart)
+	cart_dic = {}
 	for key in cart.keys():
-		cart_dic.append({ key:{ x: cart[key].count(x) for x in cart[key] } })
+		temp = dict()
+		for x in cart[key]:
+			tmp = dict()
+			tmp['cnt'] = cart[key].count(x)
+			merchandise = Merchandise.objects.get(pk=x)
+			tmp['price'] = merchandise.price
+			tmp['food_name'] = merchandise.title
+			tmp['food_img'] = str(merchandise.image)
+			temp[x] = tmp
+		cart_dic[key] = temp
+		# cart_dic.append({key:temp})
 	response_data = {}
 	print(cart_dic)
+	shop_info = {}
+	for shop_id in cart:
+		shop = Shop.objects.get(pk=shop_id)
+		temp = dict()
+		temp['shopname'] = shop.shopname
+		temp['deliver_fee'] = shop.deliver_fee
+		shop_info[shop_id] = temp
 	response_data['shoppingcar_array'] = cart_dic
+	response_data['shop_info'] = shop_info
 	return HttpResponse(json.dumps(response_data))
 
 def flush_cart(request):
@@ -309,3 +327,21 @@ def get_merchan_by_id(request):
 	response_data['food_name'] = merchandise.title
 	response_data['food_img'] = str(merchandise.image)
 	return HttpResponse(json.dumps(response_data))
+
+def place_order(request):
+	shop_id = request.POST['shop_id']
+	total_price = request.POST['total_price']
+	user_id = request.user.id
+	addr = Address.objects.filter(user_id_id=user_id, is_default=True)[0]
+	d = datetime.now()
+	o = Orders(order_num = '{:%Y%m%d%H%M%S}{:d}'.format(d,user_id), order_time=d,
+		 total_price=total_price, status=0, shop_id_id=shop_id, user_id_id=user_id, address_id=addr)
+	o.save()
+	goods_list = request.session['cart'][shop_id]
+	goods = { x:goods_list.count(x) for x in goods_list }
+	for good_id in goods.keys():
+		od = OrderDetail(merchan_num=goods[good_id], merchan_id_id=good_id, order_id=o)
+		od.save()
+	del request.session['cart'][shop_id]
+	request.session.save()
+	return HttpResponse(1)

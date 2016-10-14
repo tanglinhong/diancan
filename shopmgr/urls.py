@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^show_completed_orders$',views.show_completed_orders, name="show_completed_orders"),
     url(r'^add_goods$', views.add_goods, name="add_goods"),
     url(r'^jmp_to_manage_goods$', views.jmp_to_manage_goods, name="jmp_to_manage_goods"),
-    url(r'delete_good', views.delete_good, name="delete_good"),
+    url(r'^delete_good$', views.delete_good, name="delete_good"),
+    url(r'^confirm_order$', views.confirm_order, name="confirm_order"),
 ]

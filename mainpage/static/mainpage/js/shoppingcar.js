@@ -36,14 +36,7 @@ function recalculateTotalPrice($table) {
 }
 
 
-var itemsObj;
-var shopId;
-var shopName;
-var shopDeliverFee;
-var foodPrice;
-var foodName;
-var foodImg;
-var aRow;
+var total_price;
 
 function initialTable() {
     //---从cache中加载数据，然后初始化所有表格；
@@ -62,63 +55,68 @@ function initialTable() {
 
     //     }
 
-
+    total_price = 0;
 
     // }
     $(".shoppingcar-container").empty();
     $.get("/mainpage/get_cart", function(data, status) {
         var obj = JSON.parse(data);
-        // console.log(obj);
         var arrayObj = obj.shoppingcar_array;
+        var shop_info = obj.shop_info;
         var arrayLen = arrayObj.length;
-        for (var i = 0; i < arrayLen; i++) {
-            //console.log("here");
-            var firstTableObj = arrayObj[i];
-            for (var k in firstTableObj) {
-                shopId = k;
-                itemsObj = firstTableObj[k];
-                console.log(itemsObj);
-                break;
-            }
+        console.log(arrayObj);
+        console.log(shop_info);
+        var itemsObj;
+        var shopId;
+        var shopName;
+        var shopDeliverFee;
+        for (var shop_id in arrayObj) {
+            console.log("here");
+            shopId = shop_id;
+            itemsObj = arrayObj[shopId];
+            console.log(shopId + ": " + arrayObj[shopId]);
+
             //console.log("shopId:" + shopId + " 商品列表：" + itemsObj);
             console.log("ShopId: " + shopId);
 
-            $.post("/mainpage/get_shopinfo_by_id", { csrfmiddlewaretoken: csrftoken, shop_id: shopId }, function(data, status) {
-                var aObj = JSON.parse(data);
-                shopName = aObj.shop_name;
-                shopDeliverFee = aObj.deliver_fee;
-                console.log(shopName);
-                $('<table id="customers" data-shop-id=' + shopId + '><thead><th colspan="3" class="shop-name=th">' + shopName + '</th></thead><tbody></tbody>').appendTo(".shoppingcar-container");
-                var $tableBody = $(".shoppingcar-container #customers:last").find("tbody");
-                console.log("itemsObj: " + itemsObj);
-                for (var kk in itemsObj) {
-                    var merchId = kk;
-                    var merchanCount = itemsObj[kk];
-                    console.log("merchId: " + kk);
-                    console.log("数量：" + merchanCount);
-                    // var foodPrice;
-                    // var foodName;
-                    // var foodImg;
-                    // var aRow;
-                    $.post("/mainpage/get_merchan_by_id", { csrfmiddlewaretoken: csrftoken, merch_id: merchId }, function(data, status) {
-                        var ob = JSON.parse(data);
-                        foodPrice = ob.food_price;
-                        //console.log("测试" + foodPrice);
-                        foodName = ob.food_name;
-                        foodImg = ob.food_img;
-                        aRow = '<tr><td width="60%" colspan="2" class="description"><ul><li><img data-food-id=' + merchId + ' src=' + foodImg + ' class="food-img"></li><li><div class="shoppingcar-description"><p>' + foodName + '</p><p><span class="count">' + merchanCount + '</span><span class="multiply"x</span><span class="dollar">' +
-                            foodPrice + '</span></p></div></li></ul></td><td width="40%" class="operation"><ul><li><button class="decrease">-</button><input class="good-count" type="text">' + merchanCount + '</input><button class="plus">+</button></li><li class="delete-li"><button class="btn btn-danger delete">删除</button></li></ul></td></tr>';
-                        $tableBody.append(aRow);
-                    });
+            //$.post("/mainpage/get_shopinfo_by_id", { csrfmiddlewaretoken: csrftoken, shop_id: shopId }, function(data, status) {
+            //var aObj = JSON.parse(data);
+            shopName = shop_info[shopId].shopname;
+            shopDeliverFee = shop_info[shopId].deliver_fee;
+            console.log(shopName);
+            $('<table id="customers" data-shop-id=' + shopId + '><thead><th colspan="3" class="shop-name=th">' + shopName + '</th></thead><tbody></tbody>').appendTo(".shoppingcar-container");
+            var $tableBody = $(".shoppingcar-container #customers:last").find("tbody");
+            console.log("itemsObj: " + itemsObj);
+            for (var kk in itemsObj) {
+                var merchId = kk;
+                var merchanCount = itemsObj[kk].cnt;
+                console.log("merchId: " + kk);
+                console.log("数量：" + merchanCount);
+                var foodPrice;
+                var foodName;
+                var foodImg;
+                var aRow;
+                //$.post("/mainpage/get_merchan_by_id", { csrfmiddlewaretoken: csrftoken, merch_id: merchId }, function(data, status) {
+                //var ob = JSON.parse(data);
+                foodPrice = itemsObj[kk].price;
+                //console.log("测试" + foodPrice);
+                foodName = itemsObj[kk].food_name;
+                foodImg = itemsObj[kk].food_img;
+                aRow = '<tr><td width="60%" colspan="2" class="description"><ul><li><img data-food-id=' + merchId + ' src=\"/media/' + foodImg + '\" height=150px width=200px class="food-img"></li><li><div class="shoppingcar-description"><p>' + foodName + '</p><p><span class="count">' + merchanCount + ' * </span><span class="multiply"x</span><span class="dollar">' +
+                    foodPrice + '￥</span></p></div></li></ul></td><td width="40%" class="operation"><ul><li><button class="decrease">-</button><input class="good-count" type="text">' + merchanCount + '</input><button class="plus">+</button></li><li class="delete-li"><button class="btn btn-danger delete">删除</button></li></ul></td></tr>';
+                $tableBody.append(aRow);
+                //  });
+
+                total_price += foodPrice * merchanCount;
 
 
 
-
-                }
-                var aFooter = '<tfoot><tr><td colspan="3"><div><p><b>总价:</b><span class="dollar total-price"></span></p></div><div class="clearfix"></div><p><b>+配送费</b><span class="deliver-dollar">' + shopDeliverFee + '</span>元</p></td></tr><tr><td colspan="3"><ul><li><button class="btn ttn-info">确定下单</button></li><li><button class="btn btn-link cancel">取消</button></li></ul></td></tr>';
-                $(".shoppingcar-container #customers:last").append(aFooter);
-
-            });
+            }
+            total_price += shopDeliverFee;
+            var aFooter = '<tfoot><tr><td colspan="3"><div><p><b>总价:' + total_price + '</b><span class="dollar total-price"></span></p></div><div class="clearfix"></div><p><b>+配送费</b><span class="deliver-dollar">' + shopDeliverFee + '</span>元</p></td></tr><tr><td colspan="3"><ul><li><button class="btn ttn-info" onclick=\"place_order(' + shop_id + ',' + total_price + ')\">确定下单</button></li><li><button class="btn btn-link cancel">取消</button></li></ul></td></tr>';
+            $(".shoppingcar-container #customers:last").append(aFooter);
+            total_price = 0;
+            // });
             // $('<table id="customers" data-shop-id=' + shopId + '><thead><th colspan="3" class="shop-name=th">' + shopName + '</th></thead><tbody></tbody>').appendTo(".shoppingcar-container");
             // var $tableBody = $("#customers").find("tbody");
             // for (var kk in itemsObj) {
@@ -199,4 +197,15 @@ function cancelOrder($table) {
         $(".content").append("<p>购物车已空</p>");
 
     }
+}
+
+
+function place_order(shop_id, totalprice) {
+    $.post("place_order", { csrfmiddlewaretoken: csrftoken, shop_id: shop_id, total_price: totalprice },
+        function(data, status) {
+            if(data==1){
+                alert("下单成功");
+                location.reload();
+            }
+        });
 }

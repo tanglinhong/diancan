@@ -24,7 +24,7 @@ function initialOrdersTables(){
 
         var objArray=obj.order_array;
         var array_len=objArray.length;
-
+        console.log(objArray);
         for(var i=0;i<array_len;i++){//处理每一个订单
             var orderNum=objArray[i].order_num;
             var orderTime=objArray[i].order_time;
