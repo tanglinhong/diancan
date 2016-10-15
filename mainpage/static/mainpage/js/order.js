@@ -37,13 +37,13 @@ function initialOrdersTables(){
             var aTableHead='<thead><th colspan="6" class="shop-name-th"><div><ul><li><span class="date">'+
                         orderTime+'</span>&nbsp;&nbsp;&nbsp;订单号<span class="order-num">'+orderNum+'</span></li><li><span class="shop-name">'+
                         shopName+'</span></li><li><button class="btn-link">删除</button></li></ul></div></th></thead>';
-            //console.log("head:"+aTableHead);
+            console.log("head:"+aTableHead);
             var $lastTable= $(".orders-list").children("#order:last");
             $lastTable.append(aTableHead);
             $lastTable.append('<tbody><tr><td colspan="3" class="description"></td></tr><tbody>');
             var firstColum='<table class="inner-customers"><tbody class="inner-table-tbody"></tbody></table>';
+            $("td.description:last").append(firstColum);
             var $description=$lastTable.find(".description");
-            $description.append(firstColum);
             $firstTdBody=$lastTable.find(".inner-customers tbody");
             // console.log("测试啊："+$lastTable.find(".inner-customers tbody").attr("data-ceshi"));
             // console.log("测试啊："+$lastTable.find(".inner-table-tbody").attr("data-ceshi"));
@@ -56,10 +56,10 @@ function initialOrdersTables(){
                 var foodName=foodsArray[j].title;
                 var count=foodsArray[j].merchan_num;
                 var price=foodsArray[j].price;
-               // console.log(foodName);
+                console.log("foodName: " + foodName);
 
-                var aInnerRow='<tr><ul><li><img src="" class="food-img"></li><li><div><p>'+foodName+
-                                '</p><p><span class="count">'+count+'</span><span class="multiply">x</span><span class="dollar">'+
+                var aInnerRow='<tr><ul><li><img src="" class="food-img" /></li><li><div><p>'+foodName+
+                                '</p><p><span class="count">'+count+'</span><span class="multiply"></span><span class="dollar">'+
                                 price+'</span></p></div></li></ul><div class="clearfix"></div></tr>';
                 console.log(aInnerRow);
                 $firstTdBody.append(aInnerRow);
@@ -78,11 +78,6 @@ function initialOrdersTables(){
 
             otherTds+='<td colspan="1" style="text-align:center"><button class="btn-link go-comment">评价</button></td>';
             var $lastTableTr=$lastTable.find("tr:first").append(otherTds);
-
-
-
-
-
         }
 
     })
