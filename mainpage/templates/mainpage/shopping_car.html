@@ -15,57 +15,6 @@
 
         initialTable();
 
-
-        $("span.multiply").after('<span class="renminbi">¥</span>');
-        $(".total-price").before('<span class="renminbi">¥</span>');
-        $(".shoppingcar-container").on("click", ".plus", function() {
-            var currentCount = parseInt($(this).prev().val()) + 1;
-            $(this).prev().val(currentCount);
-            $(this).parents("td").siblings().find("span.count").text(currentCount);
-            recalculateTotalPrice($(this).parents("table"));
-
-
-
-        });
-
-        $(".shoppingcar-container").on("click", ".decrease", function() {
-            if ($(this).next().val() == 1) {
-
-            } else {
-                var currentCount = parseInt($(this).next().val()) - 1;
-                $(this).next().val(currentCount);
-                $(this).parents("td").siblings().find("span.count").text(currentCount);
-                recalculateTotalPrice($(this).parents("table"));
-
-            }
-
-
-        });
-
-        $(".shoppingcar-container").on("click", ".delete", function() {
-            var $table = $(this).parents("table");
-            var isEmpty = checkTableEmpty($table);
-            if (isEmpty == false) {
-                $(this).parents("tr").remove();
-                recalculateTotalPrice($table);
-            }
-        });
-
-        $(".shoppingcar-container").on("click", ".ensure", function() {
-            var $table = $(this).parents("table");
-
-
-        });
-
-
-        $(".shoppingcar-container").on("click", ".cancel", function() {
-            var $table = $(this).parents("table");
-            cancelOrder($table);
-
-        });
-
-
-
     });
     </script>
 </head>
@@ -73,7 +22,7 @@
 <body>
     <div style="text-align: center;margin-top:30px" class="content">
         <div class="shoppingcar-container">
-           <!--  <table id="customers">
+            <table id="customers">
                 <thead>
                     <th colspan="3" data-shop-id="1" class="shop-name-th">黄焖鸡米饭理工大店</th>
                 </thead>
@@ -183,7 +132,118 @@
                         </td>
                     </tr>
                 </tfoot>
-            </table> -->
+            </table>
+              <table id="customers">
+                <thead>
+                    <th colspan="3" data-shop-id="1" class="shop-name-th">黄焖鸡米饭理工大店</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="60%" colspan="2" class="description">
+                            <ul>
+                                <li>
+                                    <img data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}" class="food-img">
+                                </li>
+                                <li>
+                                    <div class="shoppingcar-description">
+                                        <p style="">黄焖鸡米饭</p>
+                                        <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td width="40%" class="operation">
+                            <ul>
+                                <li>
+                                    <button class="decrease">-</button>
+                                    <input class="good-count" type="text" value="1"></input>
+                                    <button class="plus">+</button>
+                                </li>
+                                <li class="delete-li">
+                                    <button class="btn btn-danger delete">删除</button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="60%" colspan="2" class="description">
+                            <ul>
+                                <li>
+                                    <img data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}" class="food-img">
+                                </li>
+                                <li>
+                                    <div class="shoppingcar-description">
+                                        <p style="">黄焖鸡米饭</p>
+                                        <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td width="40%" class="operation">
+                            <ul>
+                                <li>
+                                    <button class="decrease">-</button>
+                                    <input class="good-count" type="text" value="1"></input>
+                                    <button class="plus">+</button>
+                                </li>
+                                <li class="delete-li">
+                                    <button class="btn btn-danger delete">删除</button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="60%" colspan="2" class="description">
+                            <ul>
+                                <li>
+                                    <img data-food-id="1" src="{% static 'mainpage/css/images/st4.jpg' %}" class="food-img">
+                                </li>
+                                <li>
+                                    <div class="shoppingcar-description">
+                                        <p style="">黄焖鸡米饭</p>
+                                        <p><span class="count">1</span><span class="multiply">x</span><span class="dollar">16</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td width="40%" class="operation">
+                            <ul>
+                                <li>
+                                    <button class="decrease">-</button>
+                                    <input class="good-count" type="text" value="1"></input>
+                                    <button class="plus">+</button>
+                                </li>
+                                <li class="delete-li">
+                                    <button class="btn btn-danger delete">删除</button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <div>
+                                <p><b>总价:</b><span class="dollar total-price">132元</span></p>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p><b>+配送费</b><span class="deliver-dollar">2</span>元</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <ul>
+                                <li>
+                                    <button class="btn btn-info">确定下单</button>
+                                </li>
+                                <li>
+                                    <button class="btn btn-link cancel">取消</button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 </body>

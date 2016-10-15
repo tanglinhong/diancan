@@ -355,6 +355,7 @@ def get_merchan_by_id(request):
 
 def place_order(request):
     shop_id = request.POST['shop_id']
+    print("place_order")
     total_price = request.POST['total_price']
     user_id = request.user.id
     addr = Address.objects.filter(user_id_id=user_id, is_default=True)[0]
