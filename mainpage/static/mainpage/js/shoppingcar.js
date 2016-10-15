@@ -17,7 +17,7 @@ var csrftoken = getCookie('csrftoken');
 
 function recalculateTotalPrice($table) {
     var totalPrice = 0;
-    $table.children("tbody").children("tr").each(function() {
+    $table.children("tbody").children("tr").each(function () {
         var count = parseInt($(this).find("span.count").text());
         // alert(count);
         var singlePrice = parseInt($(this).find("span.dollar").text());
@@ -40,26 +40,11 @@ var total_price;
 
 function initialTable() {
     //---从cache中加载数据，然后初始化所有表格；
-    // var obj=JSON.parse(data);
-    // var arrayObj=obj.shoppingcar
-    // for(var i in obj){//处理每一个表格中，
-    //     var shopId=i;
-    //     console.log("商店id:"+shopId);
-    //     var innerObj=obj[i];
-    //     $('<table id="order" data-shop-id='+shopId+'>')
-    //     for(var j in innerObj){
-    //         var foodId=j;
-    //         var foodCount=innerObj[j];
-    //         console("商品ID："+foodId+" 商品数量："+foodCount);
-
-
-    //     }
-
     total_price = 0;
 
     // }
     $(".shoppingcar-container").empty();
-    $.get("/mainpage/get_cart", function(data, status) {
+    $.get("/mainpage/get_cart", function (data, status) {
         var obj = JSON.parse(data);
         var arrayObj = obj.shoppingcar_array;
         var shop_info = obj.shop_info;
@@ -75,12 +60,8 @@ function initialTable() {
             shopId = shop_id;
             itemsObj = arrayObj[shopId];
             console.log(shopId + ": " + arrayObj[shopId]);
-
             //console.log("shopId:" + shopId + " 商品列表：" + itemsObj);
             console.log("ShopId: " + shopId);
-
-            //$.post("/mainpage/get_shopinfo_by_id", { csrfmiddlewaretoken: csrftoken, shop_id: shopId }, function(data, status) {
-            //var aObj = JSON.parse(data);
             shopName = shop_info[shopId].shopname;
             shopDeliverFee = shop_info[shopId].deliver_fee;
             console.log(shopName);
@@ -96,8 +77,6 @@ function initialTable() {
                 var foodName;
                 var foodImg;
                 var aRow;
-                //$.post("/mainpage/get_merchan_by_id", { csrfmiddlewaretoken: csrftoken, merch_id: merchId }, function(data, status) {
-                //var ob = JSON.parse(data);
                 foodPrice = itemsObj[kk].price;
                 //console.log("测试" + foodPrice);
                 foodName = itemsObj[kk].food_name;
@@ -106,49 +85,17 @@ function initialTable() {
                     foodPrice + '￥</span></p></div></li></ul></td><td width="40%" class="operation"><ul><li><button class="decrease">-</button><input class="good-count" type="text">' + merchanCount + '</input><button class="plus">+</button></li><li class="delete-li"><button class="btn btn-danger delete">删除</button></li></ul></td></tr>';
                 $tableBody.append(aRow);
                 //  });
-
                 total_price += foodPrice * merchanCount;
-
-
-
             }
             total_price += shopDeliverFee;
             var aFooter = '<tfoot><tr><td colspan="3"><div><p><b>总价:' + total_price + '</b><span class="dollar total-price"></span></p></div><div class="clearfix"></div><p><b>+配送费</b><span class="deliver-dollar">' + shopDeliverFee + '</span>元</p></td></tr><tr><td colspan="3"><ul><li><button class="btn ttn-info" onclick=\"place_order(' + shop_id + ',' + total_price + ')\">确定下单</button></li><li><button class="btn btn-link cancel">取消</button></li></ul></td></tr>';
             $(".shoppingcar-container #customers:last").append(aFooter);
             total_price = 0;
-            // });
-            // $('<table id="customers" data-shop-id=' + shopId + '><thead><th colspan="3" class="shop-name=th">' + shopName + '</th></thead><tbody></tbody>').appendTo(".shoppingcar-container");
-            // var $tableBody = $("#customers").find("tbody");
-            // for (var kk in itemsObj) {
-            //     var merchId = kk;
-            //     var merchanCount = itemsObj[kk];
-            //     var foodPrice;
-            //     var foodName;
-            //     var foodImg;
-            //     var aRow;
-            //     $.post("/mainpage/get_merchan_by_id", { csrfmiddlewaretoken: csrftoken, merch_id: merchId }, function(data, status) {
-            //         var ob = JSON.parse(data);
-            //         foodPrice = ob.food_price;
-            //         console.log("测试"+foodPrice);
-            //         foodName = ob.food_name;
-            //         foodImg = ob.food_img;
-            //         aRow = '<tr><td width="60%" colspan="2" class="description"><ul><li><img data-food-id=' + merchId + ' src=' + foodImg + ' class="food-img"></li><li><div class="shoppingcar-description"><p>' + foodName + '</p><p><span class="count">' + merchanCount + '</span><span class="multiply"x</span><span class="dollar">' +
-            //             foodPrice + '</span></p></div></li></ul></td><td width="40%" class="operation"><ul><li><button class="decrease">-</button><input class="good-count" type="text">' + merchanCount + '</input><button class="plus">+</button></li><li class="delete-li"><button class="btn btn-danger delete">删除</button></li></ul></td></tr>';
-            //         $tableBody.append(aRow);       
-            //     });
-
-
-
-
-            // }
-            // var aFooter = '<tfoot><tr><td colspan="3"><div><p><b>总价:</b><span class="dollar total-price"></span></p></div><div class="clearfix"></div><p><b>+配送费</b><span class="deliver-dollar">' + shopDeliverFee + '</span>元</p></td></tr><tr><td colspan="3"><ul><li><button class="btn ttn-info">确定下单</button></li><li><button class="btn btn-link cancel">取消</button></li></ul></td></tr>';
-            // $("#customers").append(aFooter);
         }
-
     });
 
     //计算每个table的价格
-    $("table").each(function() {
+    $("table").each(function () {
         recalculateTotalPrice($(this));
 
     });
@@ -167,14 +114,14 @@ function ensureOrder($table) {
     var shopId = $table.attr("data-shop-id");
     var orderTotalPrice = parseInt($table.find("span.total-price").text());
     var address_id;
-    $.get("#", function(data, status) {
+    $.get("#", function (data, status) {
         address_id = data;
     });
     //将订单信息传入
 
     //将订单具体信息传入
     var orderDetail = {};
-    $table.find("tbody tr").each(function() {
+    $table.find("tbody tr").each(function () {
         var foodId = $(this).find(".food-img").attr("data-food-id");
         var foodNum = $(this).find("span.count").text();
         orderDetail[foodId] = foodNum;
@@ -183,12 +130,9 @@ function ensureOrder($table) {
     console.log("before stringify:" + orderDetail);
     var orderDetailStr = JSON.stringify(orderDetail);
     console.log("after stringify:" + orderDetailStr);
-    $.post("#", { order_detail: orderDetailStr }, function(data, status) {
+    $.post("#", {order_detail: orderDetailStr}, function (data, status) {
 
     });
-
-
-
 }
 
 function cancelOrder($table) {
@@ -199,12 +143,10 @@ function cancelOrder($table) {
     }
 }
 
-
 function place_order(shop_id, totalprice) {
-    $.post("place_order", { csrfmiddlewaretoken: csrftoken, shop_id: shop_id, total_price: totalprice },
-        function(data, status) {
-            if(data==1){
-                alert("下单成功");
+    $.post("place_order", {csrfmiddlewaretoken: csrftoken, shop_id: shop_id, total_price: totalprice},
+        function (data, status) {
+            if (data == 1) {
                 location.reload();
             }
         });
