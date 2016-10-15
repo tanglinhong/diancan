@@ -12,6 +12,7 @@ def index(request):
     return render(request, 'login/index.html')
 
 
+
 def authorize(request):
     user_name = request.POST['user_name']
     password = request.POST['user_pwd']
