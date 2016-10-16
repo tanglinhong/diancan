@@ -20,7 +20,7 @@ function initialOrdersTables() {
     //从数据库加载订单数据
     $.post("/mainpage/get_my_threemonth_order", {csrfmiddlewaretoken: csrftoken}, function (data, status) {
         var obj = JSON.parse(data);
-        var innerHTML;
+        var innerHTML = "";
         var objArray = obj.order_array;
         var array_len = objArray.length;
 
@@ -36,19 +36,9 @@ function initialOrdersTables() {
             innerHTML += '<thead><th colspan="6" class="shop-name-th"><div><ul><li><span class="date">' +
                 orderTime + '</span>&nbsp;&nbsp;&nbsp;订单号<span class="order-num">' + orderNum + '</span></li><li><span class="shop-name">' +
                 shopName + '</span></li><li><button class="btn-link">删除</button></li></ul></div></th></thead>';
-            //$('<table id="order"></table>').appendTo("#orders-list");
-            //var aTableHead = '<thead><th colspan="6" class="shop-name-th"><div><ul><li><span class="date">' +
-            //     orderTime + '</span>&nbsp;&nbsp;&nbsp;订单号<span class="order-num">' + orderNum + '</span></li><li><span class="shop-name">' +
-            //     shopName + '</span></li><li><button class="btn-link">删除</button></li></ul></div></th></thead>';
-            //var $lastTable = $(".orders-list").children("#order:last");
-            //$lastTable.append(aTableHead);
             innerHTML += '<tbody><tr><td colspan="3" class="description">'; // lack </tr></td>
-            //$lastTable.append('<tbody><tr><td colspan="3" class="description"></td></tr><tbody>');
             innerHTML += '<table class="inner-customers"><tbody class="inner-table-tbody">';
-            //var firstColum = '<table class="inner-customers"><tbody class="inner-table-tbody"></tbody></table>';
-            //$("td.description").append(firstColum);
-            //var description = $lastTable.find(".description");
-            //$firstTdBody = $lastTable.find(".inner-customers tbody");
+
 
             for (var j = 0; j < foodsLen; j++) {//处理每一个订单中的每一个商品；
                 var imgPath = foodsArray[j].image;

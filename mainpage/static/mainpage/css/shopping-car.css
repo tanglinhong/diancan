@@ -119,18 +119,13 @@ td ul li:last-child{
 
 }
 
-button.decrease {
-    margin-right: -5px;
-    border: none;
-    box-shadow: none;
-    width:25px;
-    height:30px;
-    background:#c8e1ef;
-    color:#fff;
+.food-img{
+    height:130px;
+    width:150px;
+
 }
 
-button.plus {
-    margin-left: -5px;
+button.decrease {
     border: none;
     box-shadow: none;
     width:25px;
@@ -150,15 +145,17 @@ span.multiply {
     margin-right: 5px;
 }
 
-span.renminbi {
-    font-size: 1.5em;
-    color: #aa381e;
-    margin-right: 3px;
-    font-family: 'Lobster Two', cursive;
+
+li.delete,button.plus {
+    border: none;
+    box-shadow: none;
+    width:25px;
+    height:30px;
+    background:#c8e1ef;
+    color:#fff;
 }
 
 input.good-count {
-    margin-top: 15px;
     width:30px;
     height:30px;
     text-align:center;
@@ -166,7 +163,6 @@ input.good-count {
 
 li.delete{
     margin-left: 1.5em;
-
 }
 
 tfoot td div:first-child{
@@ -189,5 +185,17 @@ tfoot tr:last-child td ul{
 tfoot tr:last-child td ul li:last-child{
     margin-left: 1.5em;
 
+}
+
+.total-price-div{
+    margin-top:10px;
+    margin-bottom: -25px;
+}
+
+span.renminbi {
+    font-size: 1.5em;
+    color: #aa381e;
+    margin-right: 3px;
+    font-family: 'Lobster Two', cursive;
 }
 
