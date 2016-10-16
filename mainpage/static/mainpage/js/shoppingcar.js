@@ -90,9 +90,13 @@ function initialTable() {
 
             $(".plus").on("click", function() {
                 var currentCount = parseInt($(this).prev().val()) + 1;
+                var goodId=$(this).parents("tr").find(".food-img").attr("data-food-id");
+
+
                 $(this).prev().val(currentCount);
                 $(this).parents("td").siblings().find("span.count").text(currentCount);
                 recalculateTotalPrice($(this).parents("table"));
+                $
             });
 
             $(".decrease").on("click", function() {
@@ -100,6 +104,9 @@ function initialTable() {
 
                 } else {
                     var currentCount = parseInt($(this).next().val()) - 1;
+                    var goodId=$(this).parents("tr").find(".food-img").attr("data-food-id");
+
+
                     $(this).next().val(currentCount);
                     $(this).parents("td").siblings().find("span.count").text(currentCount);
                     recalculateTotalPrice($(this).parents("table"));
@@ -108,6 +115,10 @@ function initialTable() {
             });
 
             $(".delete").on("click", function() {
+                var goodId=$(this).parents("tr").find(".food-img").attr("data-food-id");
+                //根据goodId删除cache中与该商品相关的数据
+
+
                 var $table = $(this).parents("table");
                 var isEmpty = checkTableEmpty($table);
                 if (isEmpty == false) {
@@ -117,6 +128,9 @@ function initialTable() {
             });
 
             $(".good-count").on("change", function() {
+                var currentCount=parseInt($(this).val());
+                var goodId=$(this).parents("tr").find(".food-img").attr("data-food-id");
+
                 recalculateTotalPriceByGoodCountInputChange($(this));
             });
 
@@ -136,6 +150,10 @@ function initialTable() {
             });
 
             $(".cancel-btn").click(function() {
+                var shopId=$(this).parents("table").attr("data-shop-id");
+                //根据shopId删除cache中与某一商店相关的所有数据；
+
+
                 cancelOrder($(this).parents("table"));
 
             });
